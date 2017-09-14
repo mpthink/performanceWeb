@@ -1,0 +1,11 @@
+ehcache2 配置：
+https://wenku.baidu.com/view/02b321eb102de2bd96058888.html###
+http://www.cnblogs.com/jingmoxukong/p/5975994.html
+
+
+ehcache3 相关
+详细配置：
+http://www.ehcache.org/blog/2016/05/18/ehcache3_jsr107_spring.html
+
+例子：
+https://github.com/ehcache/ehcache3-samples/tree/master/jsr107/src/main/resources

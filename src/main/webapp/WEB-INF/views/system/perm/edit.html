@@ -1,0 +1,145 @@
+<#include "/common/layout.html"> <@header> </@header> <@body>
+<div class="content-wrapper">
+	<!-- Content Header (Page header) -->
+	<section class="content-header">
+		<h1>
+			<small>系统管理 > 权限管理</small>
+		</h1>
+	</section>
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-md-12">
+				<!-- general form elements -->
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">编辑权限</h3>
+					</div>
+					<!-- /.box-header -->
+					<!-- form start -->
+					<div class="row">
+						<div class="col-md-4">
+							<form role="form"
+								data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}"
+								method="post" action="/system/perm/doEdit.html">
+								<input type="hidden" name="id" value="${(sysPermission.id)!}" />
+								<div class="box-body">
+									<#if sysPermission.permType==0&& sysPermission.pid==0 >
+									<div class="form-group">
+										<label for="permName">目录名称</label> <input type="text"
+											name="permName" class="form-control"
+											value="${(sysPermission.permName)!}" placeholder="请输入目录名称"
+											data-rule="目录名称:required;">
+									</div>
+									<div class="form-group">
+						                <label for="icon">图标 <i class="fa ${(sysPermission.icon)!}"></i></label>
+						               	<input type="text" name="icon" class="form-control" value="${(sysPermission.icon)!}" placeholder="请输入图标,如:fa-user" >
+						              </div>
+									<#elseif sysPermission.permType==0&& sysPermission.pid!=0>
+									<div class="form-group">
+										<label>父级菜单</label> <select name="pid"
+											class="form-control select2" style="width: 100%;"
+											data-rule="父级菜单:required;"> <#list topList as m>
+											<option value="${(m.id)!}"<#if m.id==sysPermission.pid>
+												selected="selected" </#if> > ${(m.permCode)!}-${(m.permName)!}</option>
+											</#list>
+										</select>
+									</div>
+									<!-- /.form-group -->
+									<div class="form-group">
+										<label for="permName">菜单名称</label> <input type="text"
+											name="permName" value="${(sysPermission.permName)!}"
+											class="form-control" placeholder="请输入菜单名称"
+											data-rule="菜单名称:required;">
+									</div>
+									<div class="form-group">
+						                <label for="url">菜单URL</label>
+						               	<input type="text" name="url" class="form-control" value="${(sysPermission.url)!}" placeholder="请输入菜单URL"  data-rule="菜单URL:required;">
+						            </div>
+						            <div class="form-group">
+						                <label for="icon">图标 <i class="fa ${(sysPermission.icon)!}"></i></label>
+						               	<input type="text" name="icon" class="form-control" value="${(sysPermission.icon)!}" placeholder="请输入图标,如:fa-user" >
+						              </div>
+									<#else>
+									<div class="form-group">
+										<label>选择目录/菜单</label> <select id="dir"
+											class="form-control select2" style="width: 100%;"
+											data-rule="目录:required;">
+											<option value="" selected="selected">--请选择--</option> <#list
+											topList as m>
+											<option value="${(m.id)!}"<#if m.id==parentPerm.pid>
+												selected="selected" </#if> >${(m.permCode)!}-${(m.permName)!}</option>
+											</#list>
+										</select> <select id="pid" name="pid" class="form-control select2"
+											style="width: 100%;" data-rule="菜单:required;">
+											<option value="${(parentPerm.id)!}" selected="selected">${(parentPerm.permCode)!}-${(parentPerm.permName)!}</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label for="permName">功能名称</label> <input type="text"
+											name="permName" value="${(sysPermission.permName)!}"
+											class="form-control" placeholder="请输入目录名称"
+											data-rule="目录名称:required;">
+									</div>
+									</#if>
+									
+									<div class="form-group">
+										<label for="permCode">编码</label> 
+										<#if sysPermission.permType==0&& sysPermission.pid==0 >
+										<input type="text" name="permCode"
+											class="form-control" value="${(sysPermission.permCode)!}"
+											placeholder="请输入编码,如05" data-rule="required;number"
+											data-rule-number="[/^\d{2}$/, '请输入6位数字编码']">
+										<#elseif sysPermission.permType==0&& sysPermission.pid!=0>
+										<input type="text" name="permCode"
+											class="form-control" value="${(sysPermission.permCode)!}"
+											placeholder="请输入编码,如0501" data-rule="required;number"
+											data-rule-number="[/^\d{4}$/, '请输入6位数字编码']">
+										<#else>
+										<input type="text" name="permCode"
+											class="form-control" value="${(sysPermission.permCode)!}"
+											placeholder="请输入编码,如050101" data-rule="required;number"
+											data-rule-number="[/^\d{6}$/, '请输入6位数字编码']">
+										</#if>
+									</div>
+									<div class="form-group">
+										<label for="sort">排序</label> <input type="text" name="sort"
+											value="${(sysPermission.sort)!}" class="form-control"
+											placeholder="请输入排序" data-rule="排序:required;integer[+0]">
+									</div>
+								</div>
+								<!-- /.box-body -->
+								<div class="box-footer">
+									<button type="submit" class="btn btn-success">
+										<i class="fa fa-save"></i> 提 交
+									</button>
+									<a class="btn btn-default" href="/system/perm/list/1.html"><i
+										class="fa fa-close"></i> 取消</a>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /.box -->
+		</div>
+		<!--/.col (left) -->
+	</section>
+	<!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+</@body> <@footer>
+<script>
+$("#dir").on('change',function(){
+	var pid = $(this).val();
+	 $.post('/system/perm/getperms/'+pid,function(response){
+		if(response.meta && response.meta.success){
+			$("#pid").empty();
+			$("#pid").select2({
+				data:response.data
+			});
+		}
+	}); 
+});
+</script>
+</@footer>

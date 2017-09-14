@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nokia.netactplus.system.mapper.SysPermissionMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.nokia.netactplus.system.entity.SysPermission">
+		<id column="id" property="id" />
+		<result column="pid" property="pid" />
+		<result column="perm_name" property="permName" />
+		<result column="perm_type" property="permType" />
+		<result column="perm_status" property="permStatus" />
+		<result column="sort" property="sort" />
+		<result column="url" property="url" />
+		<result column="perm_code" property="permCode" />
+		<result column="icon" property="icon" />
+		<result column="perm_desc" property="permDesc" />
+		<result column="gmt_create" property="gmtCreate" />
+		<result column="gmt_modified" property="gmtModified" />
+	</resultMap>
+	
+	<!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, pid, perm_name, perm_type, perm_status, sort, url, perm_code, icon, perm_desc, gmt_create, gmt_modified
+    </sql>
+    
+    <!-- 根据userId 和 菜单pid 查询菜单， 角色状态启用：0 -->
+    <select id="selectMenuByuserIdAndPid" resultType="com.nokia.netactplus.system.entity.SysPermission" resultMap="BaseResultMap">
+		SELECT a.* FROM sys_permission a
+		INNER JOIN sys_role_permission b on a.id = b.perm_id
+		INNER JOIN sys_user_role c on b.role_id = c.role_id
+		INNER JOIN sys_role d on c.role_id = d.id
+		AND d.role_status =0
+		AND c.user_id = #{userId}
+		AND a.pid = #{pid}
+	</select>
+	
+	<!-- 根据userId 获取用户权限代码List，用户前端权限控制 -->
+    <select id="selectPermCodesByuserId" resultType="java.lang.String" parameterType="long">
+		SELECT DISTINCT a.perm_code FROM sys_permission a
+		INNER JOIN sys_role_permission b on a.id = b.perm_id
+		INNER JOIN sys_user_role c on b.role_id = c.role_id
+		INNER JOIN sys_role d on c.role_id = d.id
+		AND d.role_status =0
+		AND c.user_id = #{userId}
+	</select>
+	
+</mapper>

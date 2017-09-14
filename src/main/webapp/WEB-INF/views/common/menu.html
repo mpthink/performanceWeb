@@ -1,0 +1,38 @@
+<aside class="main-sidebar">
+ <!-- sidebar: style can be found in sidebar.less -->
+ <section class="sidebar">
+   <!-- Sidebar user panel (optional) -->
+   <div class="user-panel">
+     <div class="pull-left image">
+       <img src="${(currentUser.avatar)!}" class="img-circle">
+     </div>
+     <div class="pull-left info">
+       <p>${(currentUser.userName)!'游客'}</p>
+       <!-- Status -->
+       <a href="#"><i class="fa fa-circle text-success"></i> 在线</a>
+     </div>
+   </div>
+   <!-- /.search form -->
+
+   <!-- Sidebar Menu -->
+   <ul class="sidebar-menu">
+     <!-- Optionally, you can add icons to the links -->
+     <#if menuList??>
+	     <#list menuList as vo>
+		     <li class="treeview active">
+		       <a href="#"><i class="fa ${(vo.perm.icon)!}"></i> 
+		       <span>${(vo.perm.permName)!}</span>  
+		       <i class="fa fa-angle-left pull-right"></i>
+		       </a>
+		       <ul class="treeview-menu">
+		         <#list vo.childrenPerm as ch>
+		         	<li><a href="${(ch.perm.url)!}"  style="<i class="fa ${(ch.perm.icon)!}"></i> ${(ch.perm.permName)!}</a></li>
+		         </#list>
+		       </ul>
+		     </li>
+	     </#list>
+     </#if>
+   </ul><!-- /.sidebar-menu -->
+ </section>
+ <!-- /.sidebar -->
+</aside>

@@ -1,0 +1,13 @@
+#objectTree {margin-top: 10px;border: 1px solid #3c8dbc;background: #f0f6e4;overflow-y:scroll;overflow-x:auto;height:450px;}
+
+#rMenu {position:fixed; visibility:hidden; top:0; background-color: #0033FF;text-align: left;padding: 2px;}
+#rMenu ul li{
+	margin: 2px 0;
+	padding: 0 8px;
+	cursor: pointer;
+	list-style: none outside none;
+	background-color: #99CCCC;
+}
+
+#rMenuUL {
+	margin: 0;padding: 0;border: 0;outline: 0;font-weight: normal;font-style: normal;font-size: 90%;font-family: Arial;vertical-align: baseline;}

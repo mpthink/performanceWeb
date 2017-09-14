@@ -1,0 +1,88 @@
+<#include "/common/layout.html">
+<@header>
+</@header>
+<@body>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <small>系统管理 > 权限管理</small>
+    </h1>
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <!-- Your Page Content Here -->
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+         <form action="/system/perm/list/1.html" method="post">
+          <div class="box-header row m5">
+            <div class="input-group pull-left col-sm-9 col-lg-10 pb5">
+            <#if permissions?seq_contains('010302')>
+            <a class="btn btn-primary" href="/system/perm/add.html"><i class="fa fa-plus"></i> 创建权限</a>
+            </#if>
+            </div>
+            <div class="input-group pull-right col-sm-3 col-lg-2">
+              <input type="text" name="search" value="${search!}" class="form-control input-sm pull-right" placeholder="Search">
+              <div class="input-group-btn">
+                <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+              </div>
+            </div>
+          </div><!-- /.box-header -->
+          </form>
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+              <tr>
+                <th  width="100px"><input value="root" type="checkbox" class="minimal checkbox-toolbar"> 行号</th>
+                <th>权限名称</th>
+                <th>权限编码</th>
+                <th>访问地址</th>
+                <th>显示图标</th>
+                <th>排序</th>
+                <th>类型</th>
+                <th width="150px">操作</th>
+              </tr>
+              <#list pageData.getRecords() as permission>
+              	  <tr>
+	                <td>
+	                	<label>
+	               	 		<input type="checkbox" class="minimal checkbox-item">
+	               		 	${((pageData.current-1)*pageData.size +permission_index+1)!}
+	                 	</label>
+	               	</td>
+	                <td>${(permission.permName)!}</td>
+	                <td>${(permission.permCode)!}</td>
+	                <td>${(permission.url)!}</td>
+	                <td><small class="label label-default"><i class="fa ${(permission.icon)!}"></i> ${(permission.icon)!"--"}</small></td>
+	                <td>${(permission.sort)!}</td>
+	                <td><#if permission.permType==0&& permission.pid==0 >目录<#elseif permission.permType==0&& permission.pid!=0>菜单<#else>功能</#if> </td>
+	                <td>
+	                	<#if permissions?seq_contains('010304')>
+	                	<a class="btn btn-primary btn-xs" href="/system/perm/edit/${(permission.id)!}.html" data-toggle="tooltip" title="编辑" data-placement="bottom">编辑</a>
+	                	<#else>-</#if>
+	                	<#if permissions?seq_contains('010303')>
+	                	<a class="btn btn-danger btn-xs" data-toggle="tooltip" title="删除" data-placement="bottom"
+	                	 data-tiggle="ajax"
+	                	 data-submit-url="/system/perm/delete/${(permission.id)!}"
+	                	 data-confirm="您确定要删除该条记录吗?">删除</a>
+	                	 <#else>-</#if>
+	                </td>
+	              </tr>
+              </#list>
+            </table>
+          </div><!-- /.box-body -->
+          <div class="box-footer row">
+            <div class="col-md-6">显示 ${((pageData.current -1) * pageData.size + 1)!}  -  ${(pageData.current * pageData.size)!} 条  共 ${(pageData.getTotal())!} 条记录</div>
+            <div class="col-md-6 pull-left">
+            <#include "/common/paginate.html" />
+ 			<@paginate currentPage=pageData.getCurrent() totalPage=pageData.getPages() actionUrl="/system/perm/list/" urlParas=".html?search=${search!}"  />
+            </div>
+          </div>
+        </div><!-- /.box -->
+      </div>
+    </div>
+  </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+</@body>
+<@footer>
+</@footer>

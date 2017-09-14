@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<!-- 应用上下文  是org.springframework.scheduling.quartz.SchedulerFactoryBean这个类中把spring上下 文以key/value的方式存放在了SchedulerContext中了，
+		可以用applicationContextSchedulerContextKey所 定义的key得到对应spring 的ApplicationContext -->
+		<property name="applicationContextSchedulerContextKey" value="applicationContextKey"/>
+        <!-- 项目中用到的数据源，里面包含了quartz用到的11张数据库表 -->
+        <property name="dataSource" ref="dataSource" />
+        <!-- 用于指明quartz的配置文件的位置 -->
+        <property name="configLocation" value="classpath:properties/quartz.properties"/>
+        <!-- 这个是必须的，QuartzScheduler 延时启动，应用启动完后 QuartzScheduler 再启动 -->
+        <property name="startupDelay" value="30"/>
+        <!-- 这个是可选，QuartzScheduler
+			启动时更新己存在的Job，这样就不用每次修改targetObject后删除qrtz_job_details表对应记录了 -->
+        <property name="overwriteExistingJobs" value="true"/>
+        <property name="autoStartup" value="true"/>
+        <!-- 启动后要触发的job -->
+        <property name="triggers">
+            <list>
+            	<!-- 
+                <ref bean="trigger1" />
+            	 -->
+            </list>
+        </property>
+	</bean>
+	<bean id="quartzManager" class="com.nokia.netactplus.common.quartz.QuartzManager"></bean>
+	
+	<bean id="job1" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="name" value="job1"/>
+		<property name="group" value="group1"></property>
+        <property name="jobClass">
+            <value>com.nokia.netactplus.common.quartz.jobs.TestJob</value>
+        </property>    
+        <property name="durability" value="true" />
+        <!-- requestsRecovery属性必须设置为 true，当Quartz服务被中止后，再次启动或集群中其他机器接手任务时会尝试恢复执行之前未完成的所有任务 -->  
+        <property name="requestsRecovery" value="true" />        
+    </bean>
+    <bean id="trigger1" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="job1" />
+        <property name="cronExpression" value="0/5 * * * * ?" />
+    </bean>
+    
+    <!-- 用MethodInvokingJobDetailFactoryBean不可持久化,必须用JobDetailBean 需继承QuartzJobBean,即采用第一种方式 -->
+    <bean id="testJob2" class="com.nokia.netactplus.common.quartz.jobs.TestJob2"></bean>
+    <bean id="job2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    	<property name="targetObject" ref="testJob2"/>
+    	<property name="targetMethod" value="doSomething"/>
+    </bean>
+	<bean id="trigger2" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="job2" />
+        <property name="cronExpression" value="0/7 * * * * ?" />
+    </bean>
+	
+</beans>
