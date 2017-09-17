@@ -183,3 +183,55 @@ CREATE TABLE `user_lab` (
 	`lab_id` bigint(20) unsigned NOT NULL COMMENT 'Lab ID',
 	PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户lab表';
+
+-- ----------------------------
+--  Table structure for `pet_product_class`
+-- ----------------------------
+DROP TABLE IF EXISTS `pet_product_class`;
+CREATE TABLE `pet_product_class` (
+  `id` bigint(20) unsigned NOT NULL COMMENT '主键',
+  `pid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '上级ID',
+  `class_name` varchar(30) COLLATE utf8_bin NOT NULL COMMENT '产品分类名称',
+  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+  `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品分类表';
+
+-- ----------------------------
+--  Table structure for `pet_product`
+-- ----------------------------
+DROP TABLE IF EXISTS `pet_product`;
+CREATE TABLE `pet_product` (
+  `id` bigint(20) unsigned NOT NULL COMMENT '主键',
+  `product_name` varchar(30) NOT NULL COMMENT '产品名称',
+  `product_class` bigint(20) unsigned NOT NULL COMMENT '产品类别',
+  `product_release` varchar(20) DEFAULT NULL COMMENT '产品版本',
+  `product_desc` varchar(300) DEFAULT NULL COMMENT '产品描述',
+  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+  `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品表';
+
+-- ----------------------------
+--  Table structure for `pet_cpu_raw`
+-- ----------------------------
+DROP TABLE IF EXISTS `pet_cpu_raw`;
+CREATE TABLE `pet_cpu_raw` (
+	`id` bigint(20) unsigned NOT NULL COMMENT '主键',
+	`product_id` bigint(20) unsigned NOT NULL COMMENT '测试对象',
+	`gmt_generate` datetime DEFAULT NULL COMMENT '产生时间',
+	`cpu_utilization` double(6,2) DEFAULT NULL COMMENT 'CPU利用率',
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='CPU 性能原始数据表';
+
+-- ----------------------------
+--  Table structure for `pet_cpu_hour`
+-- ----------------------------
+DROP TABLE IF EXISTS `pet_cpu_hour`;
+CREATE TABLE `pet_cpu_hour` (
+	`id` bigint(20) unsigned NOT NULL COMMENT '主键',
+	`product_id` bigint(20) unsigned NOT NULL COMMENT '测试对象',
+	`gmt_generate` datetime DEFAULT NULL COMMENT '小时时间',
+	`cpu_utilization` double(6,2) DEFAULT NULL COMMENT 'CPU利用率',
+	PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='CPU 性能聚合表-小时';

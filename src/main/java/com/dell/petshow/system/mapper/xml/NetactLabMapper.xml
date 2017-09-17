@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dell.petshow.system.mapper.NetactLabMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.dell.petshow.system.entity.NetactLab">
+		<id column="id" property="id" />
+		<result column="lab_name" property="labName" />
+		<result column="lab_version" property="labVersion" />
+		<result column="lab_url" property="labUrl" />
+		<result column="lab_type" property="labType" />
+		<result column="db_ipv4" property="dbIpv4" />
+		<result column="viis_ipv4" property="viisIpv4" />
+		<result column="vda1_ipv4" property="vda1Ipv4" />
+		<result column="lbwas_ipv4" property="lbwasIpv4" />
+		<result column="lab_status" property="labStatus" />
+		<result column="status_info" property="statusInfo" />
+		<result column="lab_desc" property="labDesc" />
+		<result column="root_password" property="rootPassword" />
+		<result column="db_password" property="dbPassword" />
+		<result column="omc_password" property="omcPassword" />
+		<result column="viis_password" property="viisPassword" />
+		<result column="lab_project" property="labProject" />
+		<result column="lab_mpp" property="labMpp" />
+		<result column="lab_owner" property="labOwner" />
+		<result column="lab_config" property="labConfig" />
+		<result column="gmt_create" property="gmtCreate" />
+		<result column="gmt_modified" property="gmtModified" />
+		<result column="gmt_release" property="gmtRelease" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, lab_name, lab_version, lab_url, lab_type, db_ipv4, viis_ipv4, vda1_ipv4, lbwas_ipv4, lab_status, status_info, lab_desc, root_password, db_password, omc_password, viis_password, lab_project, lab_mpp, lab_owner, lab_config, gmt_create, gmt_modified, gmt_release
+    </sql>
+    
+    <!-- 根据userId 查询lab -->
+    <select id="selectByUserId" resultMap="BaseResultMap" resultType="com.dell.petshow.system.entity.NetactLab">
+    	SELECT a.* FROM netact_lab a
+    	INNER join user_lab b
+    	where a.id = b.lab_id and b.user_id = #{userId}
+    </select>
+    
+</mapper>

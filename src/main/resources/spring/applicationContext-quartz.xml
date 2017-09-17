@@ -26,13 +26,13 @@
             </list>
         </property>
 	</bean>
-	<bean id="quartzManager" class="com.nokia.netactplus.common.quartz.QuartzManager"></bean>
+	<bean id="quartzManager" class="com.dell.petshow.common.quartz.QuartzManager"></bean>
 	
 	<bean id="job1" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
 		<property name="name" value="job1"/>
 		<property name="group" value="group1"></property>
         <property name="jobClass">
-            <value>com.nokia.netactplus.common.quartz.jobs.TestJob</value>
+            <value>com.dell.petshow.common.quartz.jobs.TestJob</value>
         </property>    
         <property name="durability" value="true" />
         <!-- requestsRecovery属性必须设置为 true，当Quartz服务被中止后，再次启动或集群中其他机器接手任务时会尝试恢复执行之前未完成的所有任务 -->  
@@ -44,7 +44,7 @@
     </bean>
     
     <!-- 用MethodInvokingJobDetailFactoryBean不可持久化,必须用JobDetailBean 需继承QuartzJobBean,即采用第一种方式 -->
-    <bean id="testJob2" class="com.nokia.netactplus.common.quartz.jobs.TestJob2"></bean>
+    <bean id="testJob2" class="com.dell.petshow.common.quartz.jobs.TestJob2"></bean>
     <bean id="job2" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
     	<property name="targetObject" ref="testJob2"/>
     	<property name="targetMethod" value="doSomething"/>

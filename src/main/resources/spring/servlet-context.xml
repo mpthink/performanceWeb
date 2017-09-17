@@ -16,9 +16,9 @@
 	http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd"> 
 
 
-	<context:component-scan base-package="com.nokia.netactplus.common" />
-	<context:component-scan base-package="com.nokia.netactplus.system.controller" />
-	<context:component-scan base-package="com.nokia.netactplus.webmonitor.controller" />
+	<context:component-scan base-package="com.dell.petshow.common" />
+	<context:component-scan base-package="com.dell.petshow.system.controller" />
+	<context:component-scan base-package="com.dell.petshow.webmonitor.controller" />
 	
 	<mvc:annotation-driven/>  
 	
@@ -95,13 +95,13 @@
 		<!-- 登录拦截器 -->
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
-			<bean class="com.nokia.netactplus.common.interceptor.LoginInterceptor" />
+			<bean class="com.dell.petshow.common.interceptor.LoginInterceptor" />
 		</mvc:interceptor>
 		
 		<!-- 权限拦截器 -->
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
-			<bean class="com.nokia.netactplus.common.interceptor.PermissionInterceptor" />
+			<bean class="com.dell.petshow.common.interceptor.PermissionInterceptor" />
 		</mvc:interceptor>
 		
 	</mvc:interceptors>
