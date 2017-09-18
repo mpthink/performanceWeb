@@ -60,7 +60,7 @@
 		<property name="configLocation" value="classpath:xml/mybatis-config.xml" />
 		<property name="typeAliasesPackage" value="com.dell.petshow.system.entity" />
 		<property name="mapperLocations"
-			value="classpath*:com/nokia/netactplus/system/mapper/xml/*Mapper.xml" />
+			value="classpath*:com/dell/petshow/system/mapper/xml/*Mapper.xml" />
 		<property name="plugins">
 			<array>
 				<!-- 分页插件配置 -->

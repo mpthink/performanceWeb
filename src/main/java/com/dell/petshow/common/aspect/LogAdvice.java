@@ -28,7 +28,7 @@ public class LogAdvice {
 
 	public static final Logger LOG = LoggerFactory.getLogger(LogAdvice.class);
 
-	@Pointcut("@annotation(com.nokia.netactplus.common.annotation.Log)")
+	@Pointcut("@annotation(com.dell.petshow.common.annotation.Log)")
 	public void logAfterReturningAspect() {}
 
 	/**

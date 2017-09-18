@@ -45,7 +45,7 @@ public class SysDeptController extends SuperController {
 		// 查询分页
 		EntityWrapper<SysDept> ew = new EntityWrapper<SysDept>();
 		if (StringUtils.isNotBlank(search)) {
-			ew.like("deptName", search);
+			ew.like("dept_name", search);
 			model.addAttribute("search", search);
 		}
 		Page<SysDept> pageData = sysDeptService.selectPage(page, ew);

@@ -57,8 +57,8 @@ public class InitialData {
 
 	private void initSettings() {
 		createSettings("systemName", "系统名称", "PetShow", 0);
-		createSettings("systemSubName", "系统简称", "N+", 1);
-		createSettings("bottomCopyright", "许可说明", "Copyright © 2017 NetAct. All rights reserved.", 2);
+		createSettings("systemSubName", "系统简称", "D+", 1);
+		createSettings("bottomCopyright", "许可说明", "Copyright © 2017 Dell. All rights reserved.", 2);
 	}
 
 	private void createSettings(String sysKey, String sysName, String sysValue, int sort) {
@@ -72,7 +72,7 @@ public class InitialData {
 	}
 
 	private void initFirstUser() {
-		String userName = "lijin.zeng@nokia-sbell.com";
+		String userName = "paul.p.ma@emc.com";
 		SysUser sysUser = new SysUser();
 		sysUser.setUserName(userName);
 		SysUser temp = sysUserMapper.selectOne(sysUser);
@@ -100,7 +100,7 @@ public class InitialData {
 	}
 
 	private void initUserRole() {
-		String userName = "lijin.zeng@nokia-sbell.com";
+		String userName = "paul.p.ma@emc.com";
 		SysUser sysUser = new SysUser();
 		sysUser.setUserName(userName);
 		sysUser = sysUserMapper.selectOne(sysUser);
@@ -179,24 +179,30 @@ public class InitialData {
 			}
 		}
 		SysPermission temp2 = new SysPermission();
-		temp2.setPermName("NetAct管理");
+		temp2.setPermName("性能管理");
 		SysPermission perm2 = sysPermissionMapper.selectOne(temp2);
 		if (perm2 == null) {
-			SysPermission naPermission = initMenuPermission(0L, "NetAct管理", null, "01", "fa fa-cogs");
+			SysPermission naPermission = initMenuPermission(0L, "性能管理", null, "01", "fa fa-cogs");
 			naPermission.insert();
 			Long pid2 = naPermission.getId();
 
-			SysPermission labPermission = initMenuPermission(pid2, "Lab列表", "/system/lab/list", "0107", "fa-list");
-			labPermission.insert();
-			SysPermission mylabPermission = initMenuPermission(pid2, "MyLab列表", "/system/lab/mylist", "0107", "fa-list");
-			mylabPermission.insert();
-			SysPermission webmonitorPermission = initMenuPermission(pid2, "Web Monitor", "/webmonitor/home", "0108", "fa-list");
-			webmonitorPermission.insert();
-			SysPermission lbPermission = sysPermissionMapper.selectById(labPermission.getId());
-			initFunctionPermission(lbPermission.getId(), "查看Lab列表", "010701", 1).insert();
-			initFunctionPermission(lbPermission.getId(), "新增Lab", "010702", 2).insert();
-			initFunctionPermission(lbPermission.getId(), "删除Lab", "010703", 3).insert();
-			initFunctionPermission(lbPermission.getId(), "编辑Lab", "010704", 4).insert();
+			SysPermission prodClassPermission = initMenuPermission(pid2, "产品类别列表", "/pet/productclass/list/1.html", "0107", "fa-list");
+			prodClassPermission.insert();
+			SysPermission prodPermission = initMenuPermission(pid2, "产品列表", "/pet/product/list/1.html", "0107", "fa-list");
+			prodPermission.insert();
+			SysPermission petShowPermission = initMenuPermission(pid2, "性能数据列表", "/pet/showpet/list/1.html", "0107", "fa-list");
+			petShowPermission.insert();
+			SysPermission prClPermission = sysPermissionMapper.selectById(prodClassPermission.getId());
+			initFunctionPermission(prClPermission.getId(), "查看产品类别列表", "010701", 1).insert();
+			initFunctionPermission(prClPermission.getId(), "新增产品类别", "010702", 2).insert();
+			initFunctionPermission(prClPermission.getId(), "删除产品类别", "010703", 3).insert();
+			initFunctionPermission(prClPermission.getId(), "编辑产品类别", "010704", 4).insert();
+
+			SysPermission prPermission = sysPermissionMapper.selectById(prodPermission.getId());
+			initFunctionPermission(prPermission.getId(), "查看产品列表", "010701", 1).insert();
+			initFunctionPermission(prPermission.getId(), "新增产品", "010702", 2).insert();
+			initFunctionPermission(prPermission.getId(), "删除产品", "010703", 3).insert();
+			initFunctionPermission(prPermission.getId(), "编辑产品", "010704", 4).insert();
 		}
 	}
 

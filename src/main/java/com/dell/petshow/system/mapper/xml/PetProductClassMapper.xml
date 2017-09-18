@@ -15,4 +15,22 @@
     <sql id="Base_Column_List">
         id, pid, class_name, gmt_create, gmt_modified
     </sql>
+    
+    <!-- 父分类映射结果 -->
+	<resultMap id="PResultMap" type="com.dell.petshow.system.entity.vo.PetProductClassVO">
+		<id column="id" property="id" />
+		<result column="pid" property="pid" />
+		<result column="class_name" property="className" />
+		<result column="p_class_name" property="pClassName" />
+		<result column="gmt_create" property="gmtCreate" />
+		<result column="gmt_modified" property="gmtModified" />
+	</resultMap>
+	
+	<select id="selectWithPclassName" resultMap="PResultMap" resultType="com.dell.petshow.system.entity.vo.PetProductClassVO">    	
+    	SELECT a.*,b.class_name as p_class_name 
+    	FROM pet_product_class a 
+    	left JOIN pet_product_class b on a.pid = b.id
+    	order by a.pid,gmt_create
+    </select>
+
 </mapper>

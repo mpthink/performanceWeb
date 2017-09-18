@@ -1,7 +1,10 @@
 package com.dell.petshow.system.service;
 
-import com.dell.petshow.system.entity.PetProductClass;
+import java.util.List;
+
 import com.baomidou.mybatisplus.service.IService;
+import com.dell.petshow.system.entity.PetProductClass;
+import com.dell.petshow.system.entity.vo.PetProductClassVO;
 
 /**
  * <p>
@@ -12,5 +15,6 @@ import com.baomidou.mybatisplus.service.IService;
  * @since 2017-09-17
  */
 public interface IPetProductClassService extends IService<PetProductClass> {
-	
+
+	public List<PetProductClassVO> selectWithPclassName();
 }

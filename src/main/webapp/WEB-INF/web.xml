@@ -26,7 +26,7 @@
 		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
 	</listener>
 	<listener>
-		<listener-class>com.nokia.netactplus.common.util.SpringUtil</listener-class>
+		<listener-class>com.dell.petshow.common.util.SpringUtil</listener-class>
 	</listener>
 	<filter>
 		<filter-name>characterEncodingFilter</filter-name>

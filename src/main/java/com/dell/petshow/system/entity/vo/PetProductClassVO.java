@@ -1,4 +1,4 @@
-package com.dell.petshow.system.entity;
+package com.dell.petshow.system.entity.vo;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -14,7 +14,7 @@ import com.baomidou.mybatisplus.activerecord.Model;
  * @author mpthink
  * @since 2017-09-17
  */
-public class PetProductClass extends Model<PetProductClass> {
+public class PetProductClassVO extends Model<PetProductClassVO> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -38,6 +38,20 @@ public class PetProductClass extends Model<PetProductClass> {
 	 * 修改时间
 	 */
 	private Date gmtModified;
+
+	/**
+	 * 父分类名称
+	 * @return
+	 */
+	private String pClassName;
+
+	public String getpClassName() {
+		return pClassName;
+	}
+
+	public void setpClassName(String pClassName) {
+		this.pClassName = pClassName;
+	}
 
 	public Long getId() {
 		return id;

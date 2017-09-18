@@ -29,5 +29,5 @@
 		<appender-ref ref="File" />
 	</root>
 	<logger name="org.springframework" level="INFO" />
-	<logger name="com.nokia.netactplus" level="DEBUG" />
+	<logger name="com.dell.petshow" level="DEBUG" />
 </configuration>

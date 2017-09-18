@@ -33,7 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
  *  <br>
  *  //2、配置数据加载拦截
  * 	<mvc:interceptors>
- *   	<bean class="com.nokia.netactplus.common.DataLoadingInterceptor" />
+ *   	<bean class="com.dell.petshow.common.DataLoadingInterceptor" />
  *  </mvc:interceptors>
  * </p>
  *
