@@ -1,8 +1,9 @@
-package com.dell.petshow.system.entity;
+package com.dell.petshow.system.entity.vo;
+
+import java.io.Serializable;
+import java.util.Date;
 
 import com.baomidou.mybatisplus.activerecord.Model;
-import java.util.Date;
-import java.io.Serializable;
 
 
 /**
@@ -13,39 +14,48 @@ import java.io.Serializable;
  * @author mpthink
  * @since 2017-09-18
  */
-public class PetProduct extends Model<PetProduct> {
+public class PetProductVO extends Model<PetProductVO> {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * 主键
-     */
+	/**
+	 * 主键
+	 */
 	private Long id;
-    /**
-     * 产品名称
-     */
+	/**
+	 * 产品名称
+	 */
 	private String productName;
-    /**
-     * 产品类别
-     */
+	/**
+	 * 产品类别
+	 */
 	private Long productClass;
-    /**
-     * 产品版本
-     */
+	/**
+	 * 产品版本
+	 */
 	private String productRelease;
-    /**
-     * 产品描述
-     */
+	/**
+	 * 产品描述
+	 */
 	private String productDesc;
-    /**
-     * 创建时间
-     */
+	/**
+	 * 创建时间
+	 */
 	private Date gmtCreate;
-    /**
-     * 修改时间
-     */
+	/**
+	 * 修改时间
+	 */
 	private Date gmtModified;
+	//分类名称
+	private String productClassName;
 
+	public String getProductClassName() {
+		return productClassName;
+	}
+
+	public void setProductClassName(String productClassName) {
+		this.productClassName = productClassName;
+	}
 
 	public Long getId() {
 		return id;
@@ -110,7 +120,8 @@ public class PetProduct extends Model<PetProduct> {
 
 
 	@Override
-	public String toString(){
-		return "PetProduct [id=" + id + ", productName=" + productName + ", productClass=" + productClass + ", productRelease=" + productRelease + ", productDesc=" + productDesc + ", gmtCreate=" + gmtCreate + ", gmtModified=" + gmtModified + "]";
+	public String toString() {
+		return "PetProduct [id=" + id + ", productName=" + productName + ", productClass=" + productClass + ", productRelease=" + productRelease
+			+ ", productDesc=" + productDesc + ", gmtCreate=" + gmtCreate + ", gmtModified=" + gmtModified + "]";
 	}
 }

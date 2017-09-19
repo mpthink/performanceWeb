@@ -186,23 +186,23 @@ public class InitialData {
 			naPermission.insert();
 			Long pid2 = naPermission.getId();
 
-			SysPermission prodClassPermission = initMenuPermission(pid2, "产品类别列表", "/pet/productclass/list/1.html", "0107", "fa-list");
+			SysPermission prodClassPermission = initMenuPermission(pid2, "项目类别列表", "/pet/productclass/list", "0107", "fa-list");
 			prodClassPermission.insert();
-			SysPermission prodPermission = initMenuPermission(pid2, "产品列表", "/pet/product/list/1.html", "0107", "fa-list");
+			SysPermission prodPermission = initMenuPermission(pid2, "项目列表", "/pet/product/list", "0107", "fa-list");
 			prodPermission.insert();
-			SysPermission petShowPermission = initMenuPermission(pid2, "性能数据列表", "/pet/showpet/list/1.html", "0107", "fa-list");
+			SysPermission petShowPermission = initMenuPermission(pid2, "性能数据列表", "/pet/showpet/list", "0107", "fa-list");
 			petShowPermission.insert();
 			SysPermission prClPermission = sysPermissionMapper.selectById(prodClassPermission.getId());
-			initFunctionPermission(prClPermission.getId(), "查看产品类别列表", "010701", 1).insert();
-			initFunctionPermission(prClPermission.getId(), "新增产品类别", "010702", 2).insert();
-			initFunctionPermission(prClPermission.getId(), "删除产品类别", "010703", 3).insert();
-			initFunctionPermission(prClPermission.getId(), "编辑产品类别", "010704", 4).insert();
+			initFunctionPermission(prClPermission.getId(), "查看项目类别列表", "010701", 1).insert();
+			initFunctionPermission(prClPermission.getId(), "新增项目类别", "010702", 2).insert();
+			initFunctionPermission(prClPermission.getId(), "删除项目类别", "010703", 3).insert();
+			initFunctionPermission(prClPermission.getId(), "编辑项目类别", "010704", 4).insert();
 
 			SysPermission prPermission = sysPermissionMapper.selectById(prodPermission.getId());
-			initFunctionPermission(prPermission.getId(), "查看产品列表", "010701", 1).insert();
-			initFunctionPermission(prPermission.getId(), "新增产品", "010702", 2).insert();
-			initFunctionPermission(prPermission.getId(), "删除产品", "010703", 3).insert();
-			initFunctionPermission(prPermission.getId(), "编辑产品", "010704", 4).insert();
+			initFunctionPermission(prPermission.getId(), "查看项目列表", "010701", 1).insert();
+			initFunctionPermission(prPermission.getId(), "新增项目", "010702", 2).insert();
+			initFunctionPermission(prPermission.getId(), "删除项目", "010703", 3).insert();
+			initFunctionPermission(prPermission.getId(), "编辑项目", "010704", 4).insert();
 		}
 	}
 

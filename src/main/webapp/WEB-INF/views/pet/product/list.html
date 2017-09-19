@@ -6,7 +6,7 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      <small>性能管理 > 项目分类管理</small>
+      <small>性能管理 > 项目管理</small>
     </h1>
   </section>
   <!-- Main content -->
@@ -15,66 +15,22 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="box">
-         <form action="/pet/product/list/1.html" method="post">
           <div class="box-header row m5">
             <div class="input-group pull-left col-sm-9 col-lg-10 pb5">
 	            <#if permissions?seq_contains('010702')>
-	            	<a class="btn btn-primary mr5" href="/pet/petProductClass/add.html"><i class="fa fa-plus"></i> 创建新分类</a>
+	            	<a class="btn btn-primary mr5" href="/pet/product/add.html"><i class="fa fa-plus"></i> 创建新产品</a>
 	            </#if>
 	            <#if permissions?seq_contains('010703')>
-	            <a class="btn btn-danger" delete-batch-url="/pet/petProductClass/deleteBatch" ><i class="fa fa-remove"></i> 批量删除选中</a>
+	            <a class="btn btn-danger" href="javascript:void(0)" onclick="BtchDeleteData()" ><i class="fa fa-remove"></i> 批量删除选中</a>
 	            </#if>
             </div>
-             <div class="input-group pull-right col-sm-3 col-lg-2">
-               <input type="text" name="search" value="${search!}" class="form-control input-sm pull-right" placeholder="Search">
-               <div class="input-group-btn">
-                 <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
-               </div>
-            </div>
           </div><!-- /.box-header -->
-          </form>
-          <div class="box-body table-responsive no-padding">
-            <table class="table table-hover">
-              <tr>
-                <th  width="100px"><input value="root" type="checkbox" class="minimal checkbox-toolbar"> 行号</th>
-                <th>分类名称</th>
-                <th>父分类</th>
-                <th>创建时间</th>
-                <th width="150px">操作</th>
-              </tr>
-              <#list pageData.getRecords() as productclass>
-              	  <tr>
-	                <td>
-	                	<label>
-	                	<input value="${productclass.id}" name="productclassState" type="checkbox" class="minimal checkbox-item">
-	                	${((pageData.current-1)*pageData.size +productclass_index+1)!}
-	                	</label>
-	                </td>
-	                <td>${(productclass.className)!}</td>
-	                <td>${(productclass.pclassName)!'--'}</td>
-	                <td>${(productclass.gmtCreate?string('yyyy/MM/dd HH:mm:ss'))!'--'}</td>
-	                <td>
-	                	<#if permissions?seq_contains('010704')>
-	                	<a class="btn btn-primary btn-xs" href="/pet/petProductClass/edit/${(productclass.id)!}.html" data-toggle="tooltip" title="编辑" data-placement="bottom">编辑</a>
-	 	               	<#else>-</#if>
-	                	<#if permissions?seq_contains('010703')>
-	 	               	<a class="btn btn-danger btn-xs" data-toggle="tooltip" title="删除" data-placement="bottom"
-	                	 data-tiggle="ajax"
-	                	 data-submit-url="/pet/petProductClass/delete?id=${(productclass.id)!}"
-	                	 data-confirm="您确定要删除该条记录吗?">删除</a>
-	                	 <#else>-</#if>
-	                </td>
-	              </tr>
-              </#list>
-            </table>
-          </div><!-- /.box-body -->
-          <div class="box-footer row">
-            <div class="col-md-6">显示 ${((pageData.current -1) * pageData.size + 1)!}  -  ${(pageData.current * pageData.size)!} 条  共 ${(pageData.getTotal())!} 条记录</div>
-            <div class="col-md-6 pull-left">
-            <#include "/common/paginate.html" />
- 			<@paginate currentPage=pageData.getCurrent() totalPage=pageData.getPages() actionUrl="/pet/petProductClass/list/" urlParas=".html?search=${search!}"  />
-            </div>
-          </div>
+          
+           <div class="col-xs-12">
+				<table id="dataTable"></table>
+		   </div>
+          
+          <!-- /.box-body -->
         </div><!-- /.box -->
       </div>
     </div>
@@ -82,4 +38,9 @@
 </div><!-- /.content-wrapper -->
 </@body>
 <@footer>
+<script src="/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.js"></script>
+<script src="/plugins/layer/layer.js"></script>
+<script src="/my/base_list.js"></script>
+<script src="/my/pet/product.js"></script>
 </@footer>

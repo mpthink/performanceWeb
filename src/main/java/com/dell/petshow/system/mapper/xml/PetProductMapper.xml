@@ -6,6 +6,18 @@
 	<resultMap id="BaseResultMap" type="com.dell.petshow.system.entity.PetProduct">
 		<id column="id" property="id" />
 		<result column="product_name" property="productName" />
+		<result column="product_class" property="productClass" />
+		<result column="product_release" property="productRelease" />
+		<result column="product_desc" property="productDesc" />
+		<result column="gmt_create" property="gmtCreate" />
+		<result column="gmt_modified" property="gmtModified" />
+	</resultMap>
+
+	<resultMap id="VOResultMap" type="com.dell.petshow.system.entity.vo.PetProductVO">
+		<id column="id" property="id" />
+		<result column="product_name" property="productName" />
+		<result column="product_class" property="productClass" />
+		<result column="product_class_name" property="productClassName" />
 		<result column="product_release" property="productRelease" />
 		<result column="product_desc" property="productDesc" />
 		<result column="gmt_create" property="gmtCreate" />
@@ -14,6 +26,13 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, product_name, product_release, product_desc, gmt_create, gmt_modified
+        id, product_name, product_class, product_release, product_desc, gmt_create, gmt_modified
     </sql>
+    
+    <select id="selectWithClassName" resultMap="VOResultMap" resultType="com.dell.petshow.system.entity.vo.PetProductVO">    	
+    	SELECT a.*,b.class_name as product_class_name 
+    	FROM pet_product a 
+    	left JOIN pet_product_class b on a.product_class = b.id
+    	order by product_name,gmt_create
+    </select>
 </mapper>

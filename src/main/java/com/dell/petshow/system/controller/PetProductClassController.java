@@ -72,7 +72,7 @@ public class PetProductClassController extends SuperController {
 	public String doAdd(PetProductClass petProductClass) {
 		petProductClass.setGmtCreate(new Date());
 		petProductClassService.insert(petProductClass);
-		return redirectTo("/pet/productclass/list/1.html");
+		return redirectTo("/pet/productclass/list");
 
 	}
 
@@ -124,7 +124,7 @@ public class PetProductClassController extends SuperController {
 	@RequestMapping("/doEdit")
 	public String doEdit(PetProductClass petProductClass, Model model) {
 		petProductClassService.updateById(petProductClass);
-		return redirectTo("/pet/productclass/list/1.html");
+		return redirectTo("/pet/productclass/list");
 	}
 
 }

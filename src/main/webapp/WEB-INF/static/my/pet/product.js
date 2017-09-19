@@ -1,5 +1,5 @@
 //alarm table JS
-var dataUrl = '/pet/productclass/getall';
+var dataUrl = '/pet/product/getall';
 var dataColumns = [{
 		checkbox: true
 	},{  
@@ -9,11 +9,14 @@ var dataColumns = [{
 	    return index+1;  
 	    }  
 	},{
-	    field: 'className',
-	    title: '项目分类名称'
+	    field: 'productName',
+	    title: '项目名称'
 	},{
-	    field: 'pClassName',
-	    title: '父分类名称'
+	    field: 'productRelease',
+	    title: '项目版本'
+	},{
+	    field: 'productClassName',
+	    title: '项目分类'
 	}, {
 	    field: 'gmtCreate',
 	    title: '创建时间',
@@ -29,7 +32,7 @@ var dataColumns = [{
  * 列表操作栏格式化 
  */  
 function operateFormatter(value, row, index) {  
-    var editDef = '&nbsp;&nbsp;<a class="btn btn-primary btn-xs" href="/pet/productclass/edit/' + "" + row.id + "" + '.html" data-toggle="tooltip" title="编辑" data-placement="bottom">编辑</a>&nbsp;&nbsp;'+
+    var editDef = '&nbsp;&nbsp;<a class="btn btn-primary btn-xs" href="/pet/product/edit/' + "" + row.id + "" + '.html" data-toggle="tooltip" title="编辑" data-placement="bottom">编辑</a>&nbsp;&nbsp;'+
     		'<a class="btn btn-danger btn-xs" href="javascript:DeleteRow(' + "'" + row.id + "'" + ')">删除</a>';  
     return editDef;  
 }
@@ -38,7 +41,7 @@ function operateFormatter(value, row, index) {
 //删除单条记录
 function DeleteRow(id){
 	layer.confirm("确认要删除该条数据吗?", {icon: 0,title:'信息',closeBtn: 0,skin: 'layui-layer-molv'},function(){
-    	var url = "/pet/productclass/delete";
+    	var url = "/pet/product/delete";
     	var param = { "id" : id };  
         $.ajax({  
             type : "post",  
@@ -66,7 +69,7 @@ function BtchDeleteData(){
     }  
     /*表单提示确认框*/
     layer.confirm("确认要删除选中的'" + rows.length + "'条数据吗?", {icon: 0,title:'信息',closeBtn: 0,skin: 'layui-layer-molv'},function(){
-    	var url = "/pet/productclass/deleteBatch";  
+    	var url = "/pet/product/deleteBatch";  
         var ids = new Array();  
         //遍历所有选择的行数据，取每条数据对应的ID  
         $.each(rows, function(i, row) {  
@@ -93,7 +96,7 @@ function BtchDeleteData(){
     });
 }
 
-function timeStamp2String (time){
+function timeStamp2String(time){
     var datetime = new Date();
      datetime.setTime(time);
      var year = datetime.getFullYear();

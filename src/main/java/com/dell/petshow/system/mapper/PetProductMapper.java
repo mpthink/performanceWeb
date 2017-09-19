@@ -1,7 +1,10 @@
 package com.dell.petshow.system.mapper;
 
-import com.dell.petshow.system.entity.PetProduct;
+import java.util.List;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.dell.petshow.system.entity.PetProduct;
+import com.dell.petshow.system.entity.vo.PetProductVO;
 
 /**
  * <p>
@@ -12,5 +15,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @since 2017-09-17
  */
 public interface PetProductMapper extends BaseMapper<PetProduct> {
-
+	List<PetProductVO> selectWithClassName();
 }

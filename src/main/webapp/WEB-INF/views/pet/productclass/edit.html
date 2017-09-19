@@ -24,7 +24,7 @@
         	  <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="/pet/productclass/doEdit">
 	            <div class="box-body">
 	              <div class="form-group">
-	                <label for="cname">分类名称</label>
+	                <label for="cname">项目分类名称</label>
 	                <input type="hidden" value="${petProductClass.id}" name="id">
 	               	<input type="text" id="cname" name="cname" value="${(petProductClass.className)!}" class="form-control" placeholder="请输入分类名称"  data-rule="分类名称:required;">
 	              </div>
@@ -32,13 +32,13 @@
                     <label>父级分类</label>
                     <select name="pid" class="form-control select2" style="width: 100%;">
                       <#list classList as p>
-                      	<option value="${(p.id)!}" <#if p.id==petProductClass.pid>selected="selected" </#if>>${(p.cname)!}</option>
+                      	<option value="${(p.id)!}" <#if p.id==petProductClass.pid>selected="selected" </#if>>${(p.className)!}</option>
                       </#list>
                     </select>
                   </div><!-- /.form-group --><!-- /.box-body -->
 	            <div class="box-footer">
 	              <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>  提 交</button>
-	              <a  class="btn btn-default" href="/pet/productclass/list/1.html"><i class="fa fa-close"></i>  取消</a>
+	              <a  class="btn btn-default" href="/pet/productclass/list"><i class="fa fa-close"></i>  取消</a>
 	            </div>
 	          </form>
           	</div>
