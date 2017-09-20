@@ -44,25 +44,34 @@
           	<div class="col-md-3">
 	            <div class="box-body">
 	              <div class="form-group">
-	                <label for="productName">项目名称</label>
-	               	<input type="text" id="productName" name="productName" class="form-control" placeholder="请输入项目名称"  data-rule="项目名称:required;">
+	                <label for="productName">项目名称及分类</label>
+	               	<p>名称XXXXXXX-分类YYYYYY</p>
 	              </div>
 	            </div>
           	</div>
           	<div class="col-md-2">
 	            <div class="box-body">
 	              <div class="form-group">
-	                <label for="productName">聚合类型选择</label>
-	               	<input type="text" id="productName" name="productName" class="form-control" placeholder="请输入项目名称"  data-rule="项目名称:required;">
+	                <label for="aggType">聚合类型选择</label>
+	               	<select name="aggType" class="form-control select2" style="width: 100%;">
+                      	<option value="raw">Raw</option>
+						<option value="hour">Hour</option>
+						<option value="day">Day</option>
+                    </select>
 	              </div>
 	            </div>
           	</div>
-          	<div class="col-md-3">
+          	<div class="col-md-5">
 	            <div class="box-body">
 	              <div class="form-group">
 	                <label for="productName">日期选择</label>
-	               	<input type="text" id="productName" name="productName" class="form-control" placeholder="请输入项目名称"  data-rule="项目名称:required;">
-	              </div>
+	               	<div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="reservationtime" name="reservationtime">
+                </div>
+				  </div>
 	            </div>
           	</div>
 			
