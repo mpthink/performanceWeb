@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 2 | Advanced form elements</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="./plugins/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="./plugins/font-awesome/css/font-awesome.min.css">
+  
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="./plugins/bootstrap-daterangepicker/daterangepicker.css">
+  
+  <!-- Theme style -->
+  <link rel="stylesheet" href="./AdminLTE/css/AdminLTE.min.css">
+ 
+</head>
+
+<body class="skin-blue sidebar-mini" style="height: auto; min-height: 100%;">
+<div class="wrapper" style="height: auto; min-height: 100%;">
+
+  
+  <!-- Left side column. contains the logo and sidebar -->
+  
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper" style="min-height: 945.6px;">
+    <!-- Content Header (Page header) -->
+
+    <!-- Main content -->
+    <section class="content">
+      <!-- /.box -->
+
+      <div class="row">
+
+ <!-- /.col (left) -->
+        <div class="col-md-6">
+          <div class="box box-primary">
+            <div class="box-header">
+              <h3 class="box-title">Date picker</h3>
+            </div>
+            <div class="box-body">
+              <!-- Date and time range -->
+              <div class="form-group">
+                <label>Date and time range:</label>
+
+                <div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="reservationtime" name="reservationtime">
+                </div>
+                <!-- /.input group -->
+              </div>
+              <!-- /.form group -->
+
+			  
+			  <button type="button" onclick="displayDate()">显示日期</button>
+              <!-- /.form group -->
+
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+		  
+		  </div>
+		  </section>
+		  </div>
+		  </div>
+<!-- jQuery 3 -->
+<script src="./plugins/jquery/jquery-2.1.4.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="./plugins/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- date-range-picker -->
+<script src="./plugins/moment/min/moment.min.js"></script>
+<script src="./plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+		  
+<script>
+function displayDate(){
+	alert("Text: " + $("#reservationtime").val());
+}
+
+
+ $(function() {
+	$('input[name="reservationtime"]').daterangepicker({
+		timePicker: true,
+		timePickerIncrement: 30,
+		locale: {
+			format: 'MM/DD/YYYY h:mm A'
+		}
+	});
+});
+</script>
+
+</body>
+</html>

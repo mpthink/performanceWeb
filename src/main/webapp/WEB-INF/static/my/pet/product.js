@@ -10,7 +10,10 @@ var dataColumns = [{
 	    }  
 	},{
 	    field: 'productName',
-	    title: '项目名称'
+	    title: '项目名称',
+	    formatter: function (value, row, index) {
+            return '<a class="btn btn-primary btn-xs" href="/pet/product/showpet' + "" + row.id + "" + '" data-toggle="tooltip" data-placement="bottom">'+"" + row.productName + ""+'</a>';
+        }
 	},{
 	    field: 'productRelease',
 	    title: '项目版本'

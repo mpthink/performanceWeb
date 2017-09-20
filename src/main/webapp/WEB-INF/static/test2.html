@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 2 | Advanced form elements</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="./plugins/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="./plugins/font-awesome/css/font-awesome.min.css">
+  
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="./plugins/bootstrap-daterangepicker/daterangepicker.css">
+  
+  <!-- Theme style -->
+  <link rel="stylesheet" href="./AdminLTE/css/AdminLTE.min.css">
+ 
+</head>
+
+<body class="skin-blue sidebar-mini" style="height: auto; min-height: 100%;">
+<div class="wrapper" style="height: auto; min-height: 100%;">
+
+  
+  <!-- Left side column. contains the logo and sidebar -->
+  
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper" style="min-height: 945.6px;">
+    <!-- Content Header (Page header) -->
+
+    <!-- Main content -->
+    <section class="content">
+     <div class="row">
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">性能图表</h3>
+          </div><!-- /.box-header -->
+          <!-- form start -->
+          <div class="row">
+          	<div class="col-md-3">
+	            <div class="box-body">
+	              <div class="form-group">
+	                <label for="productName">项目名称</label>
+	               	<input type="text" id="productName" name="productName" class="form-control" placeholder="请输入项目名称"  data-rule="项目名称:required;">
+	              </div>
+	            </div>
+          	</div>
+          	<div class="col-md-2">
+	            <div class="box-body">
+	              <div class="form-group">
+	                <label for="productName">聚合类型选择</label>
+	               	<input type="text" id="productName" name="productName" class="form-control" placeholder="请输入项目名称"  data-rule="项目名称:required;">
+	              </div>
+	            </div>
+          	</div>
+          	<div class="col-md-3">
+	            <div class="box-body">
+	              <div class="form-group">
+	                <label for="productName">日期选择</label>
+	               	<input type="text" id="productName" name="productName" class="form-control" placeholder="请输入项目名称"  data-rule="项目名称:required;">
+	              </div>
+	            </div>
+          	</div>
+			
+			<div class="col-md-2">
+	            <div class="box-body">
+	              <div class="form-group">
+	                <label for="productName">操作</label>
+	               	<input type="text" id="productName" name="productName" class="form-control" placeholder="请输入项目名称"  data-rule="项目名称:required;">
+	              </div>
+	            </div>
+          	</div>
+          </div>
+        </div><!-- /.box -->
+      </div><!--/.col (left) -->
+     </div>
+  </section>
+		  </div>
+		  </div>
+<!-- jQuery 3 -->
+<script src="./plugins/jquery/jquery-2.1.4.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="./plugins/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- date-range-picker -->
+<script src="./plugins/moment/min/moment.min.js"></script>
+<script src="./plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+		  
+<script>
+function displayDate(){
+	alert("Text: " + $("#reservationtime").val());
+}
+
+
+ $(function() {
+	$('input[name="reservationtime"]').daterangepicker({
+		timePicker: true,
+		timePickerIncrement: 30,
+		locale: {
+			format: 'MM/DD/YYYY h:mm A'
+		}
+	});
+});
+</script>
+
+</body>
+</html>
