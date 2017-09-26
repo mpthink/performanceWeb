@@ -1,7 +1,12 @@
 package com.dell.petshow.system.mapper;
 
-import com.dell.petshow.system.entity.PetCpuHour;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.dell.petshow.system.entity.PetCpuHour;
 
 /**
  * <p>
@@ -12,5 +17,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @since 2017-09-17
  */
 public interface PetCpuHourMapper extends BaseMapper<PetCpuHour> {
+	List<PetCpuHour> selectLastestRecord();
 
+	Date getLastestInsertTimeByProductId(@Param("productId") Long productId);
 }

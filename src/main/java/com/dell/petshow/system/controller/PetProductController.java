@@ -127,4 +127,17 @@ public class PetProductController extends SuperController {
 		productService.updateById(petProduct);
 		return redirectTo("/pet/product/list");
 	}
+
+	/**
+	 * 显示PET页面
+	 */
+	@Permission("010704")
+	@RequestMapping("/showpet/{id}")
+	public String showpet(@PathVariable String id, Model model) {
+		PetProduct petProduct = productService.selectById(id);
+		model.addAttribute("petProduct", petProduct);
+		PetProductClass petProductClass = petProductClassService.selectById(petProduct.getProductClass());
+		model.addAttribute("petProductClass", petProductClass);
+		return "pet/showpet/view";
+	}
 }

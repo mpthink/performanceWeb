@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,14 +26,21 @@ public class PetCPURAWMapperTest {
 	@Autowired
 	private PetCpuRawMapper petCpuMapper;
 
-
 	@Test
+	public void testGenerateHourData() throws ParseException {
+		Long productId = 911147525042515968L;
+		Date aggBeginTime = new SimpleDateFormat("yyyy-MM-dd").parse("2017-9-20");
+		List<Map<String, Object>> aggDatas = petCpuMapper.generateHourListWithPIDAndBeginTime(productId, aggBeginTime);
+		for (Map<String, Object> aggData : aggDatas) {
+			System.out.println(aggData.get("product_id") + " " + aggData.get("agg_hour") + " " + aggData.get("cpu_utilization_hour"));
+		}
+	}
+
 	public void initRawData() throws IOException, ParseException {
 
-		Long productId = 909770438749532160L;
-
-		Date d1 = new SimpleDateFormat("yyyy-MM-dd").parse("2017-9-16");//定义起始日期
-		Date d2 = new SimpleDateFormat("yyyy-MM-dd").parse("2017-9-19");//定义结束日期
+		Long productId = 911147525042515968L;
+		Date d1 = new SimpleDateFormat("yyyy-MM-dd").parse("2017-9-20");//定义起始日期
+		Date d2 = new SimpleDateFormat("yyyy-MM-dd").parse("2017-9-22");//定义结束日期
 		Calendar dd = Calendar.getInstance();//定义日期实例
 		dd.setTime(d1);//设置日期起始时间
 		while (dd.getTime().before(d2)) {//判断是否到结束日期
@@ -53,5 +62,6 @@ public class PetCPURAWMapperTest {
 		double trans = bd.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 		return trans;
 	}
+
 
 }

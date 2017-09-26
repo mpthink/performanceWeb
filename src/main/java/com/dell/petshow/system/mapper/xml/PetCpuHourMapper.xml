@@ -14,4 +14,17 @@
     <sql id="Base_Column_List">
         id, product_id, gmt_generate, cpu_utilization
     </sql>
+    
+    <select id="selectLastestRecord" resultMap="BaseResultMap" resultType="com.dell.petshow.system.entity.PetCpuHour">
+    	select product_id,max(gmt_generate) gmt_generate 
+    	from pet_cpu_hour
+		group by product_id
+    </select>
+    
+    <select id="getLastestInsertTimeByProductId" resultType="java.util.Date">
+    	select max(gmt_generate) gmt_generate 
+    	from pet_cpu_hour
+    	where product_id = #{productId}
+		group by product_id
+    </select>
 </mapper>

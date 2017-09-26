@@ -1,5 +1,7 @@
 <#include "/common/layout.html">
 <@header>
+<!-- daterange picker -->
+<link rel="stylesheet" href="/plugins/bootstrap-daterangepicker/daterangepicker.css">
 </@header>
 <@body>
 <div class="content-wrapper">
@@ -20,23 +22,56 @@
           </div><!-- /.box-header -->
           <!-- form start -->
           <div class="row">
-          	<div class="col-md-4">
+          	<div class="col-md-3">
 	            <div class="box-body">
 	              <div class="form-group">
-	                <label for="productName">项目名称</label>
-	               	<input type="text" id="productName" name="productName" class="form-control" placeholder="请输入项目名称"  data-rule="项目名称:required;">
+	                <label for="productName">项目名称及分类</label>
+	               	<p>${(petProduct.productName)!} - ${(petProductClass.className)!}</p>
 	              </div>
 	            </div>
           	</div>
-          	<div class="col-md-4">
+          	<div class="col-md-2">
 	            <div class="box-body">
 	              <div class="form-group">
-	                <label for="productName">项目名称</label>
-	               	<input type="text" id="productName" name="productName" class="form-control" placeholder="请输入项目名称"  data-rule="项目名称:required;">
+	                <label for="aggType">聚合类型选择</label>
+	               	<select id="aggType" name="aggType" class="form-control select2" style="width: 100%;">
+                      	<option value="raw">Raw</option>
+						<option value="hour">Hour</option>
+						<option value="day">Day</option>
+                    </select>
 	              </div>
 	            </div>
           	</div>
-          	
+          	<div class="col-md-5">
+	            <div class="box-body">
+	              <div class="form-group">
+	                <label for="productName">日期选择</label>
+	               	<div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="reservationtime" name="reservationtime">
+                </div>
+				  </div>
+	            </div>
+          	</div>
+			
+			<div class="col-md-2">
+	            <div class="box-body">
+	              <div class="form-group">
+	                <label for="productName">操作</label>
+	                <div class="input-group">
+	                 	<a class="btn btn-primary btn-xs" href="javascript:viewCPU(${(petProduct.id)!})" title="CPU diagram">CPU图表</a>&nbsp;&nbsp;
+              			<a class="btn btn-primary btn-xs" href="javascript:viewMEM(${(petProduct.id)!})" title="MEM diagram">MEM图表</a>
+	                </div>
+	              </div>
+	            </div>
+          	</div>
+          </div>
+          <div class="row">
+          	<div class="col-md-12">
+          		<div id="main" style="height:450px"></div>
+          	</div>
           </div>
         </div><!-- /.box -->
       </div><!--/.col (left) -->
@@ -45,4 +80,10 @@
 </div><!-- /.content-wrapper -->
 </@body>
 <@footer>
+<script src="/plugins/layer/layer.js"></script>
+<script src="/plugins/echart/dist/echarts.js"></script>
+<!-- date-range-picker -->
+<script src="/plugins/moment/min/moment.min.js"></script>
+<script src="/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="/my/pet/view.js"></script>
 </@footer>

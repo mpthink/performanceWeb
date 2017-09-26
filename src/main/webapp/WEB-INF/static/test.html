@@ -46,7 +46,7 @@
               <!-- Date and time range -->
               <div class="form-group">
                 <label>Date and time range:</label>
-
+				<input type="text" class="form-control pull-right" id="test" name="test">
                 <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-clock-o"></i>
@@ -59,6 +59,7 @@
 
 			  
 			  <button type="button" onclick="displayDate()">显示日期</button>
+			  <button type="button" onclick="test()">测试</button>
               <!-- /.form group -->
 
             </div>
@@ -82,16 +83,38 @@
 		  
 <script>
 function displayDate(){
-	alert("Text: " + $("#reservationtime").val());
+	var timerange = $("#reservationtime").val();
+	var timeArr = timerange.split(" - ");	
+	//var begin = timeArr[0];
+	//var end = timeArr[1];
+	var begin = Date.parse(new Date(timeArr[0]))/1000;
+	var end = Date.parse(new Date(timeArr[1]))/1000;
+	var testVal = $("#test").val();
+	if(testVal == "begin"){
+		alert("Text: " + begin);
+	}else if(testVal == "end"){
+		alert("Text: " + end);
+	}
+	
 }
 
+function test(){
+	var timerange = $("#reservationtime").val();
+	var timeArr = timerange.split(" - ");	
+	var begin = timeArr[0];
+	var end = timeArr[1];
+	var testVal = $("#test").val();
+	var dataUrl = "/pet/cpuRaw/getData/123/"+begin+"/"+end;
+		alert("Text: " + dataUrl);
+}
 
  $(function() {
 	$('input[name="reservationtime"]').daterangepicker({
 		timePicker: true,
 		timePickerIncrement: 30,
+		timePicker24Hour:true,
 		locale: {
-			format: 'MM/DD/YYYY h:mm A'
+			format: 'YYYY-MM-DD HH:mm:ss'
 		}
 	});
 });

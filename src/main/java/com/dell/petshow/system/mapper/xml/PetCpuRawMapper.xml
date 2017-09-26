@@ -14,4 +14,27 @@
     <sql id="Base_Column_List">
         id, product_id, gmt_generate, cpu_utilization
     </sql>
+    
+    <select id="generateHourListWithPIDAndBeginTime" resultType="java.util.Map">
+    	select product_id,DATE_FORMAT(gmt_generate,'%Y-%m-%d %H:00:00') agg_hour,avg(cpu_utilization) cpu_utilization_hour
+    	from pet_cpu_raw
+    	WHERE product_id = #{productId}
+    	<if test="aggBeginTime != null">
+    	and gmt_generate >= #{aggBeginTime}
+    	</if> 
+    	group by agg_hour,product_id
+    	order by agg_hour asc
+    </select>
+    
+    <select id="generateHourList" resultType="java.util.Map">
+    	select product_id,DATE_FORMAT(gmt_generate,'%Y-%m-%d %H:00:00') agg_hour,avg(cpu_utilization) cpu_utilization_hour
+    	from pet_cpu_raw
+    	group by agg_hour,product_id
+    </select>
+    
+    <select id="getProductList" resultType="java.lang.Long">
+    	select distinct product_id
+    	from pet_cpu_raw
+    </select>
+    
 </mapper>
