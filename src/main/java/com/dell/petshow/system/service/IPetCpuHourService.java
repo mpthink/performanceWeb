@@ -13,6 +13,6 @@ import com.dell.petshow.system.entity.PetCpuHour;
  */
 public interface IPetCpuHourService extends IService<PetCpuHour> {
 
-	public void cronForCpuHourData();
+	public void cronJobForCpuHourData();
 
 }

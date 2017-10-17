@@ -18,7 +18,7 @@ public class TestCpuHourServices {
 
 	@Test
 	public void testCronJob() {
-		petCpuHourService.cronForCpuHourData();
+		petCpuHourService.cronJobForCpuHourData();
 	}
 
 }

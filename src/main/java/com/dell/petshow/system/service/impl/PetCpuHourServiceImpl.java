@@ -33,7 +33,7 @@ public class PetCpuHourServiceImpl extends ServiceImpl<PetCpuHourMapper, PetCpuH
 	private PetCpuHourMapper petCpuHourMapper;
 
 	@Override
-	public void cronForCpuHourData() {
+	public void cronJobForCpuHourData() {
 		//get product List
 		List<Long> productIds = petCpuRawMapper.getProductList();
 
