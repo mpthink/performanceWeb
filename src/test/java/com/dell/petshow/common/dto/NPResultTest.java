@@ -5,8 +5,8 @@ import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.util.TypeUtils;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.dell.petshow.common.controller.SuperController;
-import com.dell.petshow.common.dto.NPResult;
 import com.dell.petshow.system.entity.SysUser;
+
 
 public class NPResultTest extends SuperController {
 	SuperController controller = new SuperController();

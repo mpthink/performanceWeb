@@ -59,6 +59,10 @@ public class MpGenerator {
 		// 字段名生成策略
 		strategy.setFieldNaming(NamingStrategy.underline_to_camel);
 		strategy.setDbColumnUnderline(true);
+
+		strategy
+			.setInclude(
+				new String[] {"nice_name_map", "job_runtime", "program_map"});
 		//strategy.setInclude(new String[] {"user_lab"});
 		// 自定义实体父类
 		// strategy.setSuperEntityClass("com.baomidou.demo.TestEntity");
@@ -83,7 +87,7 @@ public class MpGenerator {
 		// 包配置
 		PackageConfig pc = new PackageConfig();
 		pc.setParent("com.dell.petshow");
-		pc.setModuleName("system");
+		pc.setModuleName("vtas");
 		pc.setController("controller");
 		mpg.setPackageInfo(pc);
 

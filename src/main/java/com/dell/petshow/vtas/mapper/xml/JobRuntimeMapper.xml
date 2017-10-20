@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dell.petshow.vtas.mapper.JobRuntimeMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.dell.petshow.vtas.entity.JobRuntime">
+		<id column="ID" property="id" />
+		<result column="START_TIME" property="startTime" />
+		<result column="END_TIME" property="endTime" />
+		<result column="RUN_HOURS" property="runHours" />
+		<result column="VERSION" property="version" />
+		<result column="ARRAY_NAME" property="arrayName" />
+		<result column="JOB_NAME" property="jobName" />
+		<result column="JOB_URL" property="jobUrl" />
+		<result column="STATUS" property="status" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS id, START_TIME AS startTime, END_TIME AS endTime, RUN_HOURS AS runHours, VERSION AS version, ARRAY_NAME AS arrayName, JOB_NAME AS jobName, JOB_URL AS jobUrl, STATUS AS status
+    </sql>
+    
+    <select id="selectDistinctArrayList" resultType="java.lang.String">
+    	SELECT distinct ARRAY_NAME 
+    	FROM job_runtime
+    </select>
+</mapper>
