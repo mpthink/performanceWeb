@@ -24,4 +24,10 @@
     	SELECT distinct ARRAY_NAME 
     	FROM job_runtime
     </select>
+    
+    <select id="selectDistinctArrayListByProgram" resultType="java.lang.String">
+    	SELECT distinct ARRAY_NAME 
+    	FROM job_runtime
+    	WHERE version like CONCAT(#{bigVersion},'.%')
+    </select>
 </mapper>

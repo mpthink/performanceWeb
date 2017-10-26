@@ -2,6 +2,8 @@ package com.dell.petshow.vtas.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.dell.petshow.vtas.entity.JobRuntime;
 
@@ -16,5 +18,9 @@ import com.dell.petshow.vtas.entity.JobRuntime;
 public interface JobRuntimeMapper extends BaseMapper<JobRuntime> {
 
 	List<String> selectDistinctArrayList();
+
+	List<String> selectDistinctArrayListByProgram(@Param("bigVersion") String bigVersion);
+
+
 
 }

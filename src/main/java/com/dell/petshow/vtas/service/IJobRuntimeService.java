@@ -14,5 +14,8 @@ import com.dell.petshow.vtas.entity.JobRuntime;
  * @since 2017-10-17
  */
 public interface IJobRuntimeService extends IService<JobRuntime> {
+
 	List<String> selectDistinctArrayList();
+
+	List<String> selectDistinctArrayListByProgram(String bigVersion);
 }

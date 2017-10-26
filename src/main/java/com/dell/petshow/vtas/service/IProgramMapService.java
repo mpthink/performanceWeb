@@ -1,7 +1,9 @@
 package com.dell.petshow.vtas.service;
 
-import com.dell.petshow.vtas.entity.ProgramMap;
+import java.util.List;
+
 import com.baomidou.mybatisplus.service.IService;
+import com.dell.petshow.vtas.entity.ProgramMap;
 
 /**
  * <p>
@@ -12,5 +14,5 @@ import com.baomidou.mybatisplus.service.IService;
  * @since 2017-10-17
  */
 public interface IProgramMapService extends IService<ProgramMap> {
-	
+	public List<ProgramMap> selectAll();
 }

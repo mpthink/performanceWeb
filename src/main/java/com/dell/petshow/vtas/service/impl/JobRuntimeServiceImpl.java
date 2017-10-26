@@ -31,4 +31,10 @@ public class JobRuntimeServiceImpl extends ServiceImpl<JobRuntimeMapper, JobRunt
 		return jobRuntimeMapper.selectDistinctArrayList();
 	}
 
+	@Override
+	@Cacheable(value = "commonCache")
+	public List<String> selectDistinctArrayListByProgram(String bigVersion) {
+		return jobRuntimeMapper.selectDistinctArrayListByProgram(bigVersion);
+	}
+
 }

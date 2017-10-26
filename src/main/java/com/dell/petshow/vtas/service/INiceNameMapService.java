@@ -1,7 +1,9 @@
 package com.dell.petshow.vtas.service;
 
-import com.dell.petshow.vtas.entity.NiceNameMap;
+import java.util.List;
+
 import com.baomidou.mybatisplus.service.IService;
+import com.dell.petshow.vtas.entity.NiceNameMap;
 
 /**
  * <p>
@@ -12,5 +14,5 @@ import com.baomidou.mybatisplus.service.IService;
  * @since 2017-10-17
  */
 public interface INiceNameMapService extends IService<NiceNameMap> {
-	
+	List<NiceNameMap> selectNiceNameByVersionAndArray(String bigVersion, String arrayName);
 }
