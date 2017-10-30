@@ -1,6 +1,7 @@
 package com.dell.petshow.vtas.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.baomidou.mybatisplus.service.IService;
 import com.dell.petshow.vtas.entity.JobRuntime;
@@ -16,6 +17,8 @@ import com.dell.petshow.vtas.entity.JobRuntime;
 public interface IJobRuntimeService extends IService<JobRuntime> {
 
 	List<String> selectDistinctArrayList();
+
+	List<Map<String, Object>> selectAllWithProgramName();
 
 	List<String> selectDistinctArrayListByProgram(String bigVersion);
 

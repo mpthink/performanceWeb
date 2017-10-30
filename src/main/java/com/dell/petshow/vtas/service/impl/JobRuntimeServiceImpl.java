@@ -1,6 +1,7 @@
 package com.dell.petshow.vtas.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -51,6 +52,12 @@ public class JobRuntimeServiceImpl extends ServiceImpl<JobRuntimeMapper, JobRunt
 	@Override
 	public Integer getMaxRowsOfRunHourByProgramAndArray(String bigVersion, String arrayName) {
 		return jobRuntimeMapper.getMaxRowsOfRunHourByProgramAndArray(bigVersion, arrayName);
+	}
+
+	@Override
+	@Cacheable(value = "commonCache")
+	public List<Map<String, Object>> selectAllWithProgramName() {
+		return jobRuntimeMapper.selectAllWithProgramName();
 	}
 
 }

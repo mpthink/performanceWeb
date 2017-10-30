@@ -1,6 +1,7 @@
 package com.dell.petshow.vtas.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -18,6 +19,8 @@ import com.dell.petshow.vtas.entity.JobRuntime;
 public interface JobRuntimeMapper extends BaseMapper<JobRuntime> {
 
 	List<String> selectDistinctArrayList();
+
+	List<Map<String, Object>> selectAllWithProgramName();
 
 	List<String> selectDistinctArrayListByProgram(@Param("bigVersion") String bigVersion);
 

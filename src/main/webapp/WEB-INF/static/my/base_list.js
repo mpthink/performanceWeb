@@ -125,7 +125,7 @@ function clientPagination() {
         //detailView:false,           //设置为 true 可以显示详细页面模式。default:false
         //detailFormatter:function(index, row) {return '';},  //格式化详细页面模式的视图，需要重写这个方法
         //rowStyle:function(row,index) {return class;}, 自定义行样式 参数为：        row: 行数据          index: 行下标         返回值可以为class或者css
-        showColumns:false,           //是否显示 内容列下拉框,  default: false
+        showColumns:true,           //是否显示 内容列下拉框,  default: false
         columns: dataColumns   //列配置项,详情请查看 列参数 表格.
     });
 }

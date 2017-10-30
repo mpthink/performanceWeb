@@ -160,7 +160,7 @@ function viewSingleAraay(){
 			        },
 			        error : function() {
 						 //请求失败时执行该函数
-						 alert("ajax获取数据失败");
+						 alert("Failed to get ajax data!");
 						 Chart.hideLoading();
 					 }
 			    }); 

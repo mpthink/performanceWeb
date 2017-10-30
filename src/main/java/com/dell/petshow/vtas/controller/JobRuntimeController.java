@@ -35,6 +35,17 @@ public class JobRuntimeController extends SuperController {
 		return "vtas/jobruntime/vsbuild";
 	}
 
+	@RequestMapping("/listJobs")
+	public String listJobs(Model model) {
+		return "vtas/jobruntime/listJobs";
+	}
+
+	@RequestMapping("/getall")
+	@ResponseBody
+	public String getAll() {
+		return toJson(jobRuntimeService.selectAllWithProgramName());
+	}
+
 	@RequestMapping("/getArrayByProgram/{bigVersion}/")
 	@ResponseBody
 	public List<Map<String, String>> getArrayByProgram(@PathVariable("bigVersion") String bigVersion) {
