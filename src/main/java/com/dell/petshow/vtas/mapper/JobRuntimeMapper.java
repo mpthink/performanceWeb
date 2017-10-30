@@ -21,6 +21,9 @@ public interface JobRuntimeMapper extends BaseMapper<JobRuntime> {
 
 	List<String> selectDistinctArrayListByProgram(@Param("bigVersion") String bigVersion);
 
+	List<String> selectVersionByProgramAndArray(@Param("bigVersion") String bigVersion, @Param("arrayName") String arrayName);
 
+	List<String> selectRunHourBySmallVersionAndArray(@Param("smallVersion") String smallVersion, @Param("arrayName") String arrayName);
 
+	Integer getMaxRowsOfRunHourByProgramAndArray(@Param("bigVersion") String bigVersion, @Param("arrayName") String arrayName);
 }

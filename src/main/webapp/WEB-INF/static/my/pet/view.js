@@ -115,13 +115,16 @@ function viewCPU(id){
 				                        type: 'value'    
 				                    }    
 				                ],    
-				                series: [    
-				                    {    
+				                series: function(){
+				                	var item = {
 				                        'name': 'CPU Ratio',    
 				                        'type': 'line',    
 				                        'data': values    
-				                    }    
-				                ]    
+				                    	}
+				                	var serie=[];
+				                	serie.push(item);
+				                	return serie;
+				                }()
 				            };  
 				        Chart.hideLoading();  
 				        Chart.setOption(option);    

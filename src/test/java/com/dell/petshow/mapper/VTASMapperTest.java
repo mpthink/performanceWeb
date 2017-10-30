@@ -2,6 +2,7 @@ package com.dell.petshow.mapper;
 
 import java.util.List;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -24,7 +25,7 @@ public class VTASMapperTest {
 	@Autowired
 	private ProgramMapMapper programMapMapper;
 
-	//@Test
+	@Test
 	public void niceNameMapperTest() {
 		List<NiceNameMap> nameList = niceNameMapMapper.selectNiceNameByVersionAndArray("4.3.0", "test");
 		for (NiceNameMap name : nameList) {
@@ -32,7 +33,7 @@ public class VTASMapperTest {
 		}
 	}
 
-	//@Test
+	@Test
 	public void jobRuntimeMapperTest() {
 		List<String> teStrings = jobRuntimeMapper.selectDistinctArrayListByProgram("4.3.0");
 		for (String temp : teStrings) {

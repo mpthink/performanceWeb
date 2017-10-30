@@ -18,4 +18,10 @@ public interface IJobRuntimeService extends IService<JobRuntime> {
 	List<String> selectDistinctArrayList();
 
 	List<String> selectDistinctArrayListByProgram(String bigVersion);
+
+	List<String> selectVersionByProgramAndArray(String bigVersion, String arrayName);
+
+	List<String> selectRunHourBySmallVersionAndArray(String smallVersion, String arrayName);
+
+	Integer getMaxRowsOfRunHourByProgramAndArray(String bigVersion, String arrayName);
 }

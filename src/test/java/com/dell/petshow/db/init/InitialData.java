@@ -56,9 +56,9 @@ public class InitialData {
 	}
 
 	private void initSettings() {
-		createSettings("systemName", "系统名称", "PetShow", 0);
-		createSettings("systemSubName", "系统简称", "D+", 1);
-		createSettings("bottomCopyright", "许可说明", "Copyright © 2017 Dell. All rights reserved.", 2);
+		createSettings("systemName", "System Name", "VTAS", 0);
+		createSettings("systemSubName", "System Short Name", "V+", 1);
+		createSettings("bottomCopyright", "License", "Copyright © 2017 Dell. All rights reserved.", 2);
 	}
 
 	private void createSettings(String sysKey, String sysName, String sysValue, int sort) {
@@ -87,13 +87,13 @@ public class InitialData {
 
 	private void initRoleData() {
 		SysRole adminRole = new SysRole();
-		adminRole.setRoleName("系统管理员");
+		adminRole.setRoleName("Administrator");
 		if (sysRoleMapper.selectOne(adminRole) == null) {
 			adminRole.insert();
 		}
 
 		SysRole generalRole = new SysRole();
-		generalRole.setRoleName("普通会员");
+		generalRole.setRoleName("Member");
 		if (sysRoleMapper.selectOne(generalRole) == null) {
 			generalRole.insert();
 		}
@@ -106,7 +106,7 @@ public class InitialData {
 		sysUser = sysUserMapper.selectOne(sysUser);
 		if (sysUser != null) {
 			SysRole role = new SysRole();
-			role.setRoleName("系统管理员");
+			role.setRoleName("Administrator");
 			role = sysRoleMapper.selectOne(role);
 			if (role != null) {
 				SysUserRole uRole = new SysUserRole();
@@ -122,87 +122,80 @@ public class InitialData {
 
 	private void initSystemMenus() {
 		SysPermission temp = new SysPermission();
-		temp.setPermName("系统管理");
+		temp.setPermName("Administrator");
 		SysPermission perm = sysPermissionMapper.selectOne(temp);
 		if (perm == null) {
-			SysPermission sysPermission = initMenuPermission(0L, "系统管理", null, "01", "fa fa-cogs");
+			SysPermission sysPermission = initMenuPermission(0L, "Administrator", null, "01", "fa fa-cogs");
 			boolean flag = sysPermission.insert();
 			if (flag == true) {
 				Long pid = sysPermissionMapper.selectOne(temp).getId();
-				SysPermission userPermission = initMenuPermission(pid, "用户管理", "/system/user/list/1.html", "0101", "fa-user-circle-o");
+				SysPermission userPermission = initMenuPermission(pid, "Member", "/system/user/list/1.html", "0101", "fa-user-circle-o");
 				userPermission.insert();
 				SysPermission uPermission = sysPermissionMapper.selectById(userPermission.getId());
-				initFunctionPermission(uPermission.getId(), "查看用户列表", "010101", 1).insert();
-				initFunctionPermission(uPermission.getId(), "新增用户", "010102", 2).insert();
-				initFunctionPermission(uPermission.getId(), "删除用户", "010103", 3).insert();
-				initFunctionPermission(uPermission.getId(), "编辑用户", "010104", 4).insert();
+				initFunctionPermission(uPermission.getId(), "User List", "010101", 1).insert();
+				initFunctionPermission(uPermission.getId(), "Add User", "010102", 2).insert();
+				initFunctionPermission(uPermission.getId(), "Del User", "010103", 3).insert();
+				initFunctionPermission(uPermission.getId(), "Edit User", "010104", 4).insert();
 
-				SysPermission rolePermission = initMenuPermission(pid, "角色管理", "/system/role/list/1.html", "0102", "fa-users");
+				SysPermission rolePermission = initMenuPermission(pid, "Role Management", "/system/role/list/1.html", "0102", "fa-users");
 				rolePermission.insert();
 				SysPermission rPermission = sysPermissionMapper.selectById(rolePermission.getId());
-				initFunctionPermission(rPermission.getId(), "查看角色列表", "010201", 1).insert();
-				initFunctionPermission(rPermission.getId(), "新增角色", "010202", 2).insert();
-				initFunctionPermission(rPermission.getId(), "删除角色", "010203", 3).insert();
-				initFunctionPermission(rPermission.getId(), "编辑角色", "010204", 4).insert();
-				initFunctionPermission(rPermission.getId(), "角色授权", "010205", 5).insert();
-				initFunctionPermission(rPermission.getId(), "批量删除角色", "010206", 6).insert();
+				initFunctionPermission(rPermission.getId(), "Role List", "010201", 1).insert();
+				initFunctionPermission(rPermission.getId(), "Add Role", "010202", 2).insert();
+				initFunctionPermission(rPermission.getId(), "Del Role", "010203", 3).insert();
+				initFunctionPermission(rPermission.getId(), "Edit Role", "010204", 4).insert();
+				initFunctionPermission(rPermission.getId(), "Role Grant", "010205", 5).insert();
+				initFunctionPermission(rPermission.getId(), "Batch Del", "010206", 6).insert();
 
-				SysPermission permPermission = initMenuPermission(pid, "权限管理", "/system/perm/list/1.html", "0103", "fa-list");
+				SysPermission permPermission = initMenuPermission(pid, "Permission Management", "/system/perm/list/1.html", "0103", "fa-list");
 				permPermission.insert();
 				SysPermission pPermission = sysPermissionMapper.selectById(permPermission.getId());
-				initFunctionPermission(pPermission.getId(), "查看权限列表", "010301", 1).insert();
-				initFunctionPermission(pPermission.getId(), "新增权限", "010302", 2).insert();
-				initFunctionPermission(pPermission.getId(), "删除权限", "010303", 3).insert();
-				initFunctionPermission(pPermission.getId(), "编辑权限", "010304", 4).insert();
+				initFunctionPermission(pPermission.getId(), "Perm List", "010301", 1).insert();
+				initFunctionPermission(pPermission.getId(), "Add Perm", "010302", 2).insert();
+				initFunctionPermission(pPermission.getId(), "Del Perm", "010303", 3).insert();
+				initFunctionPermission(pPermission.getId(), "Edit Perm", "010304", 4).insert();
 
-				SysPermission logPermission = initMenuPermission(pid, "日志管理", "/system/log/list/1.html", "0104", "fa-info-circle");
+				SysPermission logPermission = initMenuPermission(pid, "Log Management", "/system/log/list/1.html", "0104", "fa-info-circle");
 				logPermission.insert();
 				SysPermission lPermission = sysPermissionMapper.selectById(logPermission.getId());
-				initFunctionPermission(lPermission.getId(), "查看日志列表", "010401", 1).insert();
-				initFunctionPermission(lPermission.getId(), "删除日志", "010402", 2).insert();
+				initFunctionPermission(lPermission.getId(), "Log List", "010401", 1).insert();
+				initFunctionPermission(lPermission.getId(), "Del Log", "010402", 2).insert();
 
-				SysPermission settingPermission = initMenuPermission(pid, "系统配置", "/system/setting/page.html", "0105", " fa-cog");
+				SysPermission settingPermission = initMenuPermission(pid, "System Config", "/system/setting/page.html", "0105", " fa-cog");
 				settingPermission.insert();
 				SysPermission sPermission = sysPermissionMapper.selectById(settingPermission.getId());
-				initFunctionPermission(sPermission.getId(), "查看系统配置", "010501", 1).insert();
-				initFunctionPermission(sPermission.getId(), "修改系统配置", "010502", 2).insert();
+				initFunctionPermission(sPermission.getId(), "Config List", "010501", 1).insert();
+				initFunctionPermission(sPermission.getId(), "Edit Config", "010502", 2).insert();
 
-				SysPermission deptPermission = initMenuPermission(pid, "部门管理", "/system/dept/list/1.html", "0106", "fa-list");
+				SysPermission deptPermission = initMenuPermission(pid, "Department management", "/system/dept/list/1.html", "0106", "fa-list");
 				deptPermission.insert();
 				SysPermission dPermission = sysPermissionMapper.selectById(deptPermission.getId());
-				initFunctionPermission(dPermission.getId(), "查看部门列表", "010601", 1).insert();
-				initFunctionPermission(dPermission.getId(), "新增部门", "010602", 2).insert();
-				initFunctionPermission(dPermission.getId(), "删除部门", "010603", 3).insert();
-				initFunctionPermission(dPermission.getId(), "编辑部门", "010604", 4).insert();
+				initFunctionPermission(dPermission.getId(), "Department List", "010601", 1).insert();
+				initFunctionPermission(dPermission.getId(), "Add Department", "010602", 2).insert();
+				initFunctionPermission(dPermission.getId(), "Del Department", "010603", 3).insert();
+				initFunctionPermission(dPermission.getId(), "Edit Department", "010604", 4).insert();
 
 
 			}
 		}
 		SysPermission temp2 = new SysPermission();
-		temp2.setPermName("性能管理");
+		temp2.setPermName("Execution Status");
 		SysPermission perm2 = sysPermissionMapper.selectOne(temp2);
 		if (perm2 == null) {
-			SysPermission naPermission = initMenuPermission(0L, "性能管理", null, "01", "fa fa-cogs");
+			SysPermission naPermission = initMenuPermission(0L, "Execution Status", null, "02", "fa fa-cogs");
 			naPermission.insert();
 			Long pid2 = naPermission.getId();
 
-			SysPermission prodClassPermission = initMenuPermission(pid2, "项目类别列表", "/pet/productclass/list", "0107", "fa-list");
+			SysPermission prodClassPermission = initMenuPermission(pid2, "Jenkins Job Execuation", "/vtas/jobRuntime/listJobs", "0201", "fa-list");
 			prodClassPermission.insert();
-			SysPermission prodPermission = initMenuPermission(pid2, "项目列表", "/pet/product/list", "0107", "fa-list");
+			SysPermission prodPermission = initMenuPermission(pid2, "Runtime VS AR", "/vtas/jobRuntime/vsAR", "0202", "fa-list");
 			prodPermission.insert();
-			SysPermission petShowPermission = initMenuPermission(pid2, "性能数据列表", "/pet/showpet/list", "0107", "fa-list");
+			SysPermission petShowPermission = initMenuPermission(pid2, "Runtime VS Build", "/vtas/jobRuntime/vsBuild", "0202", "fa-list");
 			petShowPermission.insert();
 			SysPermission prClPermission = sysPermissionMapper.selectById(prodClassPermission.getId());
-			initFunctionPermission(prClPermission.getId(), "查看项目类别列表", "010701", 1).insert();
-			initFunctionPermission(prClPermission.getId(), "新增项目类别", "010702", 2).insert();
-			initFunctionPermission(prClPermission.getId(), "删除项目类别", "010703", 3).insert();
-			initFunctionPermission(prClPermission.getId(), "编辑项目类别", "010704", 4).insert();
-
+			initFunctionPermission(prClPermission.getId(), "Job List", "020101", 1).insert();
 			SysPermission prPermission = sysPermissionMapper.selectById(prodPermission.getId());
-			initFunctionPermission(prPermission.getId(), "查看项目列表", "010701", 1).insert();
-			initFunctionPermission(prPermission.getId(), "新增项目", "010702", 2).insert();
-			initFunctionPermission(prPermission.getId(), "删除项目", "010703", 3).insert();
-			initFunctionPermission(prPermission.getId(), "编辑项目", "010704", 4).insert();
+			initFunctionPermission(prPermission.getId(), "View RunHour", "020201", 1).insert();
 		}
 	}
 
@@ -231,7 +224,7 @@ public class InitialData {
 
 	private void initRolePermission() {
 		SysRole adminRole = new SysRole();
-		adminRole.setRoleName("系统管理员");
+		adminRole.setRoleName("Administrator");
 		adminRole = sysRoleMapper.selectOne(adminRole);
 		if (adminRole != null) {
 			Long roleId = adminRole.getId();

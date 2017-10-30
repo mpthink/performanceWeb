@@ -12,7 +12,7 @@ import com.baomidou.kisso.annotation.Permission;
 public class IndexController extends SuperController {
 
 	@Permission(action = Action.Skip)
-	@RequestMapping(value = {"/index"})
+	@RequestMapping(value = {"/index", "/"})
 	public String index(Model model) {
 		return "index";
 	}

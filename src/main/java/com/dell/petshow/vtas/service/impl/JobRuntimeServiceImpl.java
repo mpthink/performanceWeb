@@ -37,4 +37,20 @@ public class JobRuntimeServiceImpl extends ServiceImpl<JobRuntimeMapper, JobRunt
 		return jobRuntimeMapper.selectDistinctArrayListByProgram(bigVersion);
 	}
 
+	@Override
+	@Cacheable(value = "commonCache")
+	public List<String> selectVersionByProgramAndArray(String bigVersion, String arrayName) {
+		return jobRuntimeMapper.selectVersionByProgramAndArray(bigVersion, arrayName);
+	}
+
+	@Override
+	public List<String> selectRunHourBySmallVersionAndArray(String smallVersion, String arrayName) {
+		return jobRuntimeMapper.selectRunHourBySmallVersionAndArray(smallVersion, arrayName);
+	}
+
+	@Override
+	public Integer getMaxRowsOfRunHourByProgramAndArray(String bigVersion, String arrayName) {
+		return jobRuntimeMapper.getMaxRowsOfRunHourByProgramAndArray(bigVersion, arrayName);
+	}
+
 }

@@ -30,4 +30,24 @@
     	FROM job_runtime
     	WHERE version like CONCAT(#{bigVersion},'.%')
     </select>
+    
+    <select id="selectVersionByProgramAndArray" resultType="java.lang.String">
+		select distinct version
+		from job_runtime a
+		where a.VERSION like CONCAT(#{bigVersion,jdbcType=VARCHAR},'.%') and a.ARRAY_NAME= #{arrayName}
+    </select>
+    
+    <select id="selectRunHourBySmallVersionAndArray" resultType="java.lang.String">
+		select RUN_HOURS
+		from job_runtime a
+		where a.VERSION=#{smallVersion} and a.ARRAY_NAME= #{arrayName}
+    </select>
+    
+    <select id="getMaxRowsOfRunHourByProgramAndArray" resultType="java.lang.Integer">
+		select max(a.count_row) as maxrow from
+		(SELECT version,ARRAY_NAME,count(*) as count_row FROM job_runtime
+		where  VERSION like CONCAT(#{bigVersion,jdbcType=VARCHAR},'.%') and ARRAY_NAME= #{arrayName}
+		group by version,array_name) a
+    </select>
+    
 </mapper>

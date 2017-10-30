@@ -16,7 +16,7 @@
     
     <select id="selectNiceNameByVersionAndArray" resultType="com.dell.petshow.vtas.entity.NiceNameMap" resultMap="BaseResultMap">
 		select a.version as version, case when b.nice_name is null then a.version else b.NICE_NAME end as nice_name
-		from petshow.job_runtime a
+		from job_runtime a
 		left join nice_name_map b on a.VERSION = b.VERSION
 		where a.VERSION like CONCAT(#{bigVersion,jdbcType=VARCHAR},'.%') and a.ARRAY_NAME= #{arrayName}
 		group by version,NICE_NAME
