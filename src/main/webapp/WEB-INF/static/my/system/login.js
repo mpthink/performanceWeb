@@ -5,7 +5,7 @@ function checkFields(loginForm){
        return true;
    }else{
 	   $("#messageInfo").css('visibility','visible').fadeIn().removeClass('hidden');
-	   $("#error").text("无效的Dell EMC邮箱");
+	   $("#error").text("Invalid Dell EMC mail address!");
 	   return false;
    }
 	

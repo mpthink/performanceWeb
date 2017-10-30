@@ -122,10 +122,10 @@ public class InitialData {
 
 	private void initSystemMenus() {
 		SysPermission temp = new SysPermission();
-		temp.setPermName("Administrator");
+		temp.setPermName("System Management");
 		SysPermission perm = sysPermissionMapper.selectOne(temp);
 		if (perm == null) {
-			SysPermission sysPermission = initMenuPermission(0L, "Administrator", null, "01", "fa fa-cogs");
+			SysPermission sysPermission = initMenuPermission(0L, "System Management", null, "01", "fa fa-cogs");
 			boolean flag = sysPermission.insert();
 			if (flag == true) {
 				Long pid = sysPermissionMapper.selectOne(temp).getId();
