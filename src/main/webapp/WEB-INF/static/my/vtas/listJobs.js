@@ -38,13 +38,12 @@ var dataColumns = [{
         }
 	},{
 	    field: 'RUN_HOURS',
-	    title: 'Running Time'
+	    title: 'Running Time(h)'
 	},{
-	    field: 'VERSION',
-	    title: 'Expected Time'
-	},{
-	    field: 'VERSION',
-	    title: 'ARs'
+	    title: 'Expected Time(h)',
+	    formatter: function (value, row, index) {
+            return 168;
+        }
 	}];
 
 function formatUrl(jobUrl){
