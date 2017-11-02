@@ -6,8 +6,8 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      	主面板
-      <small>显示系统各种信息</small>
+      	Dashboard
+      <small>Control panel</small>
     </h1>
   </section>
 
@@ -15,49 +15,45 @@
   <section class="content">
 	
 	<div class="row">
-       <div class="col-md-3 col-sm-6 col-xs-12">
-         <div class="info-box">
-           <span class="info-box-icon bg-aqua"><i class="fa fa-cart-plus"></i></span>
-           <div class="info-box-content">
-             <span class="info-box-text">CPU Traffic</span>
-             <span class="info-box-number">90<small>%</small></span>
-           </div><!-- /.info-box-content -->
-         </div><!-- /.info-box -->
-       </div><!-- /.col -->
-       <div class="col-md-3 col-sm-6 col-xs-12">
-         <div class="info-box">
-           <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
-           <div class="info-box-content">
-             <span class="info-box-text">Likes</span>
-             <span class="info-box-number">41,410</span>
-           </div><!-- /.info-box-content -->
-         </div><!-- /.info-box -->
-       </div><!-- /.col -->
-
-       <!-- fix for small devices only -->
-       <div class="clearfix visible-sm-block"></div>
-
-       <div class="col-md-3 col-sm-6 col-xs-12">
-         <div class="info-box">
-           <span class="info-box-icon bg-green"><i class="fa fa-check"></i></span>
-           <div class="info-box-content">
-             <span class="info-box-text">Sales</span>
-             <span class="info-box-number">760</span>
-           </div><!-- /.info-box-content -->
-         </div><!-- /.info-box -->
-       </div><!-- /.col -->
-       <div class="col-md-3 col-sm-6 col-xs-12">
-         <div class="info-box">
-           <span class="info-box-icon bg-yellow"><i class="fa fa-jpy"></i></span>
-           <div class="info-box-content">
-             <span class="info-box-text">New Members</span>
-             <span class="info-box-number">2,000</span>
-           </div><!-- /.info-box-content -->
-         </div><!-- /.info-box -->
-       </div><!-- /.col -->
-     </div><!-- /.row -->
+		<#list listOne as program>
+			<div class="col-lg-2 col-xs-3">
+	          <!-- small box -->
+			  <#switch program_index>
+			  <#case 0>
+			  <div class="small-box bg-aqua">
+			  <#break>
+			  <#case 1>
+			  <div class="small-box bg-green">
+			  <#break>
+			  <#case 2>
+			  <div class="small-box bg-yellow">
+			  <#break>
+			  <#case 3>
+			  <div class="small-box bg-red">
+			  <#break>
+			  <#case 4>
+			  <div class="small-box bg-navy">
+			  <#break>
+			  <#case 5>
+			  <div class="small-box bg-purple">
+			  <#break>
+			  <#default>
+			  <div class="small-box bg-teal">
+			  </#switch>
+	            <div class="inner">
+	              <h4>${program["programCount"]} </h4>
+				  <#list program['versionCount']?split(";") as x>
+					<p>${x}</p>
+					</#list>
+	            </div>
+	          </div>
+	        </div>
+	        <!-- ./col -->
+		</#list>
+    </div><!-- /.row -->
   </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
 </@body>
 <@footer>
+<script src="/my/index.js"></script>
 </@footer>

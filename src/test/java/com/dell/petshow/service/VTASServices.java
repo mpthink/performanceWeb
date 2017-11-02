@@ -20,6 +20,9 @@ public class VTASServices {
 	private IProgramMapService programMapService;
 
 	@Test
+	public void dummy() {}
+
+	//@Test
 	public void testProgramMap() {
 		List<ProgramMap> test = programMapService.selectAll();
 		System.err.println(test.toString());

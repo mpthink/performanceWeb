@@ -22,6 +22,8 @@ public interface JobRuntimeMapper extends BaseMapper<JobRuntime> {
 
 	List<Map<String, Object>> selectAllWithProgramName();
 
+	String selectLatestVersionByArray(@Param("arrayName") String arrayName);
+
 	List<String> selectDistinctArrayListByProgram(@Param("bigVersion") String bigVersion);
 
 	List<String> selectVersionByProgramAndArray(@Param("bigVersion") String bigVersion, @Param("arrayName") String arrayName);

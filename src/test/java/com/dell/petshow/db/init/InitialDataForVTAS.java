@@ -18,6 +18,9 @@ public class InitialDataForVTAS {
 	private SysPermissionMapper sysPermissionMapper;
 
 	@Test
+	public void dummy() {}
+
+	//@Test
 	public void initData() {
 		initSystemMenus();
 	}

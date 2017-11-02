@@ -20,6 +20,9 @@ public class PetProductClassMapperTest {
 	private PetProductClassMapper petProductClassMapper;
 
 	@Test
+	public void dummy() {}
+
+	//@Test
 	public void testSelectList() {
 
 		List<PetProductClassVO> test = petProductClassMapper.selectWithPclassName();

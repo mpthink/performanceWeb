@@ -31,6 +31,9 @@ public class RolePermissionDataInitial {
 	private SysPermissionMapper sysPermissionMapper;
 
 	@Test
+	public void dummy() {}
+
+	//@Test
 	public void initRolePermission() {
 		SysRole adminRole = new SysRole();
 		adminRole.setRoleName("系统管理员");

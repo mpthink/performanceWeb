@@ -20,6 +20,9 @@ public class SysUserMapperTest {
 	private SysUserMapper usermapper;
 
 	@Test
+	public void dummy() {}
+
+	//@Test
 	public void testSelectList() {
 
 		List<SysUser> users = usermapper.selectList(null);

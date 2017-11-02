@@ -42,8 +42,10 @@ public class InitialData {
 	@Autowired
 	private SysUserRoleMapper sysUserRoleMapper;
 
-
 	@Test
+	public void dummy() {}
+
+	//@Test
 	public void initData() {
 
 		initFirstUser();
