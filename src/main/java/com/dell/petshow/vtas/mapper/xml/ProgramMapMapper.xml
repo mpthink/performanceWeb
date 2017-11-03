@@ -12,4 +12,10 @@
     <sql id="Base_Column_List">
         MAJOR_VERSION AS majorVersion, PROGRAM AS program
     </sql>
+    
+    <select id="selectOneBasedonVersion" resultType="com.dell.petshow.vtas.entity.ProgramMap" resultMap="BaseResultMap">
+    	SELECT *
+    	FROM program_map
+    	where major_version=#{bigVersion}
+    </select>
 </mapper>

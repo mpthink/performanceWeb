@@ -20,6 +20,7 @@ public class IndexController extends SuperController {
 	@Autowired
 	private IJobRuntimeService jobRuntimeService;
 
+
 	@Permission(action = Action.Skip)
 	@RequestMapping(value = {"/index", "/"})
 	public String index(Model model) {

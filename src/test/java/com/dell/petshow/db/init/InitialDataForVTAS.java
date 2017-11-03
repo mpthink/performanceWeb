@@ -20,35 +20,29 @@ public class InitialDataForVTAS {
 	@Test
 	public void dummy() {}
 
-	//@Test
+	@Test
 	public void initData() {
 		initSystemMenus();
 	}
 
 	private void initSystemMenus() {
 		SysPermission temp = new SysPermission();
-		temp.setPermName("Execution Status");
+		temp.setPermName("Array Monitor");
 		SysPermission perm = sysPermissionMapper.selectOne(temp);
 		if (perm == null) {
-			SysPermission sysPermission = initMenuPermission(0L, "Execution Status", null, "02", "fa fa-cogs");
+			SysPermission sysPermission = initMenuPermission(0L, "Array Monitor", null, "03", "fa fa-cogs");
 			boolean flag = sysPermission.insert();
 			if (flag == true) {
 				Long pid = sysPermissionMapper.selectOne(temp).getId();
 				SysPermission jenkinsPermission =
-					initMenuPermission(pid, "Jenkins Job Execution", "/vtas/jenkinsJob/list/1.html", "0201", "fa-user-circle-o");
+					initMenuPermission(pid, "Memory", "/vtas/arraymonitor/memory", "0301", "fa-user-circle-o");
 				jenkinsPermission.insert();
-				SysPermission jPermission = sysPermissionMapper.selectById(jenkinsPermission.getId());
-				initFunctionPermission(jPermission.getId(), "Check Jenkins Job", "020101", 1).insert();
 
-				SysPermission rtARPermission = initMenuPermission(pid, "RunTime VS AR", "/vtas/runtime/build.html", "0202", "fa-users");
+				SysPermission rtARPermission = initMenuPermission(pid, "CPU", "/vtas/arraymonitor/cpu", "0402", "fa-users");
 				rtARPermission.insert();
-				SysPermission arPermission = sysPermissionMapper.selectById(rtARPermission.getId());
-				initFunctionPermission(arPermission.getId(), "Check runtime build", "020201", 1).insert();
 
-				SysPermission rtBuildPermission = initMenuPermission(pid, "RunTime VS Build", "/vtas/runtime/build.html", "0202", "fa-users");
+				SysPermission rtBuildPermission = initMenuPermission(pid, "Disk", "/vtas/arraymonitor/disk", "0303", "fa-users");
 				rtBuildPermission.insert();
-				SysPermission bPermission = sysPermissionMapper.selectById(rtBuildPermission.getId());
-				initFunctionPermission(bPermission.getId(), "Check runtime build", "020201", 1).insert();
 
 			}
 		}

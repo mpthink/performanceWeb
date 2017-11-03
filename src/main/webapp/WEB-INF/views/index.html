@@ -51,9 +51,35 @@
 	        <!-- ./col -->
 		</#list>
     </div><!-- /.row -->
+    
+    <div class="row">
+    	<div class="progress progress-xxs">
+            <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            </div>
+          </div>
+    </div><!-- /.row -->
+    
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+           <div class="box-header with-border">
+              <h4 class="box-title">Baseline Test</h4>
+            </div>     
+           <div class="box-body">
+				<table id="upTimeTable" class="table table-bordered"></table>
+		   </div>
+          
+          <!-- /.box-body -->
+        </div><!-- /.box -->
+      </div>
+    </div><!-- /.row -->
+    
   </section><!-- /.content -->
 </div><!-- /.content-wrapper -->
 </@body>
 <@footer>
+<script src="/plugins/bootstrap-table/bootstrap-table.js"></script>
+<script src="/plugins/bootstrap-table/locale/bootstrap-table-en-US.js"></script>
+<script src="/plugins/layer/layer.js"></script>
 <script src="/my/index.js"></script>
 </@footer>

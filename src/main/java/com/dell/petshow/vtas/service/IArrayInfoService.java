@@ -1,7 +1,10 @@
 package com.dell.petshow.vtas.service;
 
-import com.dell.petshow.vtas.entity.ArrayInfo;
+import java.util.List;
+import java.util.Map;
+
 import com.baomidou.mybatisplus.service.IService;
+import com.dell.petshow.vtas.entity.ArrayInfo;
 
 /**
  * <p>
@@ -12,5 +15,5 @@ import com.baomidou.mybatisplus.service.IService;
  * @since 2017-11-01
  */
 public interface IArrayInfoService extends IService<ArrayInfo> {
-	
+	List<Map<String, Object>> getArrayWithUptime();
 }

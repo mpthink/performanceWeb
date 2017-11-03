@@ -1,7 +1,9 @@
 package com.dell.petshow.vtas.mapper;
 
-import com.dell.petshow.vtas.entity.SpUptime;
+import org.apache.ibatis.annotations.Param;
+
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.dell.petshow.vtas.entity.SpUptime;
 
 /**
  * <p>
@@ -12,5 +14,5 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @since 2017-11-01
  */
 public interface SpUptimeMapper extends BaseMapper<SpUptime> {
-
+	SpUptime selectLatestOneByArray(@Param("arrayName") String arrayName);
 }

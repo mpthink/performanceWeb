@@ -1,8 +1,12 @@
 package com.dell.petshow.vtas.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.dell.petshow.common.controller.SuperController;
+import com.dell.petshow.vtas.service.IArrayInfoService;
 
 /**
  * <p>
@@ -15,5 +19,14 @@ import com.dell.petshow.common.controller.SuperController;
 @Controller
 @RequestMapping("/vtas/arrayInfo")
 public class ArrayInfoController extends SuperController {
-	
+
+	@Autowired
+	private IArrayInfoService arrayInfoService;
+
+	@RequestMapping("/getArrayInfoWithUptime")
+	@ResponseBody
+	public String getArrayInfoWithUptime() {
+		return toJson(arrayInfoService.getArrayWithUptime());
+	}
+
 }

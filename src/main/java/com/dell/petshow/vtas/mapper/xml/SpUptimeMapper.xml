@@ -16,4 +16,13 @@
     <sql id="Base_Column_List">
         ID AS id, ARRAY_NAME AS arrayName, VERSION AS version, POLL_DATETIME AS pollDatetime, UPTIME AS uptime, SP AS sp
     </sql>
+    
+    <select id="selectLatestOneByArray" resultType="com.dell.petshow.vtas.entity.SpUptime" resultMap="BaseResultMap">
+    	SELECT * 
+    	FROM sp_uptime 
+    	where array_name=#{arrayName} 
+    	order by POLL_DATETIME desc 
+    	limit 0,1
+    </select>
+    
 </mapper>

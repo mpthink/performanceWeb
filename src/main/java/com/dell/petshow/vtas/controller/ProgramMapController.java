@@ -1,6 +1,5 @@
 package com.dell.petshow.vtas.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,10 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dell.petshow.common.controller.SuperController;
-import com.dell.petshow.vtas.entity.ProgramMap;
 import com.dell.petshow.vtas.service.IProgramMapService;
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
 
 /**
  * <p>
@@ -33,18 +29,7 @@ public class ProgramMapController extends SuperController {
 	@RequestMapping("/getAll")
 	@ResponseBody
 	public List<Map<String, Object>> getAll() {
-
-		List<ProgramMap> programMaps = programMapService.selectAll();
-		List<Map<String, Object>> listMap = Lists.transform(programMaps, new Function<ProgramMap, Map<String, Object>>() {
-			@Override
-			public Map<String, Object> apply(ProgramMap programMap) {
-				Map<String, Object> map = new HashMap<>();
-				map.put("id", programMap.getMajorVersion());
-				map.put("text", programMap.getProgram());
-				return map;
-			}
-		});
-		return listMap;
+		return programMapService.selectAllForSelect2(true);
 	}
 
 }

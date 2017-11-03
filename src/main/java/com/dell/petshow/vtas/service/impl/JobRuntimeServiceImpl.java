@@ -37,7 +37,6 @@ public class JobRuntimeServiceImpl extends ServiceImpl<JobRuntimeMapper, JobRunt
 	private ProgramMapMapper programMapMapper;
 
 	@Override
-	@Cacheable(value = "commonCache")
 	public List<String> selectDistinctArrayList() {
 		return jobRuntimeMapper.selectDistinctArrayList();
 	}
@@ -64,14 +63,14 @@ public class JobRuntimeServiceImpl extends ServiceImpl<JobRuntimeMapper, JobRunt
 		return jobRuntimeMapper.getMaxRowsOfRunHourByProgramAndArray(bigVersion, arrayName);
 	}
 
+	@Cacheable(value = "commonCache", key = "methodName")
 	@Override
-	@Cacheable(value = "commonCache")
 	public List<Map<String, Object>> selectAllWithProgramName() {
 		return jobRuntimeMapper.selectAllWithProgramName();
 	}
 
 	@Override
-	@Cacheable(value = "commonCache")
+	@Cacheable(value = "commonCache", key = "methodName")
 	public List<Map<String, Object>> getArrayNumForAllPrograms() {
 		List<Map<String, Object>> result = new ArrayList<>();
 		Wrapper<ProgramMap> eWrapper = new EntityWrapper<>();
