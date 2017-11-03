@@ -19,6 +19,15 @@ var dataColumns = [
 	},{
 	    field: 'status',
 	    title: 'Status',
+	    formatter: function (value) {
+			    	if(value=='0'){
+		                return "Normal";
+		            }else if(value=='1'){
+		                return "Warning";
+		            }else{
+		            	return "Severe";
+		            }
+        },
 	    cellStyle:function(value){
 		            if(value=='0'){
 		                return { classes: 'success' };

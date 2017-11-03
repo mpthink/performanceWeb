@@ -60,7 +60,7 @@
 		SELECT a.*, b.PROGRAM as PROGRAM FROM job_runtime as a
 		left join program_map as b
 		on substr(a.version,1,5) = b.major_version
-		order by a.version
+		order by a.version desc,a.START_TIME desc
     </select>
     
 </mapper>
