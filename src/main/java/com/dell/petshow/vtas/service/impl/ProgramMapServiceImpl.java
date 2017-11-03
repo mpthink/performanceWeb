@@ -44,7 +44,7 @@ public class ProgramMapServiceImpl extends ServiceImpl<ProgramMapMapper, Program
 	 */
 	@Override
 	@Cacheable(value = "programCache")
-	public List<Map<String, Object>> selectAllForSelect2(boolean flag) {
+	public List<Map<String, Object>> selectAllForSelect2(final boolean flag) {
 		Wrapper<ProgramMap> eWrapper = new EntityWrapper<>();
 		eWrapper.orderBy("MAJOR_VERSION", false);
 		List<ProgramMap> programMaps = programMapMapper.selectList(eWrapper);

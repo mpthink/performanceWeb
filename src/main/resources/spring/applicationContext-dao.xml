@@ -61,8 +61,7 @@
 		<property name="typeAliasesPackage" value="com.dell.petshow.system.entity,com.dell.petshow.vtas.entity" />
 		<property name="mapperLocations">
 			<array>                
-		        <value>classpath*:com/dell/petshow/system/mapper/xml/*Mapper.xml</value>              
-		        <value>classpath*:com/dell/petshow/vtas/mapper/xml/*Mapper.xml</value>
+		        <value>classpath*:mappers/**/*.xml</value>
 		    </array>
 		</property>
 		<property name="plugins">
