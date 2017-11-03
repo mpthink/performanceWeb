@@ -66,11 +66,11 @@ public class LoginController extends SuperController {
 			sysUser.setGmtCreate(new Date());
 			sysUser.setEmail(userName);
 			sysUser.setPassword("123456");
-			sysUser.setAvatar("/AdminLTE/img/Dearest.jpg");
+			sysUser.setAvatar("/AdminLTE/img/user2-160x160.jpg");
 			sysUser.insert();
 
 			sysUser = sysUserService.selectOne(new EntityWrapper<SysUser>().eq("user_name", userName));
-			SysRole generalRole = sysRoleService.selectOne(new EntityWrapper<SysRole>().eq("role_name", "普通会员"));
+			SysRole generalRole = sysRoleService.selectOne(new EntityWrapper<SysRole>().eq("role_name", "Member"));
 			if (generalRole != null) {
 				SysUserRole ur = new SysUserRole();
 				ur.setRoleId(generalRole.getId());
