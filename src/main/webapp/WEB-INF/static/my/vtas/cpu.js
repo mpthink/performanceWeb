@@ -139,9 +139,14 @@ function viewCPU(){
 			 var Chart=ec.init(document.getElementById("main"));  
 			 Chart.showLoading({text: 'Loding...'});  
 			 var xAxisData;
-			 var legendData=['CPU_BUSY','CPU_FILT'];
-			 var cpuBusyData=[];
-			 var cpuFiltData=[];
+			 var legendData=['SUM','peservice.exe','csx_ic_safe','ECOM','mozzo.sh','tomcat.sh','TLDlistener.exe'];
+			 var sumData=[];
+			 var peserviceData=[];
+			 var csxData=[];
+			 var ecomData=[];
+			 var mozzoData=[];
+			 var tomcatData=[];
+			 var TLDlistenerData=[];
 			 var times=[];
 			 $.ajax({  
 			        url:dataUrl,  
@@ -154,8 +159,13 @@ function viewCPU(){
 					 	}else{
 					 		for(var i=0;i<result.length;i++){
 					 			times.push(formatDateTime(result[i]['poll_datetime']));
-					 			cpuBusyData.push(result[i]['CPU_BUSY']);
-					 			cpuFiltData.push(result[i]['CPU_FILT']);
+					 			sumData.push(result[i]['CPU_FILT']);
+					 			peserviceData.push(result[i]['cpu_peservice_exe']);
+					 			csxData.push(result[i]['cpu_csx_ic_safe']);
+					 			ecomData.push(result[i]['cpu_ECOM']);
+					 			mozzoData.push(result[i]['cpu_mozzo_sh']);
+					 			tomcatData.push(result[i]['cpu_tomcat_sh']);
+					 			TLDlistenerData.push(result[i]['cpu_TLDlistener_exe']);
 					 		 }
 					 	}
 			        	
@@ -164,11 +174,19 @@ function viewCPU(){
 					                	trigger: 'axis',
 					                    show: true    
 					                },    
-					                legend: {    
+					                legend: {
+					                	selected: {
+					                        'peservice.exe' : false,
+					                        'csx_ic_safe' : false,
+					                        'ECOM' : false,
+					                        'mozzo.sh' : false,
+					                        'tomcat.sh' : false,
+					                        'TLDlistener.exe' : false
+					                    },
 					                    data: legendData    
 					                },
 					                toolbox: {
-					    				show : true,
+					    				show : false,
 					    				feature : {
 					    				    mark : {show: true},
 					    				    dataZoom : {show: true},
@@ -198,18 +216,50 @@ function viewCPU(){
 					                ],    
 					                series: [
 					                		{
-					                        'name': 'CPU_BUSY',    
+					                        'name': 'SUM',    
 					                        'type': 'line',
 					                        'smooth':true,
 					                        'symbol':'none',
-					                        'data': cpuBusyData    
+					                        'data': sumData    
 					                    	},
 					                    	{
-						                    'name': 'CPU_FILT',    
+					                        'name': 'peservice.exe',    
 					                        'type': 'line',
 					                        'smooth':true,
 					                        'symbol':'none',
-					                        'data': cpuFiltData    
+					                        'data': peserviceData    
+					                    	},
+					                    	{
+					                        'name': 'csx_ic_safe',    
+					                        'type': 'line',
+					                        'smooth':true,
+					                        'symbol':'none',
+					                        'data': csxData    
+					                    	},
+					                    	{
+					                        'name': 'ECOM',    
+					                        'type': 'line',
+					                        'smooth':true,
+					                        'symbol':'none',
+					                        'data': ecomData    
+					                    	},{
+					                        'name': 'mozzo.sh',    
+					                        'type': 'line',
+					                        'smooth':true,
+					                        'symbol':'none',
+					                        'data': mozzoData    
+					                    	},{
+					                        'name': 'tomcat.sh',    
+					                        'type': 'line',
+					                        'smooth':true,
+					                        'symbol':'none',
+					                        'data': tomcatData    
+					                    	},{
+					                        'name': 'TLDlistener.exe',    
+					                        'type': 'line',
+					                        'smooth':true,
+					                        'symbol':'none',
+					                        'data': TLDlistenerData    
 					                    	}
 					                ]
 					            };

@@ -139,11 +139,19 @@ function viewMemory(){
 			 var Chart=ec.init(document.getElementById("main"));  
 			 Chart.showLoading({text: 'Loding...'});  
 			 var xAxisData;
-			 var legendData=['MemoryUsed','Ktrace_Util','ECOM','CSX_IC_SAFE'];
-			 var memoryData=[];
-			 var ktraceData=[];
-			 var ecomData=[];
-			 var csxData=[];
+			 var memoryUsedData=[];
+			 var peserviceVSZData=[];
+			 var peserviceRSSData=[];
+			 var csxVSZData=[];
+			 var csxRSSData=[];
+			 var ecomVSZData=[];
+			 var ecomRSSData=[];
+			 var mozzoVSZData=[];
+			 var mozzoRSSData=[];
+			 var tomcatVSZData=[];
+			 var tomcatRSSData=[];
+			 var TLDlistenerVSZData=[];
+			 var TLDlistenerRSSData=[];
 			 var times=[];
 			 $.ajax({  
 			        url:dataUrl,  
@@ -156,10 +164,19 @@ function viewMemory(){
 					 	}else{
 					 		for(var i=0;i<result.length;i++){
 					 			times.push(formatDateTime(result[i]['poll_datetime']));
-					 			memoryData.push(result[i]['MEM_USED']);
-					 			ktraceData.push(result[i]['ktrace_util']);
-					 			ecomData.push(result[i]['ECOM']);
-					 			csxData.push(result[i]['csx_ic_safe']);
+					 			memoryUsedData.push(result[i]['MEM_USED']);
+					 			peserviceVSZData.push(result[i]['peservice_exe_vsz']);
+					 			peserviceRSSData.push(result[i]['peservice_exe_rss']);
+					 			csxVSZData.push(result[i]['csx_ic_safe_vsz']);
+					 			csxRSSData.push(result[i]['csx_ic_safe_rss']);
+					 			ecomVSZData.push(result[i]['ECOM_vsz']);
+					 			ecomRSSData.push(result[i]['ECOM_rss']);
+					 			mozzoVSZData.push(result[i]['mozzo_sh_vsz']);
+					 			mozzoRSSData.push(result[i]['mozzo_sh_rss']);
+					 			tomcatVSZData.push(result[i]['tomcat_sh_vsz']);
+					 			memoryUsedData.push(result[i]['tomcat_sh_rss']);
+					 			TLDlistenerVSZData.push(result[i]['TLDlistener_exe_vsz']);
+					 			TLDlistenerRSSData.push(result[i]['TLDlistener_exe_rss']);
 					 		 }
 					 	}
 			        	
@@ -168,11 +185,25 @@ function viewMemory(){
 					                	trigger: 'axis',
 					                    show: true    
 					                },    
-					                legend: {    
-					                    data: legendData    
+					                legend: {
+					                	selected: {
+					                        'peservice.exe_vsz' : false,
+					                        'csx_ic_safe_vsz' : false,
+					                        'ECOM_vsz' : false,
+					                        'mozzo_sh_vsz' : false,
+					                        'tomcat.sh_vsz' : false,
+					                        'TLDlistener.exe_vsz' : false,
+					                        'peservice.exe_rss' : false,
+					                        'csx_ic_safe_rss' : false,
+					                        'ECOM_rss' : false,
+					                        'mozzo_sh_rss' : false,
+					                        'tomcat.sh_rss' : false,
+					                        'TLDlistener.exe_rss' : false
+					                    },
+					                    data: ['MemoryUsed','peservice.exe_vsz','peservice.exe_rss','csx_ic_safe_vsz','csx_ic_safe_rss','ECOM_vsz','ECOM_rss','mozzo_sh_vsz','mozzo_sh_rss','tomcat.sh_vsz','tomcat.sh_rss','TLDlistener.exe_vsz','TLDlistener.exe_rss']    
 					                },
 					                toolbox: {
-					    				show : true,
+					    				show : false,
 					    				feature : {
 					    				    mark : {show: true},
 					    				    dataZoom : {show: true},
@@ -206,28 +237,91 @@ function viewMemory(){
 					                        'type': 'line',
 					                        'smooth':true,
 					                        'symbol':'none',
-					                        'data': memoryData    
+					                        'data': memoryUsedData    
 					                    	},
 					                    	{
-						                    'name': 'Ktrace_Util',    
+						                    'name': 'peservice.exe_vsz',    
 					                        'type': 'line',
 					                        'smooth':true,
 					                        'symbol':'none',
-					                        'data': ktraceData    
+					                        'data': peserviceVSZData    
 					                    	},
 					                    	{
-					                        'name': 'ECOM',    
+					                        'name': 'peservice.exe_rss',    
 					                        'type': 'line',
 					                        'smooth':true,
 					                        'symbol':'none',
-					                        'data': ecomData    
+					                        'data': peserviceRSSData    
 					                    	},
 					                    	{
-					                        'name': 'CSX_IC_SAFE',
+					                        'name': 'csx_ic_safe_vsz',
 					                        'type': 'line',
 					                        'smooth':true,
 					                        'symbol':'emptyCircle',
-					                        'data': csxData    
+					                        'data': csxVSZData    
+					                    	},
+					                    	{
+					                        'name': 'csx_ic_safe_rss',    
+					                        'type': 'line',
+					                        'smooth':true,
+					                        'symbol':'none',
+					                        'data': csxRSSData    
+					                    	},
+					                    	{
+						                    'name': 'ECOM_vsz',    
+					                        'type': 'line',
+					                        'smooth':true,
+					                        'symbol':'none',
+					                        'data': ecomVSZData    
+					                    	},
+					                    	{
+					                        'name': 'ECOM_rss',    
+					                        'type': 'line',
+					                        'smooth':true,
+					                        'symbol':'none',
+					                        'data': ecomRSSData    
+					                    	},
+					                    	{
+					                        'name': 'mozzo_sh_vsz',
+					                        'type': 'line',
+					                        'smooth':true,
+					                        'symbol':'none',
+					                        'data': mozzoVSZData    
+					                    	},
+					                    	{
+					                        'name': 'mozzo_sh_rss',    
+					                        'type': 'line',
+					                        'smooth':true,
+					                        'symbol':'none',
+					                        'data': mozzoRSSData    
+					                    	},
+					                    	{
+						                    'name': 'tomcat.sh_vsz',    
+					                        'type': 'line',
+					                        'smooth':true,
+					                        'symbol':'none',
+					                        'data': tomcatVSZData    
+					                    	},
+					                    	{
+					                        'name': 'tomcat.sh_rss',    
+					                        'type': 'line',
+					                        'smooth':true,
+					                        'symbol':'none',
+					                        'data': tomcatRSSData    
+					                    	},
+					                    	{
+					                        'name': 'TLDlistener.exe_vsz',
+					                        'type': 'line',
+					                        'smooth':true,
+					                        'symbol':'none',
+					                        'data': TLDlistenerVSZData    
+					                    	},
+					                    	{
+					                        'name': 'TLDlistener.exe_rss',
+					                        'type': 'line',
+					                        'smooth':true,
+					                        'symbol':'emptyCircle',
+					                        'data': TLDlistenerRSSData    
 					                    	}
 					                ]
 					            };
