@@ -19,5 +19,7 @@ public interface SysPermissionMapper extends BaseMapper<SysPermission> {
 
 	List<SysPermission> selectMenuByuserIdAndPid(@Param("userId") Long userId, @Param("pid") Long pid);
 
+	List<SysPermission> selectMenuByroleNameAndPid(@Param("roleName") String roleName, @Param("pid") Long pid);
+
 	List<String> selectPermCodesByuserId(Long userId);
 }

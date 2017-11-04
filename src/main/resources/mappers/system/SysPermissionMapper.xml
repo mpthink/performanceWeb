@@ -35,6 +35,17 @@
 		order by sort
 	</select>
 	
+	<!-- 根据roleName 和 菜单pid 查询菜单， 角色状态启用：0 -->
+    <select id="selectMenuByroleNameAndPid" resultType="com.dell.petshow.system.entity.SysPermission" resultMap="BaseResultMap">
+		SELECT a.* FROM sys_permission a
+		INNER JOIN sys_role_permission b on a.id = b.perm_id
+		INNER JOIN sys_role d on b.role_id = d.id
+		AND d.role_status =0
+		AND d.role_name = #{roleName}
+		AND a.pid = #{pid}
+		order by sort
+	</select>
+	
 	<!-- 根据userId 获取用户权限代码List，用户前端权限控制 -->
     <select id="selectPermCodesByuserId" resultType="java.lang.String" parameterType="long">
 		SELECT DISTINCT a.perm_code FROM sys_permission a
