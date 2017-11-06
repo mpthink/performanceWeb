@@ -29,7 +29,7 @@
     </sql>
     
     <select id="selectMemoryListBasedOnTableNameWithArrayAndVersionAndTimeslot" resultType="java.util.Map">
-		select MEM_USED,peservice_exe_vsz,peservice_exe_rss,csx_ic_safe_vsz,csx_ic_safe_rss,ECOM_vsz,ECOM_rss,
+		select sp,MEM_USED,peservice_exe_vsz,peservice_exe_rss,csx_ic_safe_vsz,csx_ic_safe_rss,ECOM_vsz,ECOM_rss,
 		       mozzo_sh_vsz,mozzo_sh_rss,tomcat_sh_vsz,tomcat_sh_rss,TLDlistener_exe_vsz,TLDlistener_exe_rss,poll_datetime
 		from ${tableName}
 		where array_name = #{arrayName}
@@ -55,7 +55,7 @@
     </select>
     
     <select id="selectCPUListBasedOnTableNameWithArrayAndVersionAndTimeslot" resultType="java.util.Map">
-		select CPU_FILT,cpu_peservice_exe,cpu_csx_ic_safe,cpu_ECOM,cpu_mozzo_sh,cpu_tomcat_sh,cpu_TLDlistener_exe,poll_datetime
+		select sp,CPU_FILT,cpu_peservice_exe,cpu_csx_ic_safe,cpu_ECOM,cpu_mozzo_sh,cpu_tomcat_sh,cpu_TLDlistener_exe,poll_datetime
 		from ${tableName}
 		where array_name = #{arrayName}
 		and version = #{smallVersion}

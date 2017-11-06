@@ -131,27 +131,40 @@ function viewMemory(){
 	require(
 		    [
 		        'echarts',
-		        'echarts/chart/line', // 使用柱状图就加载bar模块，按需加载
-		        'echarts/chart/bar'
+		        'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
 		        ],
 			function (ec) {
 			 var dataUrl = generateUrl();
 			 var Chart=ec.init(document.getElementById("main"));  
 			 Chart.showLoading({text: 'Loding...'});  
 			 var xAxisData;
-			 var memoryUsedData=[];
-			 var peserviceVSZData=[];
-			 var peserviceRSSData=[];
-			 var csxVSZData=[];
-			 var csxRSSData=[];
-			 var ecomVSZData=[];
-			 var ecomRSSData=[];
-			 var mozzoVSZData=[];
-			 var mozzoRSSData=[];
-			 var tomcatVSZData=[];
-			 var tomcatRSSData=[];
-			 var TLDlistenerVSZData=[];
-			 var TLDlistenerRSSData=[];
+			 var SPA_memoryUsedData=[];
+			 var SPA_peserviceVSZData=[];
+			 var SPA_peserviceRSSData=[];
+			 var SPA_csxVSZData=[];
+			 var SPA_csxRSSData=[];
+			 var SPA_ecomVSZData=[];
+			 var SPA_ecomRSSData=[];
+			 var SPA_mozzoVSZData=[];
+			 var SPA_mozzoRSSData=[];
+			 var SPA_tomcatVSZData=[];
+			 var SPA_tomcatRSSData=[];
+			 var SPA_TLDlistenerVSZData=[];
+			 var SPA_TLDlistenerRSSData=[];
+			 
+			 var SPB_memoryUsedData=[];
+			 var SPB_peserviceVSZData=[];
+			 var SPB_peserviceRSSData=[];
+			 var SPB_csxVSZData=[];
+			 var SPB_csxRSSData=[];
+			 var SPB_ecomVSZData=[];
+			 var SPB_ecomRSSData=[];
+			 var SPB_mozzoVSZData=[];
+			 var SPB_mozzoRSSData=[];
+			 var SPB_tomcatVSZData=[];
+			 var SPB_tomcatRSSData=[];
+			 var SPB_TLDlistenerVSZData=[];
+			 var SPB_TLDlistenerRSSData=[];
 			 var times=[];
 			 $.ajax({  
 			        url:dataUrl,  
@@ -163,20 +176,36 @@ function viewMemory(){
 					 		Chart.hideLoading();
 					 	}else{
 					 		for(var i=0;i<result.length;i++){
-					 			times.push(formatDateTime(result[i]['poll_datetime']));
-					 			memoryUsedData.push(result[i]['MEM_USED']);
-					 			peserviceVSZData.push(result[i]['peservice_exe_vsz']);
-					 			peserviceRSSData.push(result[i]['peservice_exe_rss']);
-					 			csxVSZData.push(result[i]['csx_ic_safe_vsz']);
-					 			csxRSSData.push(result[i]['csx_ic_safe_rss']);
-					 			ecomVSZData.push(result[i]['ECOM_vsz']);
-					 			ecomRSSData.push(result[i]['ECOM_rss']);
-					 			mozzoVSZData.push(result[i]['mozzo_sh_vsz']);
-					 			mozzoRSSData.push(result[i]['mozzo_sh_rss']);
-					 			tomcatVSZData.push(result[i]['tomcat_sh_vsz']);
-					 			memoryUsedData.push(result[i]['tomcat_sh_rss']);
-					 			TLDlistenerVSZData.push(result[i]['TLDlistener_exe_vsz']);
-					 			TLDlistenerRSSData.push(result[i]['TLDlistener_exe_rss']);
+					 			if(result[i]['sp']=='SPA'){
+						 			times.push(formatDateTime(result[i]['poll_datetime']));
+						 			SPA_memoryUsedData.push(result[i]['MEM_USED']);
+						 			SPA_peserviceVSZData.push(result[i]['peservice_exe_vsz']);
+						 			SPA_peserviceRSSData.push(result[i]['peservice_exe_rss']);
+						 			SPA_csxVSZData.push(result[i]['csx_ic_safe_vsz']);
+						 			SPA_csxRSSData.push(result[i]['csx_ic_safe_rss']);
+						 			SPA_ecomVSZData.push(result[i]['ECOM_vsz']);
+						 			SPA_ecomRSSData.push(result[i]['ECOM_rss']);
+						 			SPA_mozzoVSZData.push(result[i]['mozzo_sh_vsz']);
+						 			SPA_mozzoRSSData.push(result[i]['mozzo_sh_rss']);
+						 			SPA_tomcatVSZData.push(result[i]['tomcat_sh_vsz']);
+						 			SPA_tomcatRSSData.push(result[i]['tomcat_sh_rss']);
+						 			SPA_TLDlistenerVSZData.push(result[i]['TLDlistener_exe_vsz']);
+						 			SPA_TLDlistenerRSSData.push(result[i]['TLDlistener_exe_rss']);
+					 			}else if(result[i]['sp']=='SPB'){
+						 			SPB_memoryUsedData.push(result[i]['MEM_USED']);
+						 			SPB_peserviceVSZData.push(result[i]['peservice_exe_vsz']);
+						 			SPB_peserviceRSSData.push(result[i]['peservice_exe_rss']);
+						 			SPB_csxVSZData.push(result[i]['csx_ic_safe_vsz']);
+						 			SPB_csxRSSData.push(result[i]['csx_ic_safe_rss']);
+						 			SPB_ecomVSZData.push(result[i]['ECOM_vsz']);
+						 			SPB_ecomRSSData.push(result[i]['ECOM_rss']);
+						 			SPB_mozzoVSZData.push(result[i]['mozzo_sh_vsz']);
+						 			SPB_mozzoRSSData.push(result[i]['mozzo_sh_rss']);
+						 			SPB_tomcatVSZData.push(result[i]['tomcat_sh_vsz']);
+						 			SPB_tomcatRSSData.push(result[i]['tomcat_sh_rss']);
+						 			SPB_TLDlistenerVSZData.push(result[i]['TLDlistener_exe_vsz']);
+						 			SPB_TLDlistenerRSSData.push(result[i]['TLDlistener_exe_rss']);
+					 			}
 					 		 }
 					 	}
 			        	
@@ -187,20 +216,32 @@ function viewMemory(){
 					                },    
 					                legend: {
 					                	selected: {
-					                        'peservice.exe_vsz' : false,
-					                        'csx_ic_safe_vsz' : false,
-					                        'ECOM_vsz' : false,
-					                        'mozzo_sh_vsz' : false,
-					                        'tomcat.sh_vsz' : false,
-					                        'TLDlistener.exe_vsz' : false,
-					                        'peservice.exe_rss' : false,
-					                        'csx_ic_safe_rss' : false,
-					                        'ECOM_rss' : false,
-					                        'mozzo_sh_rss' : false,
-					                        'tomcat.sh_rss' : false,
-					                        'TLDlistener.exe_rss' : false
+					                		'SPA_peservice.exe_vsz' : false,
+					                		'SPA_csx_ic_safe_vsz' : false,
+					                		'SPA_ECOM_vsz' : false,
+					                		'SPA_mozzo_sh_vsz' : false,
+					                		'SPA_tomcat.sh_vsz' : false,
+					                		'SPA_TLDlistener.exe_vsz' : false,
+					                		'SPA_peservice.exe_rss' : false,
+					                		'SPA_csx_ic_safe_rss' : false,
+					                		'SPA_ECOM_rss' : false,
+					                		'SPA_mozzo_sh_rss' : false,
+					                		'SPA_tomcat.sh_rss' : false,
+					                		'SPA_TLDlistener.exe_rss' : false,
+					                		'SPB_peservice.exe_vsz' : false,
+					                		'SPB_csx_ic_safe_vsz' : false,
+					                		'SPB_ECOM_vsz' : false,
+					                		'SPB_mozzo_sh_vsz' : false,
+					                		'SPB_tomcat.sh_vsz' : false,
+					                		'SPB_TLDlistener.exe_vsz' : false,
+					                		'SPB_peservice.exe_rss' : false,
+					                		'SPB_csx_ic_safe_rss' : false,
+					                		'SPB_ECOM_rss' : false,
+					                		'SPB_mozzo_sh_rss' : false,
+					                		'SPB_tomcat.sh_rss' : false,
+					                		'SPB_TLDlistener.exe_rss' : false
 					                    },
-					                    data: ['MemoryUsed','peservice.exe_vsz','peservice.exe_rss','csx_ic_safe_vsz','csx_ic_safe_rss','ECOM_vsz','ECOM_rss','mozzo_sh_vsz','mozzo_sh_rss','tomcat.sh_vsz','tomcat.sh_rss','TLDlistener.exe_vsz','TLDlistener.exe_rss']    
+					                    data: ['SPA_MemoryUsed','SPA_peservice.exe_vsz','SPA_peservice.exe_rss','SPA_csx_ic_safe_vsz','SPA_csx_ic_safe_rss','SPA_ECOM_vsz','SPA_ECOM_rss','SPA_mozzo_sh_vsz','SPA_mozzo_sh_rss','SPA_tomcat.sh_vsz','SPA_tomcat.sh_rss','SPA_TLDlistener.exe_vsz','SPA_TLDlistener.exe_rss','SPB_MemoryUsed','SPB_peservice.exe_vsz','SPB_peservice.exe_rss','SPB_csx_ic_safe_vsz','SPB_csx_ic_safe_rss','SPB_ECOM_vsz','SPB_ECOM_rss','SPB_mozzo_sh_vsz','SPB_mozzo_sh_rss','SPB_tomcat.sh_vsz','SPB_tomcat.sh_rss','SPB_TLDlistener.exe_vsz','SPB_TLDlistener.exe_rss']     
 					                },
 					                toolbox: {
 					    				show : false,
@@ -223,7 +264,7 @@ function viewMemory(){
 					                xAxis: [    
 					                    {    
 					                        type: 'category',    
-					                        data: times    
+					                        data: times
 					                    }    
 					                ],    
 					                yAxis: [    
@@ -233,96 +274,187 @@ function viewMemory(){
 					                ],    
 					                series: [
 					                		{
-					                        'name': 'MemoryUsed',    
-					                        'type': 'line',
-					                        'smooth':true,
-					                        'symbol':'none',
-					                        'data': memoryUsedData    
-					                    	},
-					                    	{
-						                    'name': 'peservice.exe_vsz',    
-					                        'type': 'line',
-					                        'smooth':true,
-					                        'symbol':'none',
-					                        'data': peserviceVSZData    
-					                    	},
-					                    	{
-					                        'name': 'peservice.exe_rss',    
-					                        'type': 'line',
-					                        'smooth':true,
-					                        'symbol':'none',
-					                        'data': peserviceRSSData    
-					                    	},
-					                    	{
-					                        'name': 'csx_ic_safe_vsz',
-					                        'type': 'line',
-					                        'smooth':true,
-					                        'symbol':'emptyCircle',
-					                        'data': csxVSZData    
-					                    	},
-					                    	{
-					                        'name': 'csx_ic_safe_rss',    
-					                        'type': 'line',
-					                        'smooth':true,
-					                        'symbol':'none',
-					                        'data': csxRSSData    
-					                    	},
-					                    	{
-						                    'name': 'ECOM_vsz',    
-					                        'type': 'line',
-					                        'smooth':true,
-					                        'symbol':'none',
-					                        'data': ecomVSZData    
-					                    	},
-					                    	{
-					                        'name': 'ECOM_rss',    
-					                        'type': 'line',
-					                        'smooth':true,
-					                        'symbol':'none',
-					                        'data': ecomRSSData    
-					                    	},
-					                    	{
-					                        'name': 'mozzo_sh_vsz',
-					                        'type': 'line',
-					                        'smooth':true,
-					                        'symbol':'none',
-					                        'data': mozzoVSZData    
-					                    	},
-					                    	{
-					                        'name': 'mozzo_sh_rss',    
-					                        'type': 'line',
-					                        'smooth':true,
-					                        'symbol':'none',
-					                        'data': mozzoRSSData    
-					                    	},
-					                    	{
-						                    'name': 'tomcat.sh_vsz',    
-					                        'type': 'line',
-					                        'smooth':true,
-					                        'symbol':'none',
-					                        'data': tomcatVSZData    
-					                    	},
-					                    	{
-					                        'name': 'tomcat.sh_rss',    
-					                        'type': 'line',
-					                        'smooth':true,
-					                        'symbol':'none',
-					                        'data': tomcatRSSData    
-					                    	},
-					                    	{
-					                        'name': 'TLDlistener.exe_vsz',
-					                        'type': 'line',
-					                        'smooth':true,
-					                        'symbol':'none',
-					                        'data': TLDlistenerVSZData    
-					                    	},
-					                    	{
-					                        'name': 'TLDlistener.exe_rss',
-					                        'type': 'line',
-					                        'smooth':true,
-					                        'symbol':'emptyCircle',
-					                        'data': TLDlistenerRSSData    
-					                    	}
+					                		'name': 'SPA_MemoryUsed',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_memoryUsedData    
+					                		},
+					                		{
+					                		'name': 'SPA_peservice.exe_vsz',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_peserviceVSZData    
+					                		},
+					                		{
+					                		'name': 'SPA_peservice.exe_rss',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_peserviceRSSData    
+					                		},
+					                		{
+					                		'name': 'SPA_csx_ic_safe_vsz',
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'emptyCircle',
+					                		'data': SPA_csxVSZData    
+					                		},
+					                		{
+					                		'name': 'SPA_csx_ic_safe_rss',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_csxRSSData    
+					                		},
+					                		{
+					                		'name': 'SPA_ECOM_vsz',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_ecomVSZData    
+					                		},
+					                		{
+					                		'name': 'SPA_ECOM_rss',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_ecomRSSData    
+					                		},
+					                		{
+					                		'name': 'SPA_mozzo_sh_vsz',
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_mozzoVSZData    
+					                		},
+					                		{
+					                		'name': 'SPA_mozzo_sh_rss',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_mozzoRSSData    
+					                		},
+					                		{
+					                		'name': 'SPA_tomcat.sh_vsz',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_tomcatVSZData    
+					                		},
+					                		{
+					                		'name': 'SPA_tomcat.sh_rss',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_tomcatRSSData    
+					                		},
+					                		{
+					                		'name': 'SPA_TLDlistener.exe_vsz',
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_TLDlistenerVSZData    
+					                		},
+					                		{
+					                		'name': 'SPA_TLDlistener.exe_rss',
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'emptyCircle',
+					                		'data': SPA_TLDlistenerRSSData    
+					                		},
+					                		{
+					                		'name': 'SPB_MemoryUsed',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPB_memoryUsedData    
+					                		},
+					                		{
+					                		'name': 'SPB_peservice.exe_vsz',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPB_peserviceVSZData    
+					                		},
+					                		{
+					                		'name': 'SPB_peservice.exe_rss',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPB_peserviceRSSData    
+					                		},
+					                		{
+					                		'name': 'SPB_csx_ic_safe_vsz',
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'emptyCircle',
+					                		'data': SPB_csxVSZData    
+					                		},
+					                		{
+					                		'name': 'SPB_csx_ic_safe_rss',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPB_csxRSSData    
+					                		},
+					                		{
+					                		'name': 'SPB_ECOM_vsz',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPB_ecomVSZData    
+					                		},
+					                		{
+					                		'name': 'SPB_ECOM_rss',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPB_ecomRSSData    
+					                		},
+					                		{
+					                		'name': 'SPB_mozzo_sh_vsz',
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPB_mozzoVSZData    
+					                		},
+					                		{
+					                		'name': 'SPB_mozzo_sh_rss',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPB_mozzoRSSData    
+					                		},
+					                		{
+					                		'name': 'SPB_tomcat.sh_vsz',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPB_tomcatVSZData    
+					                		},
+					                		{
+					                		'name': 'SPB_tomcat.sh_rss',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPB_tomcatRSSData    
+					                		},
+					                		{
+					                		'name': 'SPB_TLDlistener.exe_vsz',
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPB_TLDlistenerVSZData    
+					                		},
+					                		{
+					                		'name': 'SPB_TLDlistener.exe_rss',
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'emptyCircle',
+					                		'data': SPB_TLDlistenerRSSData    
+					                		}
 					                ]
 					            };
 						
