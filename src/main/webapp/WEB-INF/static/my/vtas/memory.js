@@ -29,6 +29,7 @@ $(function(){
 	
 })
 
+//this function is not used
 function formatDateTime(inputTime) {    
     var date = new Date(inputTime);  
     var y = date.getFullYear();    
@@ -165,7 +166,7 @@ function viewMemory(){
 					 	}else{
 					 		for(var i=0;i<result.length;i++){
 					 			if(result[i]['sp']=='SPA'){
-						 			times.push(formatDateTime(result[i]['poll_datetime']));
+						 			times.push(result[i]['poll_datetime']);
 						 			SPA_memoryUsedData.push(result[i]['MEM_USED']);
 						 			SPA_peserviceRSSData.push(result[i]['peservice_exe_rss']);
 						 			SPA_csxRSSData.push(result[i]['csx_ic_safe_rss']);

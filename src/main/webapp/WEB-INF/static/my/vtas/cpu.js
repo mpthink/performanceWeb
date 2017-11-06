@@ -29,6 +29,7 @@ $(function(){
 	
 })
 
+//this function is not used
 function formatDateTime(inputTime) {    
     var date = new Date(inputTime);  
     var y = date.getFullYear();    
@@ -158,7 +159,7 @@ function viewCPU(){
 					 		Chart.hideLoading();
 					 	}else{
 					 		for(var i=0;i<result.length;i++){
-					 			times.push(formatDateTime(result[i]['poll_datetime']));
+					 			times.push(result[i]['poll_datetime']);
 					 			sumData.push(result[i]['CPU_FILT']);
 					 			peserviceData.push(result[i]['cpu_peservice_exe']);
 					 			csxData.push(result[i]['cpu_csx_ic_safe']);

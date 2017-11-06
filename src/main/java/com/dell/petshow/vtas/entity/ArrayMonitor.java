@@ -1,15 +1,15 @@
 package com.dell.petshow.vtas.entity;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import java.io.Serializable;
+
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author mpthink
@@ -17,7 +17,7 @@ import java.io.Serializable;
  */
 public class ArrayMonitor extends Model<ArrayMonitor> {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	@TableId("ID")
 	private Integer id;
@@ -48,7 +48,7 @@ public class ArrayMonitor extends Model<ArrayMonitor> {
 	private Integer ecom;
 	private Integer csxIcSafe;
 	@TableField("POLL_DATETIME")
-	private Date pollDatetime;
+	private String pollDatetime;
 	@TableField("VERSION")
 	private String version;
 
@@ -173,11 +173,11 @@ public class ArrayMonitor extends Model<ArrayMonitor> {
 		this.csxIcSafe = csxIcSafe;
 	}
 
-	public Date getPollDatetime() {
+	public String getPollDatetime() {
 		return pollDatetime;
 	}
 
-	public void setPollDatetime(Date pollDatetime) {
+	public void setPollDatetime(String pollDatetime) {
 		this.pollDatetime = pollDatetime;
 	}
 
@@ -196,7 +196,10 @@ public class ArrayMonitor extends Model<ArrayMonitor> {
 
 
 	@Override
-	public String toString(){
-		return "Harrier [id=" + id + ", arrayName=" + arrayName + ", sp=" + sp + ", cpuBusy=" + cpuBusy + ", cpuFilt=" + cpuFilt + ", memUsed=" + memUsed + ", memFree=" + memFree + ", memSwpd=" + memSwpd + ", ioRead=" + ioRead + ", ioWrite=" + ioWrite + ", iopsWrite=" + iopsWrite + ", iopsRead=" + iopsRead + ", ktraceUtil=" + ktraceUtil + ", ecom=" + ecom + ", csxIcSafe=" + csxIcSafe + ", pollDatetime=" + pollDatetime + ", version=" + version + "]";
+	public String toString() {
+		return "Harrier [id=" + id + ", arrayName=" + arrayName + ", sp=" + sp + ", cpuBusy=" + cpuBusy + ", cpuFilt=" + cpuFilt + ", memUsed="
+			+ memUsed + ", memFree=" + memFree + ", memSwpd=" + memSwpd + ", ioRead=" + ioRead + ", ioWrite=" + ioWrite + ", iopsWrite=" + iopsWrite
+			+ ", iopsRead=" + iopsRead + ", ktraceUtil=" + ktraceUtil + ", ecom=" + ecom + ", csxIcSafe=" + csxIcSafe + ", pollDatetime="
+			+ pollDatetime + ", version=" + version + "]";
 	}
 }
