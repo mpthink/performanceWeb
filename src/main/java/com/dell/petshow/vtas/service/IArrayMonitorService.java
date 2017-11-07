@@ -20,8 +20,8 @@ public interface IArrayMonitorService extends IService<ArrayMonitor> {
 
 	List<Map<String, String>> selectDistinctVersionByArray(String tableName, String arrayName);
 
-	List<Map<String, Object>> selectMemoryListBasedOnTableNameWithArrayAndVersionAndTimeslot(String tableName, String arrayName, String smallVersion,
-		String beginTime, String endTime);
+	List<Map<String, Object>> selectMemoryListBasedOnTableNameWithArrayAndVersionAndTimeslot(String tableName, String arrayName, String beginTime,
+		String endTime);
 
 	List<Map<String, Object>> selectCPUListBasedOnTableNameWithArrayAndVersionAndTimeslot(String tableName, String arrayName, String smallVersion,
 		String beginTime, String endTime);

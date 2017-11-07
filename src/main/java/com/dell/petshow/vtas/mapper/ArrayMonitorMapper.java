@@ -23,8 +23,7 @@ public interface ArrayMonitorMapper extends BaseMapper<ArrayMonitor> {
 	List<String> selectDistinctVersionByArray(@Param("tableName") String tableName, @Param("arrayName") String arrayName);
 
 	List<Map<String, Object>> selectMemoryListBasedOnTableNameWithArrayAndVersionAndTimeslot(@Param("tableName") String tableName,
-		@Param("arrayName") String arrayName, @Param("smallVersion") String smallVersion,
-		@Param("beginTime") String beginTime, @Param("endTime") String endTime);
+		@Param("arrayName") String arrayName, @Param("beginTime") String beginTime, @Param("endTime") String endTime);
 
 	List<Map<String, Object>> selectCPUListBasedOnTableNameWithArrayAndVersionAndTimeslot(@Param("tableName") String tableName,
 		@Param("arrayName") String arrayName, @Param("smallVersion") String smallVersion,

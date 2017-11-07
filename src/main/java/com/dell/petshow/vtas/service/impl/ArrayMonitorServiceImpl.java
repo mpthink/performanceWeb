@@ -65,9 +65,8 @@ public class ArrayMonitorServiceImpl extends ServiceImpl<ArrayMonitorMapper, Arr
 	@Override
 	@Cacheable(value = "arrayMonitorMemoryCache")
 	public List<Map<String, Object>> selectMemoryListBasedOnTableNameWithArrayAndVersionAndTimeslot(String tableName, String arrayName,
-		String smallVersion, String beginTime, String endTime) {
-		return arrayMonitorMapper.selectMemoryListBasedOnTableNameWithArrayAndVersionAndTimeslot(tableName, arrayName, smallVersion, beginTime,
-			endTime);
+		String beginTime, String endTime) {
+		return arrayMonitorMapper.selectMemoryListBasedOnTableNameWithArrayAndVersionAndTimeslot(tableName, arrayName, beginTime, endTime);
 	}
 
 	@Override

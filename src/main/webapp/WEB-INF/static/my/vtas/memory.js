@@ -6,16 +6,7 @@ $(function(){
 		var program = $('#programSelect').val();
 		var arrayName = $('#arrayName').val();
 		$('#arrayName').empty();
-		$("#buildVersion").select2({data:""});
-		$('#buildVersion').empty();
 		arraySelect(program);
-	});
-	
-	$('#arrayName').change(function(){
-		var program = $('#programSelect').val();
-		var arrayName = $('#arrayName').val();
-		$('#buildVersion').empty();
-		buildSelect(program,arrayName);
 	});
 	
 	$('input[name="reservationtime"]').daterangepicker({
@@ -50,22 +41,21 @@ function generateUrl(){
 	var timerange = $("#reservationtime").val();
 	var tableName = $('#programSelect').val() || '';
 	var arrayName = $('#arrayName').val() || '';
-	var smallVersion = $('#buildVersion').val() || '';
 	var timeArr;
 	var beginTime;
 	var endTime;
 	var dataUrl;
-	if(tableName==''||arrayName==''||smallVersion==''){
+	if(tableName==''||arrayName==''){
 		layer.alert('Please select program,array,build', {icon: 0,title:'Major',closeBtn: 0,skin: 'layui-layer-molv'});
 		return;
 	}
 	if(timerange==null||timerange==''){
-		dataUrl = "/vtas/arraymonitor/getMemoryList/"+tableName+"/"+arrayName+"/"+smallVersion;
+		dataUrl = "/vtas/arraymonitor/getMemoryList/"+tableName+"/"+arrayName;
 	}else{
 		timeArr = timerange.split(" - ");	
 		beginTime = timeArr[0];
 		endTime = timeArr[1];
-		dataUrl = "/vtas/arraymonitor/getMemoryList/"+tableName+"/"+arrayName+"/"+smallVersion+"?beginTime="+beginTime+"&endTime="+endTime;
+		dataUrl = "/vtas/arraymonitor/getMemoryList/"+tableName+"/"+arrayName+"?beginTime="+beginTime+"&endTime="+endTime;
 	}
 	return dataUrl;
 }
@@ -104,6 +94,7 @@ function arraySelect(tableName){
     });	
 }
 
+//commented...
 function buildSelect(tableName,arrayName){
 	
 	$('#buildVersion').select2({

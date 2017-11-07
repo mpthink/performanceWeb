@@ -67,13 +67,12 @@ public class ArrayMonitorController extends SuperController {
 		return arrayMonitorService.selectDistinctVersionByArray(tableName, arrayName);
 	}
 
-	@RequestMapping(value = {"/getMemoryList/{tableName}/{arrayName}/{smallVersion:.*}"})
+	@RequestMapping(value = {"/getMemoryList/{tableName}/{arrayName}"})
 	@ResponseBody
 	public String getMemoryList(@PathVariable("tableName") String tableName, @PathVariable("arrayName") String arrayName,
-		@PathVariable("smallVersion") String smallVersion, @RequestParam(value = "beginTime", required = false) String beginTime,
+		@RequestParam(value = "beginTime", required = false) String beginTime,
 		@RequestParam(value = "endTime", required = false) String endTime) {
-		return toJson(arrayMonitorService.selectMemoryListBasedOnTableNameWithArrayAndVersionAndTimeslot(tableName, arrayName, smallVersion,
-			beginTime, endTime));
+		return toJson(arrayMonitorService.selectMemoryListBasedOnTableNameWithArrayAndVersionAndTimeslot(tableName, arrayName, beginTime, endTime));
 	}
 
 	@RequestMapping(value = {"/getCPUList/{tableName}/{arrayName}/{smallVersion:.*}"})

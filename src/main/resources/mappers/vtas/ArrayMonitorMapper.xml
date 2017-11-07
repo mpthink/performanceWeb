@@ -33,7 +33,6 @@
 		       mozzo_sh_vsz,mozzo_sh_rss,tomcat_sh_vsz,tomcat_sh_rss,TLDlistener_exe_vsz,TLDlistener_exe_rss,DATE_FORMAT(poll_datetime,'%Y-%m-%d %H:%i:%s') poll_datetime
 		from ${tableName}
 		where array_name = #{arrayName}
-		and version = #{smallVersion}
 		<if test="beginTime != null">
     	and poll_datetime &gt;= #{beginTime}
     	</if>
