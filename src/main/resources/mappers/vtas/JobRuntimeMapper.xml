@@ -39,8 +39,8 @@
     
     <select id="selectLatestVersionByArray" resultType="java.lang.String">
 		select version from(
-		SELECT version,START_TIME FROM job_runtime where ARRAY_NAME = #{arrayName} order by START_TIME desc
-		) as b limit 0,1
+		SELECT version,START_TIME FROM job_runtime where ARRAY_NAME = #{arrayName} order by START_TIME desc limit 0,1
+		) as b 
     </select>
     
     <select id="selectRunHourBySmallVersionAndArray" resultType="java.lang.String">
