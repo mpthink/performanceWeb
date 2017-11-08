@@ -8,14 +8,32 @@ $(function(){
 		$('#arrayName').empty();
 		arraySelect(program);
 	});
+
+	$('#arrayName').change(function(){
+		viewMemory();
+	});
 	
-	$('input[name="reservationtime"]').daterangepicker({
-		timePicker: true,
-		timePickerIncrement: 30,
-		timePicker24Hour:true,
-		locale: {
-			format: 'YYYY-MM-DD HH:mm:ss'
-		}
+	$('#reservationtime').daterangepicker(		
+      {
+		 locale: {format: 'YYYY-MM-DD HH:mm:ss' },
+        ranges   : {
+          'Today'       : [moment(), moment()],
+          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(3, 'days'),
+        endDate  : moment()
+      },
+      function (start, end) {
+        $('#reservationtime span').html(start.format('YYYY-MM-DD HH:mm:ss') + ' - ' + end.format('YYYY-MM-DD HH:mm:ss'));
+      }
+    );
+	
+	$('#reservationtime').change(function(){
+		viewMemory();
 	});
 	
 })
@@ -123,7 +141,8 @@ function viewMemory(){
 	require(
 		    [
 		        'echarts',
-		        'echarts/chart/line' // 使用柱状图就加载bar模块，按需加载
+		        'echarts/chart/line', // 使用柱状图就加载bar模块，按需加载
+		        'echarts/chart/bar'
 		        ],
 			function (ec) {
 			 var dataUrl = generateUrl();
@@ -177,27 +196,36 @@ function viewMemory(){
 					 		 }
 					 	}
 			        	
-			        	 var option = {    
+			        	 var option = {
+			        			 noDataLoadingOption: {
+			                         	text: 'No data in this timeslot',
+			 							textStyle: {fontSize:16,fontWeight:'bold'},
+			 							effect:'bubble'
+			 					 	},
 					                tooltip: {
 					                	trigger: 'axis',
 					                    show: true    
 					                },    
 					                legend: {
+					                	x:"center",
+					                	textStyle:{color:'auto'},
+					                	borderColor:'#333',
+					                	borderWidth:1,
 					                	selected: {
-					                		'SPA_peservice_R' : false,
-					                		'SPA_csx_ic_safe_R' : false,
-					                		'SPA_ECOM_R' : false,
-					                		'SPA_mozzo_sh_R' : false,
-					                		'SPA_tomcat_R' : false,
-					                		'SPA_TLDlistener_R' : false,
-					                		'SPB_peservice_R' : false,
-					                		'SPB_csx_ic_safe_R' : false,
-					                		'SPB_ECOM_R' : false,
-					                		'SPB_mozzo_sh_R' : false,
-					                		'SPB_tomcat_R' : false,
-					                		'SPB_TLDlistener_R' : false
-					                    },
-					                    data: ['SPA_MemoryUsed','SPA_peservice_R','SPA_csx_ic_safe_R','SPA_ECOM_R','SPA_mozzo_sh_R','SPA_tomcat_R','SPA_TLDlistener_R','SPB_MemoryUsed','SPB_peservice_R','SPB_csx_ic_safe_R','SPB_ECOM_R','SPB_mozzo_sh_R','SPB_tomcat_R','SPB_TLDlistener_R']     
+					                		'SPA_peservice_RSS' : false,
+					                		'SPA_csx_ic_safe_RSS' : false,
+					                		'SPA_ECOM_RSS' : false,
+					                		'SPA_mozzo_sh_RSS' : false,
+					                		'SPA_tomcat_RSS' : false,
+					                		'SPA_TLDlistener_RSS' : false,
+					                		'SPB_peservice_RSS' : false,
+					                		'SPB_csx_ic_safe_RSS' : false,
+					                		'SPB_ECOM_RSS' : false,
+					                		'SPB_mozzo_sh_RSS' : false,
+					                		'SPB_tomcat_RSS' : false,
+					                		'SPB_TLDlistener_RSS' : false
+					                	},
+					                	data: ['SPA_MemoryUsed','SPA_peservice_RSS','SPA_csx_ic_safe_RSS','SPA_ECOM_RSS','SPA_mozzo_sh_RSS','SPA_tomcat_RSS','SPA_TLDlistener_RSS','','SPB_MemoryUsed','SPB_peservice_RSS','SPB_csx_ic_safe_RSS','SPB_ECOM_RSS','SPB_mozzo_sh_RSS','SPB_tomcat_RSS','SPB_TLDlistener_RSS']
 					                },
 					                toolbox: {
 					    				show : false,
@@ -213,9 +241,7 @@ function viewMemory(){
 				    				calculable : true,
 				    				dataZoom : {
 				    					show : true,
-				    					realtime : true,
-				    					start : 20,
-				    					end : 80
+				    					realtime : true
 				    				},
 					                xAxis: [    
 					                    {    
@@ -225,11 +251,14 @@ function viewMemory(){
 					                ],    
 					                yAxis: [    
 					                    {    
-					                        type: 'value'    
+					                        type: 'value',
+					                        axisLabel : {
+					                            formatter: '{value} MB'
+					                        }
 					                    }    
 					                ],    
 					                series: [
-					                		{
+					                	{
 					                		'name': 'SPA_MemoryUsed',    
 					                		'type': 'line',
 					                		'smooth':true,
@@ -237,45 +266,45 @@ function viewMemory(){
 					                		'data': SPA_memoryUsedData    
 					                		},
 					                		{
-					                		'name': 'SPA_peservice_R',    
+					                		'name': 'SPA_peservice_RSS',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
 					                		'data': SPA_peserviceRSSData    
 					                		},
 					                		{
-					                		'name': 'SPA_csx_ic_safe_R',    
+					                		'name': 'SPA_csx_ic_safe_RSS',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
 					                		'data': SPA_csxRSSData    
 					                		},
 					                		{
-					                		'name': 'SPA_ECOM_R',    
+					                		'name': 'SPA_ECOM_RSS',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
 					                		'data': SPA_ecomRSSData    
 					                		},
 					                		{
-					                		'name': 'SPA_mozzo_sh_R',    
+					                		'name': 'SPA_mozzo_sh_RSS',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
 					                		'data': SPA_mozzoRSSData    
 					                		},
 					                		{
-					                		'name': 'SPA_tomcat_R',    
+					                		'name': 'SPA_tomcat_RSS',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
 					                		'data': SPA_tomcatRSSData    
 					                		},
 					                		{
-					                		'name': 'SPA_TLDlistener_R',
+					                		'name': 'SPA_TLDlistener_RSS',
 					                		'type': 'line',
 					                		'smooth':true,
-					                		'symbol':'emptyCircle',
+					                		'symbol':'none',
 					                		'data': SPA_TLDlistenerRSSData    
 					                		},
 					                		{
@@ -286,45 +315,45 @@ function viewMemory(){
 					                		'data': SPB_memoryUsedData    
 					                		},
 					                		{
-					                		'name': 'SPB_peservice_R',    
+					                		'name': 'SPB_peservice_RSS',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
 					                		'data': SPB_peserviceRSSData    
 					                		},
 					                		{
-					                		'name': 'SPB_csx_ic_safe_R',    
+					                		'name': 'SPB_csx_ic_safe_RSS',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
 					                		'data': SPB_csxRSSData    
 					                		},
 					                		{
-					                		'name': 'SPB_ECOM_R',    
+					                		'name': 'SPB_ECOM_RSS',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
 					                		'data': SPB_ecomRSSData    
 					                		},
 					                		{
-					                		'name': 'SPB_mozzo_sh_R',    
+					                		'name': 'SPB_mozzo_sh_RSS',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
 					                		'data': SPB_mozzoRSSData    
 					                		},
 					                		{
-					                		'name': 'SPB_tomcat_R',    
+					                		'name': 'SPB_tomcat_RSS',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
 					                		'data': SPB_tomcatRSSData    
 					                		},
 					                		{
-					                		'name': 'SPB_TLDlistener_R',
+					                		'name': 'SPB_TLDlistener_RSS',
 					                		'type': 'line',
 					                		'smooth':true,
-					                		'symbol':'emptyCircle',
+					                		'symbol':'none',
 					                		'data': SPB_TLDlistenerRSSData    
 					                		}
 					                ]
