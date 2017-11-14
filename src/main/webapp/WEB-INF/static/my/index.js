@@ -3,7 +3,8 @@ var dataUrl = '/vtas/arrayInfo/getArrayInfoWithUptime';
 var dataColumns = [
 	{
 	    field: 'programName',
-	    title: 'Program Name'
+	    title: 'ProgramName',
+	    sortable: true
 	},{
 	    field: 'arrayName',
 	    title: 'Array Name'
@@ -11,8 +12,14 @@ var dataColumns = [
 	    field: 'model',
 	    title: 'Model'
 	},{
+	    field: 'tfa',
+	    title: 'TFA'
+	},{
 	    field: 'smallVersion',
-	    title: 'Version'
+	    title: 'Current Bundle',
+	    formatter: function (value, row, index) {
+            return row.smallVersion+' | '+row.versionTime;
+        }
 	},{
 	    field: 'upTime',
 	    title: 'Up time(h)'
@@ -50,6 +57,8 @@ function upTimeClientPagination() {
         striped: true,
         cache: true,
         pagination: true,
+        sortName:"programName",
+        sortable: true, 
         sortOrder: "asc",
         sidePagination: "client",
         pageNumber:1,

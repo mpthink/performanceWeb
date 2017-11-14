@@ -18,6 +18,7 @@ import com.dell.petshow.vtas.entity.SpUptime;
 import com.dell.petshow.vtas.mapper.ArrayInfoMapper;
 import com.dell.petshow.vtas.mapper.ProgramMapMapper;
 import com.dell.petshow.vtas.mapper.SpUptimeMapper;
+import com.dell.petshow.vtas.mapper.VersionDateMapMapper;
 import com.dell.petshow.vtas.service.IArrayInfoService;
 
 /**
@@ -37,6 +38,8 @@ public class ArrayInfoServiceImpl extends ServiceImpl<ArrayInfoMapper, ArrayInfo
 	private SpUptimeMapper spUptimeMapper;
 	@Autowired
 	private ProgramMapMapper programMapMapper;
+	@Autowired
+	private VersionDateMapMapper versionDateMapMapper;
 
 	@Cacheable(value = "commonCache", key = "methodName")
 	@Override
@@ -50,15 +53,19 @@ public class ArrayInfoServiceImpl extends ServiceImpl<ArrayInfoMapper, ArrayInfo
 			String model = arrayInfo.getModel();
 			String status = arrayInfo.getArrayStatus();
 			String comments = arrayInfo.getComment();
+			String tfa = arrayInfo.getTfa();
 			SpUptime spUptime = spUptimeMapper.selectLatestOneByArray(arrayName);
 			if (spUptime != null) {
 				String smallVersion = spUptime.getVersion();
 				Integer upTime = spUptime.getUptime();
 				ProgramMap programMap = programMapMapper.selectOneBasedonVersion(smallVersion.substring(0, 5));
 				String programName = programMap.getProgram();
+				String versionTime = versionDateMapMapper.selectByVersion(smallVersion).getDate();
 				Map<String, Object> map = new HashMap<>();
 				map.put("programName", programName);
 				map.put("arrayName", arrayName);
+				map.put("tfa", tfa);
+				map.put("versionTime", versionTime);
 				map.put("model", model);
 				map.put("smallVersion", smallVersion);
 				map.put("upTime", upTime);
