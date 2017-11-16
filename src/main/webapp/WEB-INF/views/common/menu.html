@@ -31,7 +31,12 @@
 		       </a>
 		       <ul class="treeview-menu">
 		         <#list vo.childrenPerm as ch>
-		         	<li><a href="${(ch.perm.url)!}"  style="<i class="fa ${(ch.perm.icon)!}"></i> ${(ch.perm.permName)!}</a></li>
+		         	<#if ch.perm.permCode == "9999" >
+					  <li><a href="${(ch.perm.url)!}" target="_blank"  style="<i class="fa ${(ch.perm.icon)!}"></i> ${(ch.perm.permName)!}</a></li>
+					<#else>
+					  <li><a href="${(ch.perm.url)!}"  style="<i class="fa ${(ch.perm.icon)!}"></i> ${(ch.perm.permName)!}</a></li>
+					</#if>
+		         	
 		         </#list>
 		       </ul>
 		     </li>
