@@ -2,6 +2,7 @@ package com.dell.petshow.vtas.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -27,6 +28,16 @@ public class ArrayInfoController extends SuperController {
 	@ResponseBody
 	public String getArrayInfoWithUptime() {
 		return toJson(arrayInfoService.getArrayWithUptime());
+	}
+
+	@RequestMapping("/configTest")
+	public String viewConfigTest(Model model) {
+		return "vtas/arrayinfo/configTest";
+	}
+
+	@RequestMapping("/editConfigTest")
+	public String editConfigTest(Model model) {
+		return "vtas/arrayinfo/editConfigTest";
 	}
 
 }
