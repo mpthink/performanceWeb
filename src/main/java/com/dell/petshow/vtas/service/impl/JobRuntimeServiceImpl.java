@@ -115,4 +115,9 @@ public class JobRuntimeServiceImpl extends ServiceImpl<JobRuntimeMapper, JobRunt
 		return result;
 	}
 
+	@Override
+	public List<Map<String, Object>> selectLatestJobsWithProgramName() {
+		return jobRuntimeMapper.selectLatestJobsWithProgramName();
+	}
+
 }

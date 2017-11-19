@@ -3,7 +3,6 @@ package com.dell.petshow.common.controller;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 
@@ -20,11 +19,9 @@ import com.baomidou.kisso.SSOHelper;
 import com.baomidou.kisso.SSOToken;
 import com.baomidou.kisso.annotation.Action;
 import com.baomidou.kisso.annotation.Login;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.kisso.common.encrypt.MD5;
 import com.dell.petshow.common.dto.NPResult;
-import com.dell.petshow.system.entity.SysRole;
 import com.dell.petshow.system.entity.SysUser;
-import com.dell.petshow.system.entity.SysUserRole;
 import com.dell.petshow.system.service.ISysRoleService;
 import com.dell.petshow.system.service.ISysUserService;
 import com.google.code.kaptcha.servlet.KaptchaExtend;
@@ -57,30 +54,22 @@ public class LoginController extends SuperController {
 	@Login(action = Action.Skip)
 	@RequestMapping(value = "/doLogin", method = RequestMethod.POST)
 	public String doLogin(String userName, String password, String captcha, String returnURL, Model model) {
-
-		SysUser sysUser = sysUserService.login(userName);
-		//当用户不存在，创建用户，用户名为邮件, 用户role为普通会员
-		if (sysUser == null) {
-			sysUser = new SysUser();
-			sysUser.setUserName(userName);
-			sysUser.setGmtCreate(new Date());
-			sysUser.setEmail(userName);
-			sysUser.setPassword("123456");
-			sysUser.setAvatar("/AdminLTE/img/user2-160x160.jpg");
-			sysUser.insert();
-
-			sysUser = sysUserService.selectOne(new EntityWrapper<SysUser>().eq("user_name", userName));
-			SysRole generalRole = sysRoleService.selectOne(new EntityWrapper<SysRole>().eq("role_name", "Member"));
-			if (generalRole != null) {
-				SysUserRole ur = new SysUserRole();
-				ur.setRoleId(generalRole.getId());
-				ur.setUserId(sysUser.getId());
-				ur.insert();
-			}
+		System.err.println(MD5.toMD5(password));
+		if (StringUtils.isBlank(userName) || StringUtils.isBlank(password)) {
+			model.addAttribute("error", "username/password must not be empty");
+			return "login";
 		}
+
+		SysUser sysUser = sysUserService.login(userName, password);
+		if (sysUser == null) {
+			model.addAttribute("error", "username/password is wrong");
+			return "login";
+		}
+
 		/**
 		 * 登录成功
 		 */
+
 		SSOToken st = new SSOToken();
 		st.setId(sysUser.getId());
 		st.setData(sysUser.getUserName());

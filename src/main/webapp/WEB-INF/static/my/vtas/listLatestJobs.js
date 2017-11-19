@@ -1,5 +1,5 @@
 //alarm table JS
-var dataUrl = '/vtas/jobRuntime/getall';
+var dataUrl = '/vtas/jobRuntime/getLatestJobs';
 var dataColumns = [{  
 	    field: 'Number',
 	    title: 'No',  

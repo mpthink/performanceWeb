@@ -20,6 +20,8 @@ public interface IJobRuntimeService extends IService<JobRuntime> {
 
 	List<Map<String, Object>> selectAllWithProgramName();
 
+	List<Map<String, Object>> selectLatestJobsWithProgramName();
+
 	List<String> selectDistinctArrayListByProgram(String bigVersion);
 
 	List<String> selectVersionByProgramAndArray(String bigVersion, String arrayName);
@@ -29,4 +31,5 @@ public interface IJobRuntimeService extends IService<JobRuntime> {
 	Integer getMaxRowsOfRunHourByProgramAndArray(String bigVersion, String arrayName);
 
 	List<Map<String, Object>> getArrayNumForAllPrograms();
+
 }

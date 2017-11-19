@@ -57,10 +57,20 @@
     </select>
     
     <select id="selectAllWithProgramName" resultType="java.util.Map">
-		SELECT a.*, b.PROGRAM as PROGRAM FROM job_runtime as a
+		SELECT  DATE_FORMAT(a.START_TIME,'%Y-%m-%d %h:%m:%s') AS START_TIME, DATE_FORMAT(a.END_TIME,'%Y-%m-%d %h:%m:%s') AS END_TIME, a.RUN_HOURS, a.VERSION, a.ARRAY_NAME, a.JOB_NAME, a.JOB_URL, a.STATUS, b.PROGRAM as PROGRAM FROM job_runtime as a
 		left join program_map as b
 		on substr(a.version,1,5) = b.major_version
 		order by a.version desc,a.START_TIME desc
+    </select>
+    
+    <select id="selectLatestJobsWithProgramName" resultType="java.util.Map">
+		SELECT DATE_FORMAT(a.START_TIME,'%Y-%m-%d %h:%m:%s') AS START_TIME, DATE_FORMAT(a.END_TIME,'%Y-%m-%d %h:%m:%s') AS END_TIME, a.RUN_HOURS, a.VERSION, a.ARRAY_NAME, a.JOB_NAME, a.JOB_URL, a.STATUS, b.PROGRAM as PROGRAM FROM job_runtime as a
+		left join program_map as b
+		on substr(a.version,1,5) = b.major_version
+		inner join
+        (SELECT max(end_time) latest_time,array_name FROM job_runtime group by ARRAY_NAME) c
+        on a.END_TIME = c.latest_time and a.ARRAY_NAME = c.array_name
+        order by version desc
     </select>
     
 </mapper>

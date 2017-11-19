@@ -6,6 +6,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.kisso.common.encrypt.MD5;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.plugins.Page;
@@ -81,6 +82,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 		Wrapper<SysUser> ew = new EntityWrapper<>();
 		ew.eq("user_name", userName);
 		return this.selectOne(ew);
+	}
+
+	@Override
+	public SysUser login(String userName, String password) {
+		return this.selectOne(new EntityWrapper<SysUser>().eq("user_name", userName).eq("password", MD5.toMD5(password)));
 	}
 
 

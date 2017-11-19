@@ -40,10 +40,21 @@ public class JobRuntimeController extends SuperController {
 		return "vtas/jobruntime/listJobs";
 	}
 
+	@RequestMapping("/listLatestJobs")
+	public String listLatestJobs(Model model) {
+		return "vtas/jobruntime/listLatestJobs";
+	}
+
 	@RequestMapping("/getall")
 	@ResponseBody
 	public String getAll() {
 		return toJson(jobRuntimeService.selectAllWithProgramName());
+	}
+
+	@RequestMapping("/getLatestJobs")
+	@ResponseBody
+	public String getLatestJobs() {
+		return toJson(jobRuntimeService.selectLatestJobsWithProgramName());
 	}
 
 	@RequestMapping("/getArrayByProgram/{bigVersion}/")

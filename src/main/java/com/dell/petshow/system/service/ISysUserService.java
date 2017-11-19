@@ -34,4 +34,6 @@ public interface ISysUserService extends IService<SysUser> {
 	 */
 	SysUser login(String userName);
 
+	SysUser login(String userName, String password);
+
 }
