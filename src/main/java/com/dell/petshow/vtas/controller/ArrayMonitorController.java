@@ -47,6 +47,11 @@ public class ArrayMonitorController extends SuperController {
 		return "vtas/arraymonitor/disk";
 	}
 
+	@RequestMapping("/iops")
+	public String showIOPS(Model model) {
+		return "vtas/arraymonitor/iops";
+	}
+
 	@RequestMapping("/getPrograms")
 	@ResponseBody
 	public List<Map<String, Object>> getPrograms() {
@@ -75,12 +80,27 @@ public class ArrayMonitorController extends SuperController {
 		return toJson(arrayMonitorService.selectMemoryListBasedOnTableNameWithArrayAndVersionAndTimeslot(tableName, arrayName, beginTime, endTime));
 	}
 
-	@RequestMapping(value = {"/getCPUList/{tableName}/{arrayName}/{smallVersion:.*}"})
+	@RequestMapping(value = {"/getCPUList/{tableName}/{arrayName}"})
 	@ResponseBody
 	public String getCPUList(@PathVariable("tableName") String tableName, @PathVariable("arrayName") String arrayName,
-		@PathVariable("smallVersion") String smallVersion, @RequestParam(value = "beginTime", required = false) String beginTime,
+		@RequestParam(value = "beginTime", required = false) String beginTime,
 		@RequestParam(value = "endTime", required = false) String endTime) {
-		return toJson(arrayMonitorService.selectCPUListBasedOnTableNameWithArrayAndVersionAndTimeslot(tableName, arrayName, smallVersion,
-			beginTime, endTime));
+		return toJson(arrayMonitorService.selectCPUListBasedOnTableNameWithArrayAndVersionAndTimeslot(tableName, arrayName, beginTime, endTime));
+	}
+
+	@RequestMapping(value = {"/getDiskList/{tableName}/{arrayName}"})
+	@ResponseBody
+	public String getDiskList(@PathVariable("tableName") String tableName, @PathVariable("arrayName") String arrayName,
+		@RequestParam(value = "beginTime", required = false) String beginTime,
+		@RequestParam(value = "endTime", required = false) String endTime) {
+		return toJson(arrayMonitorService.selectDiskListBasedOnTableNameWithArrayAndVersionAndTimeslot(tableName, arrayName, beginTime, endTime));
+	}
+
+	@RequestMapping(value = {"/getIOPSList/{tableName}/{arrayName}"})
+	@ResponseBody
+	public String getIOPSList(@PathVariable("tableName") String tableName, @PathVariable("arrayName") String arrayName,
+		@RequestParam(value = "beginTime", required = false) String beginTime,
+		@RequestParam(value = "endTime", required = false) String endTime) {
+		return toJson(arrayMonitorService.selectIOPSListBasedOnTableNameWithArrayAndVersionAndTimeslot(tableName, arrayName, beginTime, endTime));
 	}
 }

@@ -23,6 +23,12 @@ public interface IArrayMonitorService extends IService<ArrayMonitor> {
 	List<Map<String, Object>> selectMemoryListBasedOnTableNameWithArrayAndVersionAndTimeslot(String tableName, String arrayName, String beginTime,
 		String endTime);
 
-	List<Map<String, Object>> selectCPUListBasedOnTableNameWithArrayAndVersionAndTimeslot(String tableName, String arrayName, String smallVersion,
-		String beginTime, String endTime);
+	List<Map<String, Object>> selectCPUListBasedOnTableNameWithArrayAndVersionAndTimeslot(String tableName, String arrayName, String beginTime,
+		String endTime);
+
+	List<Map<String, Object>> selectDiskListBasedOnTableNameWithArrayAndVersionAndTimeslot(String tableName, String arrayName, String beginTime,
+		String endTime);
+
+	List<Map<String, Object>> selectIOPSListBasedOnTableNameWithArrayAndVersionAndTimeslot(String tableName, String arrayName, String beginTime,
+		String endTime);
 }

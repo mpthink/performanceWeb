@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.baomidou.kisso.SSOConfig;
 import com.baomidou.kisso.SSOHelper;
 import com.baomidou.kisso.SSOToken;
 import com.baomidou.kisso.annotation.Action;
@@ -87,7 +86,7 @@ public class LoginController extends SuperController {
 	public String logout() throws IOException {
 
 		SSOHelper.clearLogin(request, response);
-		return redirectTo(SSOConfig.getInstance().getLoginUrl());
+		return redirectTo("/index.html");
 	}
 
 	/**

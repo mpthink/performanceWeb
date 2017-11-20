@@ -42,6 +42,48 @@
 		order by poll_datetime
     </select>
     
+    <select id="selectCPUListBasedOnTableNameWithArrayAndVersionAndTimeslot" resultType="java.util.Map">
+		select sp,MEM_USED,peservice_exe_vsz,peservice_exe_rss,csx_ic_safe_vsz,csx_ic_safe_rss,ECOM_vsz,ECOM_rss,
+		       mozzo_sh_vsz,mozzo_sh_rss,tomcat_sh_vsz,tomcat_sh_rss,TLDlistener_exe_vsz,TLDlistener_exe_rss,CPU_FILT,DATE_FORMAT(poll_datetime,'%Y-%m-%d %H:%i:%s') poll_datetime
+		from ${tableName}
+		where array_name = #{arrayName}
+		<if test="beginTime != null">
+    	and poll_datetime &gt;= #{beginTime}
+    	</if>
+    	<if test="endTime != null">
+    	and poll_datetime &lt;= #{endTime}
+    	</if>
+		order by poll_datetime
+    </select>
+    
+    <select id="selectDiskListBasedOnTableNameWithArrayAndVersionAndTimeslot" resultType="java.util.Map">
+		select sp,_s_,_s_tmp,_s_cores,_s_pramfs,_s_EMC_s_backend_s_service,_s_EMC_s_backend_s_CEM,_s_nbsnas,
+		       _s_EMC_s_backend_s_log_shared,_s_EMC_s_backend_s_perf_stats,_s_EMC_s_backend_s_metricsluna1,_s_EMC_s_fastvp,STATUS,DATE_FORMAT(poll_datetime,'%Y-%m-%d %H:%i:%s') poll_datetime
+		from disk_info
+		where array_name=#{arrayName} and PROGRAM=#{tableName}
+		<if test="beginTime != null">
+    	and poll_datetime &gt;= #{beginTime}
+    	</if>
+    	<if test="endTime != null">
+    	and poll_datetime &lt;= #{endTime}
+    	</if>
+		order by poll_datetime
+    </select>
+    
+    <select id="selectIOPSListBasedOnTableNameWithArrayAndVersionAndTimeslot" resultType="java.util.Map">
+		select sp,MEM_USED,peservice_exe_vsz,peservice_exe_rss,csx_ic_safe_vsz,csx_ic_safe_rss,ECOM_vsz,ECOM_rss,
+		       mozzo_sh_vsz,mozzo_sh_rss,tomcat_sh_vsz,tomcat_sh_rss,TLDlistener_exe_vsz,TLDlistener_exe_rss,IOPS_WRITE,IOPS_READ,DATE_FORMAT(poll_datetime,'%Y-%m-%d %H:%i:%s') poll_datetime
+		from ${tableName}
+		where array_name = #{arrayName}
+		<if test="beginTime != null">
+    	and poll_datetime &gt;= #{beginTime}
+    	</if>
+    	<if test="endTime != null">
+    	and poll_datetime &lt;= #{endTime}
+    	</if>
+		order by poll_datetime
+    </select>
+    
     <select id="selectDistinctArrayList" resultType="java.lang.String">
     	SELECT distinct ARRAY_NAME 
     	FROM ${tableName}
@@ -51,20 +93,6 @@
 		select distinct version
 		from ${tableName}
 		where array_name = #{arrayName} order by version
-    </select>
-    
-    <select id="selectCPUListBasedOnTableNameWithArrayAndVersionAndTimeslot" resultType="java.util.Map">
-		select sp,CPU_FILT,cpu_peservice_exe,cpu_csx_ic_safe,cpu_ECOM,cpu_mozzo_sh,cpu_tomcat_sh,cpu_TLDlistener_exe,DATE_FORMAT(poll_datetime,'%Y-%m-%d %H:%i:%s') poll_datetime
-		from ${tableName}
-		where array_name = #{arrayName}
-		and version = #{smallVersion}
-		<if test="beginTime != null">
-    	and poll_datetime &gt;= #{beginTime}
-    	</if>
-    	<if test="endTime != null">
-    	and poll_datetime &lt;= #{endTime}
-    	</if>
-		order by poll_datetime
     </select>
     
 </mapper>

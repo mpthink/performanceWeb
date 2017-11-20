@@ -68,12 +68,12 @@ function generateUrl(){
 		return;
 	}
 	if(timerange==null||timerange==''){
-		dataUrl = "/vtas/arraymonitor/getCPUList/"+tableName+"/"+arrayName;
+		dataUrl = "/vtas/arraymonitor/getIOPSList/"+tableName+"/"+arrayName;
 	}else{
 		timeArr = timerange.split(" - ");	
 		beginTime = timeArr[0];
 		endTime = timeArr[1];
-		dataUrl = "/vtas/arraymonitor/getCPUList/"+tableName+"/"+arrayName+"?beginTime="+beginTime+"&endTime="+endTime;
+		dataUrl = "/vtas/arraymonitor/getIOPSList/"+tableName+"/"+arrayName+"?beginTime="+beginTime+"&endTime="+endTime;
 	}
 	return dataUrl;
 }
@@ -149,9 +149,11 @@ function viewMemory(){
 			 var Chart=ec.init(document.getElementById("main"));  
 			 Chart.showLoading({text: 'Loding...'});  
 			 var xAxisData;
-			 var SPA_CPU_FILT=[];
-			 
-			 var SPB_CPU_FILT=[];
+			 var SPA_IOPS_WRITE=[];
+			 var SPA_IOPS_READ=[];
+
+			 var SPB_IOPS_WRITE=[];
+			 var SPB_IOPS_READ=[];
 
 			 var times=[];
 			 $.ajax({  
@@ -167,10 +169,13 @@ function viewMemory(){
 					 			if(result[i]['sp']=='SPA'){
 					 				
 						 			times.push(result[i]['poll_datetime']);
-						 			SPA_CPU_FILT.push(result[i]['CPU_FILT']);
+						 			SPA_IOPS_WRITE.push(result[i]['IOPS_WRITE']);
+						 			SPA_IOPS_READ.push(result[i]['IOPS_READ']);
 					 			}else if(result[i]['sp']=='SPB'){
 					 				
-					 				SPB_CPU_FILT.push(result[i]['CPU_FILT']);
+					 				SPB_IOPS_WRITE.push(result[i]['IOPS_WRITE']);
+					 				SPB_IOPS_READ.push(result[i]['IOPS_READ']);
+
 					 			}
 					 		 }
 					 	}
@@ -191,11 +196,10 @@ function viewMemory(){
 					                	borderColor:'#333',
 					                	borderWidth:1,
 					                	selected: {
-					                		'SPA_CPU_FILT' : true,
-					                		'SPB_CPU_FILT' : true,
-
+					                		'SPA_IOPS_WRITE' : false,
+					                		'SPB_IOPS_WRITE' : false,
 					                	},
-					                	data: ['SPA_CPU','','SPB_CPU']
+					                	data: ['SPA_IOPS_READ','SPA_IOPS_WRITE','','SPB_IOPS_READ','SPB_IOPS_WRITE']
 					                },
 					                toolbox: {
 					    				show : false,
@@ -223,24 +227,38 @@ function viewMemory(){
 					                    {    
 					                        type: 'value',
 					                        axisLabel : {
-					                            formatter: '{value} %'
+					                            formatter: '{value}'
 					                        }
 					                    }    
 					                ],    
 					                series: [
 					                	{
-					                		'name': 'SPA_CPU',    
+					                		'name': 'SPA_IOPS_READ',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
-					                		'data': SPA_CPU_FILT    
+					                		'data': SPA_IOPS_READ    
 					                		},
 					                		{
-					                		'name': 'SPB_CPU',    
+					                		'name': 'SPA_IOPS_WRITE',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
-					                		'data': SPB_CPU_FILT    
+					                		'data': SPA_IOPS_WRITE    
+					                		},
+					                		{
+					                		'name': 'SPB_IOPS_READ',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPB_IOPS_READ    
+					                		},
+					                		{
+					                		'name': 'SPB_IOPS_WRITE',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPB_IOPS_WRITE    
 					                		}
 					                ]
 					            };

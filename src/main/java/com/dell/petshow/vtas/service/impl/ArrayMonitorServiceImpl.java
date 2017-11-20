@@ -72,9 +72,22 @@ public class ArrayMonitorServiceImpl extends ServiceImpl<ArrayMonitorMapper, Arr
 	@Override
 	@Cacheable(value = "arrayMonitorCPUCache")
 	public List<Map<String, Object>> selectCPUListBasedOnTableNameWithArrayAndVersionAndTimeslot(String tableName, String arrayName,
-		String smallVersion, String beginTime, String endTime) {
-		return arrayMonitorMapper.selectCPUListBasedOnTableNameWithArrayAndVersionAndTimeslot(tableName, arrayName, smallVersion, beginTime,
-			endTime);
+		String beginTime, String endTime) {
+		return arrayMonitorMapper.selectCPUListBasedOnTableNameWithArrayAndVersionAndTimeslot(tableName, arrayName, beginTime, endTime);
+	}
+
+	@Override
+	@Cacheable(value = "arrayMonitorDiskCache")
+	public List<Map<String, Object>> selectDiskListBasedOnTableNameWithArrayAndVersionAndTimeslot(String tableName, String arrayName,
+		String beginTime, String endTime) {
+		return arrayMonitorMapper.selectDiskListBasedOnTableNameWithArrayAndVersionAndTimeslot(tableName, arrayName, beginTime, endTime);
+	}
+
+	@Override
+	@Cacheable(value = "arrayMonitorIOPSCache")
+	public List<Map<String, Object>> selectIOPSListBasedOnTableNameWithArrayAndVersionAndTimeslot(String tableName, String arrayName,
+		String beginTime, String endTime) {
+		return arrayMonitorMapper.selectIOPSListBasedOnTableNameWithArrayAndVersionAndTimeslot(tableName, arrayName, beginTime, endTime);
 	}
 
 }

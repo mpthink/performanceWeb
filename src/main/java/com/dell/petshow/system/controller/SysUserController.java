@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.baomidou.kisso.SSOHelper;
+import com.baomidou.kisso.common.encrypt.MD5;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.dell.petshow.common.annotation.Log;
@@ -134,6 +136,9 @@ public class SysUserController extends SuperController {
 	@Permission("010104")
 	@RequestMapping("/doEdit")
 	public String doEdit(SysUser sysUser, Long[] roleId, Model model) {
+		String password = sysUser.getPassword();
+		password = MD5.toMD5(password);
+		sysUser.setPassword(password);
 		sysUserService.updateUser(sysUser, roleId);
 		return redirectTo("/system/user/list/1.html");
 	}
@@ -156,19 +161,22 @@ public class SysUserController extends SuperController {
 	 * User setting
 	 */
 	@Permission("010104")
-	@RequestMapping("/page")
+	@RequestMapping("/userInfo")
 	public String userSetting(Model model) {
 		SysUser sysUser = sysUserService.selectById(SSOHelper.getToken(request).getId());
 		model.addAttribute("sysUser", sysUser);
-		return "system/user/page";
+		return "system/user/userInfo";
 	}
 
 	@Permission("010104")
 	@RequestMapping("/doSetting")
-	public String userSetting(SysUser sysUser, Model model) {
+	public String userSetting(SysUser sysUser, Model model, RedirectAttributes redirectAttributes) {
 		sysUserService.updateById(sysUser);
+		model.addAttribute("sysUser", sysUser);
+		redirectAttributes.addFlashAttribute("info", "更新成功.");
 		return redirectTo("/system/user/page");
 	}
+
 
 	@Permission("010104")
 	@RequestMapping("/uploadFile")
@@ -201,6 +209,40 @@ public class SysUserController extends SuperController {
 			return new NPResult().success("/upload/" + newFileName);
 		}
 		return new NPResult().failure("上传文件失败");
+	}
+
+	@Permission("010104")
+	@RequestMapping("/userPWD")
+	public String userPWD(Model model) {
+		return "system/user/userPWD";
+	}
+
+	/**
+	 * 修改密码
+	 */
+	@RequestMapping("/doChangePwd")
+	public String doChangePwd(String password, String newpassword, String newpassword2, Model model, RedirectAttributes redirectAttributes) {
+
+		if (StringUtils.isBlank(password) || StringUtils.isBlank(newpassword) || StringUtils.isBlank(newpassword2)) {
+			redirectAttributes.addFlashAttribute("msg", "客户端提交数据不能为空.");
+			return redirectTo("/system/user/userPWD");
+		}
+
+		SysUser sysUser = sysUserService.selectById(SSOHelper.getToken(request).getId());
+
+		if (!sysUser.getPassword().equals(MD5.toMD5(password))) {
+			redirectAttributes.addFlashAttribute("msg", "旧密码输入错误.");
+			return redirectTo("/system/user/userPWD");
+		}
+
+		if (!newpassword2.equals(newpassword)) {
+			redirectAttributes.addFlashAttribute("msg", "两次输入的密码不一致.");
+			return redirectTo("/system/user/userPWD");
+		}
+		sysUser.setPassword(MD5.toMD5(password));
+		sysUserService.updateById(sysUser);
+		redirectAttributes.addFlashAttribute("info", "密码修改成功.");
+		return redirectTo("/system/user/userPWD");
 	}
 
 }

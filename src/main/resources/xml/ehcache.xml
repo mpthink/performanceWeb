@@ -62,6 +62,18 @@
 		timeToIdleSeconds="600" timeToLiveSeconds="1800" overflowToDisk="false"
 		statistics="true">
 	</cache>
+	
+	<!-- array monitor缓存30分钟，空闲10分钟 -->
+	<cache name="arrayMonitorDiskCache" maxEntriesLocalHeap="20" eternal="false"
+		timeToIdleSeconds="600" timeToLiveSeconds="1800" overflowToDisk="false"
+		statistics="true">
+	</cache>
+	
+	<!-- array monitor缓存30分钟，空闲10分钟 -->
+	<cache name="arrayMonitorIOPSCache" maxEntriesLocalHeap="20" eternal="false"
+		timeToIdleSeconds="600" timeToLiveSeconds="1800" overflowToDisk="false"
+		statistics="true">
+	</cache>
 
 	<!-- onetool Cookie缓存 -->
 	<cache name="cookieCache" maxEntriesLocalHeap="5" eternal="false"
