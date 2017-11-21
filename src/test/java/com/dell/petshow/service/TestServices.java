@@ -28,6 +28,9 @@ public class TestServices {
 	private ISysRolePermissionService sysRolePermissionService;
 
 	@Test
+	public void dummy() {}
+
+	//@Test
 	public void testSysPermission() {
 		//List<MenuVO> mvList = sysPermissionService.selectMenuVOByUserId(854684173532778496L);
 		//mvList.stream().forEach(mv -> System.err.println(mv.getPerm() + "\n" + mv.getChildrenPerm()));

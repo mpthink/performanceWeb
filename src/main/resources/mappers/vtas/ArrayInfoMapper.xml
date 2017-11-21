@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dell.petshow.vtas.mapper.ArrayInfoMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.dell.petshow.vtas.entity.ArrayInfo">
+		<id column="ARRAY_NAME" property="arrayName" />
+		<result column="OWNER" property="owner" />
+		<result column="MODEL" property="model" />
+		<result column="MGMT_IP" property="mgmtIp" />
+		<result column="SPA_IP" property="spaIp" />
+		<result column="SPB_IP" property="spbIp" />
+		<result column="USAGE_TYPE" property="usageType" />
+		<result column="ARRAY_STATUS" property="arrayStatus" />
+		<result column="COMMENT" property="comment" />
+		<result column="TFA" property="tfa" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ARRAY_NAME AS arrayName, OWNER AS owner, MODEL AS model, MGMT_IP AS mgmtIp, SPA_IP AS spaIp, SPB_IP AS spbIp, USAGE_TYPE AS usageType, ARRAY_STATUS AS arrayStatus, COMMENT AS comment, TFA AS tfa
+    </sql>
+</mapper>

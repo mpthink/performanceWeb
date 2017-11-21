@@ -17,20 +17,26 @@
 	  <!-- /.login-logo -->
 	  <form action="/login/doLogin.html" data-validator-option="{theme:'bootstrap', timely:2, theme:'simple_bottom'}" method="post" onSubmit="return checkFields(this);">
 	  <div class="login-box-body">
-	      <p class="login-box-msg">使用Dell EMC邮箱登录</p>
+	      <p class="login-box-msg">Please use Dell EMC email to login</p>
+	      <p class="login-box-msg">E.g: hello@dell.com  or hello@emc.com</p>
+	      <#if error??>
+	      	<div  class="alert alert-danger alert-dismissible">
+		       <h4 style="margin-bottom: 0px;"><i class="fa fa-exclamation-triangle"></i> ${error!}</h4>
+		    </div>
+	      </#if>
 	      	<div id="messageInfo" class="alert alert-danger alert-dismissible hidden">	
 		       <h4 style="margin-bottom: 0px;"><i class="fa fa-exclamation-triangle"></i><span id="error"></span></h4>
 		    </div>
 	      <div class="form-group has-feedback mg">
 	        <input type="hidden" name="returnURL" value="${returnURL!}">
-	        <input type="text" class="form-control"  name="userName" id="userName" placeholder="用户名" data-rule="用户名:required;email;">
+	        <input type="text" class="form-control"  name="userName" id="userName" placeholder="username" data-rule="username:required;email;">
 	        <span class="glyphicon glyphicon-user form-control-feedback"></span>
 	      </div>
-	      <!-- 
 	      <div class="form-group has-feedback mg">
-	        <input type="password" class="form-control" name="password"  placeholder="密码"  data-rule="密码:required;password;">
+	        <input type="password" class="form-control" name="password"  placeholder="password"  data-rule="password:required;password;">
 	        <span class="glyphicon glyphicon-lock form-control-feedback" ></span>
 	      </div>
+	      <!-- 
 	      <div class="form-group has-feedback">
 	      	<div class="row">
 	      		<div class="col-lg-4">

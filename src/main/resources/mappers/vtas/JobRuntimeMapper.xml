@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dell.petshow.vtas.mapper.JobRuntimeMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.dell.petshow.vtas.entity.JobRuntime">
+		<id column="ID" property="id" />
+		<result column="START_TIME" property="startTime" />
+		<result column="END_TIME" property="endTime" />
+		<result column="RUN_HOURS" property="runHours" />
+		<result column="VERSION" property="version" />
+		<result column="ARRAY_NAME" property="arrayName" />
+		<result column="JOB_NAME" property="jobName" />
+		<result column="JOB_URL" property="jobUrl" />
+		<result column="STATUS" property="status" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS id, START_TIME AS startTime, END_TIME AS endTime, RUN_HOURS AS runHours, VERSION AS version, ARRAY_NAME AS arrayName, JOB_NAME AS jobName, JOB_URL AS jobUrl, STATUS AS status
+    </sql>
+    
+    <select id="selectDistinctArrayList" resultType="java.lang.String">
+    	SELECT distinct ARRAY_NAME 
+    	FROM job_runtime
+    </select>
+    
+    <select id="selectDistinctArrayListByProgram" resultType="java.lang.String">
+    	SELECT distinct ARRAY_NAME 
+    	FROM job_runtime
+    	WHERE version like CONCAT(#{bigVersion},'.%')
+    </select>
+    
+    <select id="selectVersionByProgramAndArray" resultType="java.lang.String">
+		select distinct version
+		from job_runtime a
+		where a.VERSION like CONCAT(#{bigVersion,jdbcType=VARCHAR},'.%') and a.ARRAY_NAME= #{arrayName}
+    </select>
+    
+    <select id="selectLatestVersionByArray" resultType="java.lang.String">
+		select version from(
+		SELECT version,START_TIME FROM job_runtime where ARRAY_NAME = #{arrayName} order by START_TIME desc limit 0,1
+		) as b 
+    </select>
+    
+    <select id="selectRunHourBySmallVersionAndArray" resultType="java.lang.String">
+		select RUN_HOURS
+		from job_runtime a
+		where a.VERSION=#{smallVersion} and a.ARRAY_NAME= #{arrayName}
+    </select>
+    
+    <select id="getMaxRowsOfRunHourByProgramAndArray" resultType="java.lang.Integer">
+		select max(a.count_row) as maxrow from
+		(SELECT version,ARRAY_NAME,count(*) as count_row FROM job_runtime
+		where  VERSION like CONCAT(#{bigVersion,jdbcType=VARCHAR},'.%') and ARRAY_NAME= #{arrayName}
+		group by version,array_name) a
+    </select>
+    
+    <select id="selectAllWithProgramName" resultType="java.util.Map">
+		SELECT  DATE_FORMAT(a.START_TIME,'%Y-%m-%d %h:%m:%s') AS START_TIME, DATE_FORMAT(a.END_TIME,'%Y-%m-%d %h:%m:%s') AS END_TIME, a.RUN_HOURS, a.VERSION, a.ARRAY_NAME, a.JOB_NAME, a.JOB_URL, a.STATUS, b.PROGRAM as PROGRAM FROM job_runtime as a
+		left join program_map as b
+		on substr(a.version,1,5) = b.major_version
+		order by a.version desc,a.START_TIME desc
+    </select>
+    
+    <select id="selectLatestJobsWithProgramName" resultType="java.util.Map">
+		SELECT DATE_FORMAT(a.START_TIME,'%Y-%m-%d %h:%m:%s') AS START_TIME, DATE_FORMAT(a.END_TIME,'%Y-%m-%d %h:%m:%s') AS END_TIME, a.RUN_HOURS, a.VERSION, a.ARRAY_NAME, a.JOB_NAME, a.JOB_URL, a.STATUS, b.PROGRAM as PROGRAM FROM job_runtime as a
+		left join program_map as b
+		on substr(a.version,1,5) = b.major_version
+		inner join
+        (SELECT max(end_time) latest_time,array_name FROM job_runtime group by ARRAY_NAME) c
+        on a.END_TIME = c.latest_time and a.ARRAY_NAME = c.array_name
+        order by version desc
+    </select>
+    
+</mapper>

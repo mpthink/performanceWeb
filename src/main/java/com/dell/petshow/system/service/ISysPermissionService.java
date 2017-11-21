@@ -22,4 +22,6 @@ public interface ISysPermissionService extends IService<SysPermission> {
 
 	List<MenuVO> selectTreeMenuAllowAccessByMenuIdsAndPid(List<Long> permissionIds, Long pid);
 
+	List<MenuVO> selectMenuVOByRoleName(String roleName);
+
 }

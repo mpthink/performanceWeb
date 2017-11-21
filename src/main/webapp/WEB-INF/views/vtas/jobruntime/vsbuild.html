@@ -1,0 +1,81 @@
+<#include "/common/layout.html">
+<@header>
+<!-- daterange picker -->
+<link rel="stylesheet" href="/plugins/bootstrap-daterangepicker/daterangepicker.css">
+</@header>
+<@body>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <small>Execution Status > RunTime VS build</small>
+    </h1>
+  </section>
+  <!-- Main content -->
+  <section class="content">
+     <div class="row">
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">RunTime VS build</h3>
+          </div><!-- /.box-header -->
+          <!-- form start -->
+          <div class="row">
+          	<div class="col-md-3">
+	            <div class="box-body">
+	              <div class="form-group">
+	                <label for="programSelect">Program</label>
+	               	<select id="programSelect" name="programSelect" class="form-control select2" style="width: 100%;">
+                    </select>
+	              </div>
+	            </div>
+          	</div>
+          	<div class="col-md-2">
+	            <div class="box-body">
+	              <div class="form-group">
+	                <label for="arrayName">Array</label>
+	               	<select id="arrayName" name="arrayName" class="form-control select2" style="width: 100%;">
+                    </select>
+	              </div>
+	            </div>
+          	</div>
+          	<div class="col-md-2">
+	            <div class="box-body">
+	              <div class="form-group">
+	                <label for="buildVersion">Build</label>
+	               	<select id="buildVersion" name="buildVersion" class="form-control select2" style="width: 100%;">
+                    </select>
+	              </div>
+	            </div>
+          	</div>			
+			<div class="col-md-2">
+	            <div class="box-body">
+	              <div class="form-group">
+	                <label for="productName">Operation</label>
+	                <div class="input-group">
+	                 	<a class="btn btn-primary btn-sm" href="javascript:viewSingleAraay()" title="Single array VS build">Single array VS build</a>&nbsp;&nbsp;
+	                </div>
+	              </div>
+	            </div>
+          	</div>
+          </div>
+          <div class="row">
+          	<div class="col-md-12">
+          		<div id="main" style="height:450px"></div>
+          	</div>
+          </div>
+        </div><!-- /.box -->
+      </div><!--/.col (left) -->
+     </div>
+  </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+</@body>
+<@footer>
+<script src="/plugins/layer/layer.js"></script>
+<script src="/plugins/echart/dist/echarts.js"></script>
+<!-- date-range-picker -->
+<script src="/plugins/moment/min/moment.min.js"></script>
+<script src="/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="/my/vtas/vsbuild.js"></script>
+</@footer>

@@ -25,8 +25,10 @@ public class PetCPUHourMapperTest {
 	@Autowired
 	private PetCpuHourMapper petCpuHourMapper;
 
-
 	@Test
+	public void dummy() {}
+
+	//@Test
 	public void generateHourData() throws IOException, ParseException {
 
 		//		List<PetCpuRaw> rawDatas = petCpuMapper.generateHourList();

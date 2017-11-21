@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dell.petshow.vtas.mapper.NiceNameMapMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.dell.petshow.vtas.entity.NiceNameMap">
+		<result column="NICE_NAME" property="niceName" />
+		<result column="VERSION" property="version" />
+		<result column="PROGRAM" property="program" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        NICE_NAME AS niceName, VERSION AS version, PROGRAM AS program
+    </sql>
+    
+    <select id="selectNiceNameByVersionAndArray" resultType="com.dell.petshow.vtas.entity.NiceNameMap" resultMap="BaseResultMap">
+		select a.version as version, case when b.nice_name is null then a.version else b.NICE_NAME end as nice_name
+		from job_runtime a
+		left join nice_name_map b on a.VERSION = b.VERSION
+		where a.VERSION like CONCAT(#{bigVersion,jdbcType=VARCHAR},'.%') and a.ARRAY_NAME= #{arrayName}
+		group by version,NICE_NAME
+    </select>
+</mapper>

@@ -19,6 +19,9 @@ public class PermissionDataInitial {
 	private SysPermissionMapper sysPermissionMapper;
 
 	@Test
+	public void dummy() {}
+
+	@Test
 	public void initSystemMenus() {
 		SysPermission temp = new SysPermission();
 		temp.setPermName("系统管理");

@@ -31,8 +31,10 @@ public class UserRoleDataInitial {
 	@Autowired
 	private SysUserRoleMapper sysUserRoleMapper;
 
-
 	@Test
+	public void dummy() {}
+
+	//@Test
 	public void initFirstUser() {
 		String userName = "paul.ma@nokia.com";
 		SysUser sysUser = new SysUser();
@@ -48,7 +50,7 @@ public class UserRoleDataInitial {
 	}
 
 
-	@Test
+	//@Test
 	public void initUserRole() {
 		String userName = "paul.ma@nokia.com";
 		SysUser sysUser = new SysUser();

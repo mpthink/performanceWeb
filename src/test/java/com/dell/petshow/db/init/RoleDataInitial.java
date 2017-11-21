@@ -17,6 +17,9 @@ public class RoleDataInitial {
 	private SysRoleMapper sysRoleMapper;
 
 	@Test
+	public void dummy() {}
+
+	//@Test
 	public void initRoleData() {
 		SysRole adminRole = new SysRole();
 		adminRole.setRoleName("系统管理员");

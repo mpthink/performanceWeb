@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dell.petshow.vtas.mapper.ArrayMonitorMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.dell.petshow.vtas.entity.ArrayMonitor">
+		<id column="ID" property="id" />
+		<result column="ARRAY_NAME" property="arrayName" />
+		<result column="SP" property="sp" />
+		<result column="CPU_BUSY" property="cpuBusy" />
+		<result column="CPU_FILT" property="cpuFilt" />
+		<result column="MEM_USED" property="memUsed" />
+		<result column="MEM_FREE" property="memFree" />
+		<result column="MEM_SWPD" property="memSwpd" />
+		<result column="IO_READ" property="ioRead" />
+		<result column="IO_WRITE" property="ioWrite" />
+		<result column="IOPS_WRITE" property="iopsWrite" />
+		<result column="IOPS_READ" property="iopsRead" />
+		<result column="ktrace_util" property="ktraceUtil" />
+		<result column="ECOM" property="ecom" />
+		<result column="csx_ic_safe" property="csxIcSafe" />
+		<result column="POLL_DATETIME" property="pollDatetime" />
+		<result column="VERSION" property="version" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS id, ARRAY_NAME AS arrayName, SP AS sp, CPU_BUSY AS cpuBusy, CPU_FILT AS cpuFilt, MEM_USED AS memUsed, MEM_FREE AS memFree, MEM_SWPD AS memSwpd, IO_READ AS ioRead, IO_WRITE AS ioWrite, IOPS_WRITE AS iopsWrite, IOPS_READ AS iopsRead, ktrace_util, ECOM AS ecom, csx_ic_safe, POLL_DATETIME AS pollDatetime, VERSION AS version
+    </sql>
+    
+    <select id="selectMemoryListBasedOnTableNameWithArrayAndVersionAndTimeslot" resultType="java.util.Map">
+		select sp,MEM_USED,peservice_exe_vsz,peservice_exe_rss,csx_ic_safe_vsz,csx_ic_safe_rss,ECOM_vsz,ECOM_rss,
+		       mozzo_sh_vsz,mozzo_sh_rss,tomcat_sh_vsz,tomcat_sh_rss,TLDlistener_exe_vsz,TLDlistener_exe_rss,DATE_FORMAT(poll_datetime,'%Y-%m-%d %H:%i:%s') poll_datetime
+		from ${tableName}
+		where array_name = #{arrayName}
+		<if test="beginTime != null">
+    	and poll_datetime &gt;= #{beginTime}
+    	</if>
+    	<if test="endTime != null">
+    	and poll_datetime &lt;= #{endTime}
+    	</if>
+		order by poll_datetime
+    </select>
+    
+    <select id="selectCPUListBasedOnTableNameWithArrayAndVersionAndTimeslot" resultType="java.util.Map">
+		select sp,MEM_USED,peservice_exe_vsz,peservice_exe_rss,csx_ic_safe_vsz,csx_ic_safe_rss,ECOM_vsz,ECOM_rss,
+		       mozzo_sh_vsz,mozzo_sh_rss,tomcat_sh_vsz,tomcat_sh_rss,TLDlistener_exe_vsz,TLDlistener_exe_rss,CPU_FILT,DATE_FORMAT(poll_datetime,'%Y-%m-%d %H:%i:%s') poll_datetime
+		from ${tableName}
+		where array_name = #{arrayName}
+		<if test="beginTime != null">
+    	and poll_datetime &gt;= #{beginTime}
+    	</if>
+    	<if test="endTime != null">
+    	and poll_datetime &lt;= #{endTime}
+    	</if>
+		order by poll_datetime
+    </select>
+    
+    <select id="selectDiskListBasedOnTableNameWithArrayAndVersionAndTimeslot" resultType="java.util.Map">
+		select sp,_s_,_s_tmp,_s_cores,_s_pramfs,_s_EMC_s_backend_s_service,_s_EMC_s_backend_s_CEM,_s_nbsnas,
+		       _s_EMC_s_backend_s_log_shared,_s_EMC_s_backend_s_perf_stats,_s_EMC_s_backend_s_metricsluna1,_s_EMC_s_fastvp,STATUS,DATE_FORMAT(poll_datetime,'%Y-%m-%d %H:%i:%s') poll_datetime
+		from disk_info
+		where array_name=#{arrayName} and PROGRAM=#{tableName}
+		<if test="beginTime != null">
+    	and poll_datetime &gt;= #{beginTime}
+    	</if>
+    	<if test="endTime != null">
+    	and poll_datetime &lt;= #{endTime}
+    	</if>
+		order by poll_datetime
+    </select>
+    
+    <select id="selectIOPSListBasedOnTableNameWithArrayAndVersionAndTimeslot" resultType="java.util.Map">
+		select sp,MEM_USED,peservice_exe_vsz,peservice_exe_rss,csx_ic_safe_vsz,csx_ic_safe_rss,ECOM_vsz,ECOM_rss,
+		       mozzo_sh_vsz,mozzo_sh_rss,tomcat_sh_vsz,tomcat_sh_rss,TLDlistener_exe_vsz,TLDlistener_exe_rss,IOPS_WRITE,IOPS_READ,DATE_FORMAT(poll_datetime,'%Y-%m-%d %H:%i:%s') poll_datetime
+		from ${tableName}
+		where array_name = #{arrayName}
+		<if test="beginTime != null">
+    	and poll_datetime &gt;= #{beginTime}
+    	</if>
+    	<if test="endTime != null">
+    	and poll_datetime &lt;= #{endTime}
+    	</if>
+		order by poll_datetime
+    </select>
+    
+    <select id="selectDistinctArrayList" resultType="java.lang.String">
+    	SELECT distinct ARRAY_NAME 
+    	FROM ${tableName}
+    </select>
+    
+    <select id="selectDistinctVersionByArray" resultType="java.lang.String">
+		select distinct version
+		from ${tableName}
+		where array_name = #{arrayName} order by version
+    </select>
+    
+</mapper>

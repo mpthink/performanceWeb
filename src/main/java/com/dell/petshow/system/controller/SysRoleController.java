@@ -176,7 +176,6 @@ public class SysRoleController extends SuperController {
 	 * 权限
 	 */
 	@Permission("010205")
-	@Log("角色分配权限")
 	@RequestMapping("/doAuth")
 	public String doAuth(Long roleId, Long[] permId, Model model) {
 		sysRolePermissionService.addAuth(roleId, permId);

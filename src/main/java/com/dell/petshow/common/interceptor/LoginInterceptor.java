@@ -14,7 +14,6 @@ import com.baomidou.kisso.SSOHelper;
 import com.baomidou.kisso.Token;
 import com.baomidou.kisso.annotation.Action;
 import com.baomidou.kisso.annotation.Login;
-import com.baomidou.kisso.common.util.HttpUtil;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.dell.petshow.common.util.SpringUtil;
 import com.dell.petshow.system.entity.SysSetting;
@@ -61,13 +60,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			 */
 			Token token = SSOHelper.getToken(request);
 			if (token == null) {
-				if (HttpUtil.isAjax(request)) {
-					HttpUtil.ajaxStatus(response, 302, "session expires.");
-					return false;
-				} else {
-					SSOHelper.clearRedirectLogin(request, response);
-					return false;
-				}
+				SysUser visitor = SpringUtil.getBean(ISysUserService.class).selectById(999999999999999999L);
+				request.setAttribute("currentUser", visitor);
+				List<MenuVO> menuList = SpringUtil.getBean(ISysPermissionService.class).selectMenuVOByRoleName("Member");
+				request.setAttribute("menuList", menuList);
 			} else {
 				/**
 				 * 正常请求，request 设置 token 减少二次解密

@@ -58,9 +58,12 @@
 		class="com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:xml/mybatis-config.xml" />
-		<property name="typeAliasesPackage" value="com.dell.petshow.system.entity" />
-		<property name="mapperLocations"
-			value="classpath*:com/dell/petshow/system/mapper/xml/*Mapper.xml" />
+		<property name="typeAliasesPackage" value="com.dell.petshow.system.entity,com.dell.petshow.vtas.entity" />
+		<property name="mapperLocations">
+			<array>                
+		        <value>classpath*:mappers/**/*.xml</value>
+		    </array>
+		</property>
 		<property name="plugins">
 			<array>
 				<!-- 分页插件配置 -->
@@ -86,9 +89,10 @@
 	</bean>
 
 	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.dell.petshow.system.mapper" />
+		<property name="basePackage" value="com.dell.petshow.system.mapper,com.dell.petshow.vtas.mapper" />
 	</bean>
 	
-	<!-- 加载web monitor包中的类 -->
+	<!-- 加载web monitor包中的类 
 	<context:component-scan base-package="com.dell.petshow.webmonitor.dao"></context:component-scan>
+	-->
 </beans>

@@ -58,6 +58,32 @@ public class SysPermissionServiceImpl extends ServiceImpl<SysPermissionMapper, S
 		return mvList;
 	}
 
+	@Cacheable(value = "permissionCache")
+	@Override
+	public List<MenuVO> selectMenuVOByRoleName(String roleName) {
+		List<SysPermission> permList = baseMapper.selectMenuByroleNameAndPid(roleName, 0L);
+		if (permList == null || permList.isEmpty()) {
+			return null;
+		}
+		List<MenuVO> mvList = new ArrayList<>();
+		for (SysPermission perm : permList) {
+			MenuVO mv = new MenuVO();
+			mv.setPerm(perm);
+			List<SysPermission> childList = baseMapper.selectMenuByroleNameAndPid(roleName, perm.getId());
+			List<MenuVO> childMVList = Lists.transform(childList, new Function<SysPermission, MenuVO>() {
+				@Override
+				public MenuVO apply(SysPermission permission) {
+					MenuVO menuVO = new MenuVO();
+					menuVO.setPerm(permission);
+					return menuVO;
+				}
+			});
+			mv.setChildrenPerm(childMVList);
+			mvList.add(mv);
+		}
+		return mvList;
+	}
+
 	@Override
 	public List<MenuVO> selectTreeMenuAllowAccessByMenuIdsAndPid(final List<Long> permissionIds, Long pid) {
 

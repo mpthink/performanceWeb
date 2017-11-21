@@ -69,7 +69,7 @@ function viewCPU(id){
 			        type:'post',  
 			        success:function(result){
 			        	if(result==''){
-			        		layer.alert('暂无数据', {icon: 0,title:'信息',closeBtn: 0,skin: 'layui-layer-molv'});
+			        		layer.alert('No data', {icon: 0,title:'Info',closeBtn: 0,skin: 'layui-layer-molv'});
 					 		Chart.hideLoading();
 					 	}else{
 					 		for(var i=0;i<result.length;i++){       
@@ -82,7 +82,7 @@ function viewCPU(id){
 				                tooltip: {
 				                	trigger: 'axis', //add
 				                    show: true    
-				                },    
+				                },
 				                legend: {    
 				                    data: ['CPU Ratio']    
 				                },
@@ -115,13 +115,16 @@ function viewCPU(id){
 				                        type: 'value'    
 				                    }    
 				                ],    
-				                series: [    
-				                    {    
+				                series: function(){
+				                	var item = {
 				                        'name': 'CPU Ratio',    
 				                        'type': 'line',    
 				                        'data': values    
-				                    }    
-				                ]    
+				                    	}
+				                	var serie=[];
+				                	serie.push(item);
+				                	return serie;
+				                }()
 				            };  
 				        Chart.hideLoading();  
 				        Chart.setOption(option);    
