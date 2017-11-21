@@ -49,6 +49,13 @@
 		where a.VERSION=#{smallVersion} and a.ARRAY_NAME= #{arrayName}
     </select>
     
+    <select id="selectCurrentRunHourBySmallVersionAndArray" resultType="com.dell.petshow.vtas.entity.JobRuntime" resultMap="BaseResultMap">
+		select *
+		from job_runtime a
+		where a.ARRAY_NAME= #{arrayName}
+		      order by a.START_TIME desc limit 1
+    </select> 
+    
     <select id="getMaxRowsOfRunHourByProgramAndArray" resultType="java.lang.Integer">
 		select max(a.count_row) as maxrow from
 		(SELECT version,ARRAY_NAME,count(*) as count_row FROM job_runtime

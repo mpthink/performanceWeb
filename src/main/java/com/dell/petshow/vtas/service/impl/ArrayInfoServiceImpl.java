@@ -13,9 +13,11 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.dell.petshow.vtas.entity.ArrayInfo;
+import com.dell.petshow.vtas.entity.JobRuntime;
 import com.dell.petshow.vtas.entity.ProgramMap;
 import com.dell.petshow.vtas.entity.SpUptime;
 import com.dell.petshow.vtas.mapper.ArrayInfoMapper;
+import com.dell.petshow.vtas.mapper.JobRuntimeMapper;
 import com.dell.petshow.vtas.mapper.ProgramMapMapper;
 import com.dell.petshow.vtas.mapper.SpUptimeMapper;
 import com.dell.petshow.vtas.mapper.VersionDateMapMapper;
@@ -40,6 +42,8 @@ public class ArrayInfoServiceImpl extends ServiceImpl<ArrayInfoMapper, ArrayInfo
 	private ProgramMapMapper programMapMapper;
 	@Autowired
 	private VersionDateMapMapper versionDateMapMapper;
+	@Autowired
+	private JobRuntimeMapper jobRuntimeMapper;
 
 	@Cacheable(value = "commonCache", key = "methodName")
 	@Override
@@ -78,4 +82,39 @@ public class ArrayInfoServiceImpl extends ServiceImpl<ArrayInfoMapper, ArrayInfo
 		return listMaps;
 	}
 
+	@Cacheable(value = "commonCache", key = "methodName")
+	@Override
+	public List<Map<String, Object>> getArrayWithCurrentHours() {
+		List<Map<String, Object>> listMaps = new ArrayList<>();
+		Wrapper<ArrayInfo> wrapper = new EntityWrapper<>();
+		wrapper.in("usage_type", "traditional");
+		List<ArrayInfo> arrayInfos = arrayInfoMapper.selectList(wrapper);
+
+		for (ArrayInfo arrayInfo : arrayInfos) {
+			String arrayName = arrayInfo.getArrayName();
+			String model = arrayInfo.getModel();
+			String status = arrayInfo.getArrayStatus();
+			String comments = arrayInfo.getComment();
+
+
+			JobRuntime jobRuntime = jobRuntimeMapper.selectCurrentRunHourBySmallVersionAndArray(arrayName);
+			if (jobRuntime != null) {
+				String smallVersion = jobRuntime.getVersion();
+				Integer currentRunTime = jobRuntime.getRunHours();
+				ProgramMap programMap = programMapMapper.selectOneBasedonVersion(smallVersion.substring(0, 5));
+				String programName = programMap.getProgram();
+				Map<String, Object> map = new HashMap<>();
+				map.put("programName", programName);
+				map.put("arrayName", arrayName);
+				map.put("model", model);
+				map.put("Version", smallVersion);
+				map.put("currentRunTime", currentRunTime);
+				map.put("status", status);
+				map.put("comments", comments);
+				listMaps.add(map);
+			}
+		}
+
+		return listMaps;
+	}
 }
