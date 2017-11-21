@@ -87,7 +87,9 @@ public class SysUserController extends SuperController {
 	@Permission("010102")
 	@RequestMapping("/doAdd")
 	public String doAdd(SysUser user, Long[] roleId) {
-
+		String password = user.getPassword();
+		password = MD5.toMD5(password);
+		user.setPassword(password);
 		sysUserService.insertUser(user, roleId);
 		return redirectTo("/system/user/list/1.html");
 	}
@@ -239,7 +241,7 @@ public class SysUserController extends SuperController {
 			redirectAttributes.addFlashAttribute("msg", "两次输入的密码不一致.");
 			return redirectTo("/system/user/userPWD");
 		}
-		sysUser.setPassword(MD5.toMD5(password));
+		sysUser.setPassword(MD5.toMD5(newpassword));
 		sysUserService.updateById(sysUser);
 		redirectAttributes.addFlashAttribute("info", "密码修改成功.");
 		return redirectTo("/system/user/userPWD");

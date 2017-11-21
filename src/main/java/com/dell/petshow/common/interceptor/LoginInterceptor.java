@@ -60,14 +60,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 			 */
 			Token token = SSOHelper.getToken(request);
 			if (token == null) {
-				SysUser visitor = new SysUser();
-				visitor.setUserName("Visitor");
-				visitor.setAvatar("/AdminLTE/img/user2-160x160.jpg");
-				visitor.setUserStatus(-1);
+				SysUser visitor = SpringUtil.getBean(ISysUserService.class).selectById(999999999999999999L);
 				request.setAttribute("currentUser", visitor);
 				List<MenuVO> menuList = SpringUtil.getBean(ISysPermissionService.class).selectMenuVOByRoleName("Member");
 				request.setAttribute("menuList", menuList);
-
 			} else {
 				/**
 				 * 正常请求，request 设置 token 减少二次解密
