@@ -95,17 +95,25 @@ public class ArrayInfoServiceImpl extends ServiceImpl<ArrayInfoMapper, ArrayInfo
 			String model = arrayInfo.getModel();
 			String status = arrayInfo.getArrayStatus();
 			String comments = arrayInfo.getComment();
-
-
-			JobRuntime jobRuntime = jobRuntimeMapper.selectCurrentRunHourBySmallVersionAndArray(arrayName);
-			if (jobRuntime != null) {
-				String smallVersion = jobRuntime.getVersion();
-				Integer currentRunTime = jobRuntime.getRunHours();
+			String tfa = arrayInfo.getTfa();
+			SpUptime spUptime = spUptimeMapper.selectLatestOneByArray(arrayName);
+			if (spUptime != null) {
+				String smallVersion = spUptime.getVersion();
+				JobRuntime jobRuntime = jobRuntimeMapper.selectCurrentRunHourBySmallVersionAndArray(arrayName, smallVersion);
+				Integer currentRunTime;
+				if (jobRuntime == null) {
+					currentRunTime = -1;
+				} else {
+					currentRunTime = jobRuntime.getRunHours();
+				}
 				ProgramMap programMap = programMapMapper.selectOneBasedonVersion(smallVersion.substring(0, 5));
 				String programName = programMap.getProgram();
+				String versionTime = versionDateMapMapper.selectByVersion(smallVersion).getDate();
 				Map<String, Object> map = new HashMap<>();
 				map.put("programName", programName);
 				map.put("arrayName", arrayName);
+				map.put("tfa", tfa);
+				map.put("versionTime", versionTime);
 				map.put("model", model);
 				map.put("Version", smallVersion);
 				map.put("currentRunTime", currentRunTime);

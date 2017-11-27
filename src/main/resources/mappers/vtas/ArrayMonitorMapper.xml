@@ -30,7 +30,8 @@
     
     <select id="selectMemoryListBasedOnTableNameWithArrayAndVersionAndTimeslot" resultType="java.util.Map">
 		select sp,MEM_USED,peservice_exe_vsz,peservice_exe_rss,csx_ic_safe_vsz,csx_ic_safe_rss,ECOM_vsz,ECOM_rss,
-		       mozzo_sh_vsz,mozzo_sh_rss,tomcat_sh_vsz,tomcat_sh_rss,TLDlistener_exe_vsz,TLDlistener_exe_rss,DATE_FORMAT(poll_datetime,'%Y-%m-%d %H:%i:%s') poll_datetime
+		       mozzo_sh_vsz,mozzo_sh_rss,tomcat_sh_vsz,tomcat_sh_rss,TLDlistener_exe_vsz,TLDlistener_exe_rss,DATE_FORMAT(poll_datetime,'%Y-%m-%d %H:%i:%s') poll_datetime,
+		       pid_PEService_exe,pid_TLDlistener_exe,pid_ECOM,pid_tomcat_sh,pid_csx_ic_safe,pid_mozzo_sh
 		from ${tableName}
 		where array_name = #{arrayName}
 		<if test="beginTime != null">

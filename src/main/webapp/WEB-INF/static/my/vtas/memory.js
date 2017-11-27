@@ -155,6 +155,13 @@ function viewMemory(){
 			 var SPA_mozzoRSSData=[];
 			 var SPA_tomcatRSSData=[];
 			 var SPA_TLDlistenerRSSData=[];
+			 //PID for SPA
+			 var SPA_pid_PEService={};
+			 var SPA_pid_TLDlistener={};
+			 var SPA_pid_ECOM={};
+			 var SPA_pid_tomcat={};
+			 var SPA_pid_csx={};
+			 var SPA_pid_mozzo={};
 			 
 			 var SPB_memoryUsedData=[];
 			 var SPB_peserviceRSSData=[];
@@ -163,6 +170,14 @@ function viewMemory(){
 			 var SPB_mozzoRSSData=[];
 			 var SPB_tomcatRSSData=[];
 			 var SPB_TLDlistenerRSSData=[];
+			//PID for SPB
+			 var SPB_pid_PEService={};
+			 var SPB_pid_TLDlistener={};
+			 var SPB_pid_ECOM={};
+			 var SPB_pid_tomcat={};
+			 var SPB_pid_csx={};
+			 var SPB_pid_mozzo={};
+			 
 			 var times=[];
 			 $.ajax({  
 			        url:dataUrl,  
@@ -183,6 +198,13 @@ function viewMemory(){
 						 			SPA_mozzoRSSData.push(result[i]['mozzo_sh_rss']);
 						 			SPA_tomcatRSSData.push(result[i]['tomcat_sh_rss']);
 						 			SPA_TLDlistenerRSSData.push(result[i]['TLDlistener_exe_rss']);
+						 			//for pid
+						 			SPA_pid_PEService[result[i]['poll_datetime']]=result[i]['pid_PEService_exe'];
+						 			SPA_pid_TLDlistener[result[i]['poll_datetime']]=result[i]['pid_TLDlistener_exe'];
+						 			SPA_pid_ECOM[result[i]['poll_datetime']]=result[i]['pid_ECOM'];
+						 			SPA_pid_tomcat[result[i]['poll_datetime']]=result[i]['pid_tomcat_sh'];
+						 			SPA_pid_csx[result[i]['poll_datetime']]=result[i]['pid_csx_ic_safe'];
+						 			SPA_pid_mozzo[result[i]['poll_datetime']]=result[i]['pid_mozzo_sh'];
 					 			}else if(result[i]['sp']=='SPB'){
 						 			SPB_memoryUsedData.push(result[i]['MEM_USED']);
 						 			SPB_peserviceRSSData.push(result[i]['peservice_exe_rss']);
@@ -191,6 +213,13 @@ function viewMemory(){
 						 			SPB_mozzoRSSData.push(result[i]['mozzo_sh_rss']);
 						 			SPB_tomcatRSSData.push(result[i]['tomcat_sh_rss']);
 						 			SPB_TLDlistenerRSSData.push(result[i]['TLDlistener_exe_rss']);
+						 			//for pid
+						 			SPB_pid_PEService[result[i]['poll_datetime']]=result[i]['pid_PEService_exe'];
+						 			SPB_pid_TLDlistener[result[i]['poll_datetime']]=result[i]['pid_TLDlistener_exe'];
+						 			SPB_pid_ECOM[result[i]['poll_datetime']]=result[i]['pid_ECOM'];
+						 			SPB_pid_tomcat[result[i]['poll_datetime']]=result[i]['pid_tomcat_sh'];
+						 			SPB_pid_csx[result[i]['poll_datetime']]=result[i]['pid_csx_ic_safe'];
+						 			SPB_pid_mozzo[result[i]['poll_datetime']]=result[i]['pid_mozzo_sh'];
 					 			}
 					 		 }
 					 	}
@@ -203,7 +232,54 @@ function viewMemory(){
 			 					 	},
 					                tooltip: {
 					                	trigger: 'axis',
-					                    show: true    
+					                    show: true,
+					                    formatter: function (params,ticket,callback) {
+					                    	var time= params[0].name;
+					                        var relVal = params[0].name;
+					                          for (var i = 0, l = params.length; i < l; i++) {
+					                        	  var pid=-1;
+					                        	  if(params[i].seriesName=='SPA_peservice_RSS'){
+					                        		  pid = SPA_pid_PEService[time];
+					                        	  }
+					                        	  if(params[i].seriesName=='SPA_csx_ic_safe_RSS'){
+					                        		  pid = SPA_pid_csx[time];
+					                        	  }
+					                        	  if(params[i].seriesName=='SPA_ECOM_RSS'){
+					                        		  pid = SPA_pid_ECOM[time];
+					                        	  }
+					                        	  if(params[i].seriesName=='SPA_mozzo_sh_RSS'){
+					                        		  pid = SPA_pid_mozzo[time];
+					                        	  }
+					                        	  if(params[i].seriesName=='SPA_tomcat_RSS'){
+					                        		  pid = SPA_pid_tomcat[time];
+					                        	  }
+					                        	  if(params[i].seriesName=='SPA_TLDlistener_RSS'){
+					                        		  pid = SPA_pid_TLDlistener[time];
+					                        	  }
+					                        	  
+					                        	  if(params[i].seriesName=='SPB_peservice_RSS'){
+					                        		  pid = SPB_pid_PEService[time];
+					                        	  }
+					                        	  if(params[i].seriesName=='SPB_csx_ic_safe_RSS'){
+					                        		  pid = SPB_pid_csx[time];
+					                        	  }
+					                        	  if(params[i].seriesName=='SPB_ECOM_RSS'){
+					                        		  pid = SPB_pid_ECOM[time];
+					                        	  }
+					                        	  if(params[i].seriesName=='SPB_mozzo_sh_RSS'){
+					                        		  pid = SPB_pid_mozzo[time];
+					                        	  }
+					                        	  if(params[i].seriesName=='SPB_tomcat_RSS'){
+					                        		  pid = SPB_pid_tomcat[time];
+					                        	  }
+					                        	  if(params[i].seriesName=='SPB_TLDlistener_RSS'){
+					                        		  pid = SPB_pid_TLDlistener[time];
+					                        	  }
+					                        	  
+					                              relVal += '<br/>' + params[i].seriesName + ' : ' + params[i].value+",&nbsp;&nbsp;&nbsp;&nbsp;pid:"+pid;
+					                          }
+					                          return relVal;
+					                      }
 					                },    
 					                legend: {
 					                	x:"center",

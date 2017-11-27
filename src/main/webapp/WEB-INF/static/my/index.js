@@ -27,21 +27,15 @@ var dataColumns = [
 	    field: 'status',
 	    title: 'Status',
 	    formatter: function (value) {
-			    	if(value=='0'){
-		                return "Normal";
-		            }else if(value=='1'){
-		                return "Warning";
-		            }else{
-		            	return "Severe";
-		            }
+			    	return "";
         },
 	    cellStyle:function(value){
 		            if(value=='0'){
-		                return { classes: 'success' };
+		                return { classes: 'bg-green' };
 		            }else if(value=='1'){
-		                return { classes: 'warning' };
+		                return { classes: 'bg-yellow' };
 		            }else{
-		            	return { classes: 'danger' };
+		            	return { classes: 'bg-red' };
 		            }            
 		        }
 	},{
@@ -89,30 +83,37 @@ var dataColumnsTraditional = [
 	    field: 'model',
 	    title: 'Model'
 	},{
+	    field: 'tfa',
+	    title: 'TFA'
+	},{
 	    field: 'Version',
-	    title: 'Version'
+	    title: 'Current Bundle',
+	    formatter: function (value, row, index) {
+            return row.Version+' | '+row.versionTime;
+        }
 	},{
 	    field: 'currentRunTime',
-	    title: 'Current Run time(h)'
+	    title: 'Current Run time(h)',
+	    formatter: function (value) {
+	    	if(value==-1){
+	    		return "NA";
+	    	}else{
+	    		 return value;
+	    	}
+        }
 	},{
 	    field: 'status',
 	    title: 'Status',
 	    formatter: function (value) {
-			    	if(value=='0'){
-		                return "Normal";
-		            }else if(value=='1'){
-		                return "Warning";
-		            }else{
-		            	return "Severe";
-		            }
+			    	return "";
         },
 	    cellStyle:function(value){
 		            if(value=='0'){
-		                return { classes: 'success' };
+		                return { classes: 'bg-green' };
 		            }else if(value=='1'){
-		                return { classes: 'warning' };
+		                return { classes: 'bg-yellow' };
 		            }else{
-		            	return { classes: 'danger' };
+		            	return { classes: 'bg-red' };
 		            }            
 		        }
 	},{

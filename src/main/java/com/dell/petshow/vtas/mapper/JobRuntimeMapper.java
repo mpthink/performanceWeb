@@ -34,5 +34,5 @@ public interface JobRuntimeMapper extends BaseMapper<JobRuntime> {
 
 	Integer getMaxRowsOfRunHourByProgramAndArray(@Param("bigVersion") String bigVersion, @Param("arrayName") String arrayName);
 
-	JobRuntime selectCurrentRunHourBySmallVersionAndArray(String arrayName);
+	JobRuntime selectCurrentRunHourBySmallVersionAndArray(@Param("arrayName") String arrayName, @Param("smallVersion") String smallVersion);
 }

@@ -233,30 +233,30 @@ function viewMemory(){
 					                	borderColor:'#333',
 					                	borderWidth:1,
 					                	selected: {
-					                		'SPB_/tmp' : false,
-					                		'SPB_/cores' : false,
-					                		'SPB_/pramfs' : false,
-					                		'SPB_/EMC_s_backend_s_service' : false,
-					                		'SPB_/EMC_s_backend_s_CEM' : false,
-					                		'SPB_/nbsnas' : false,
-					                		'SPB_/EMC_s_backend_s_log_shared' : false,
-					                		'SPB_/EMC_s_backend_s_perf_stats' : false,
-					                		'SPB_/EMC_s_backend_s_metricsluna1' : false,
-					                		'SPB_/EMC_s_fastvp' : false,
+					                		'SPB_tmp' : false,
+					                		'SPB_cores' : false,
+					                		'SPB_pramfs' : false,
+					                		'SPB_service' : false,
+					                		'SPB_CEM' : false,
+					                		'SPB_nbsnas' : false,
+					                		'SPB_shared' : false,
+					                		'SPB_stats' : false,
+					                		'SPB_metricsluna1' : false,
+					                		'SPB_fastvp' : false,
 					                		
-					                		'SPA_/tmp' : false,
-					                		'SPA_/cores' : false,
-					                		'SPA_/pramfs' : false,
-					                		'SPA_/EMC_s_backend_s_service' : false,
-					                		'SPA_/EMC_s_backend_s_CEM' : false,
-					                		'SPA_/nbsnas' : false,
-					                		'SPA_/EMC_s_backend_s_log_shared' : false,
-					                		'SPA_/EMC_s_backend_s_perf_stats' : false,
-					                		'SPA_/EMC_s_backend_s_metricsluna1' : false,
-					                		'SPA_/EMC_s_fastvp' : false,
+					                		'SPA_tmp' : false,
+					                		'SPA_cores' : false,
+					                		'SPA_pramfs' : false,
+					                		'SPA_service' : false,
+					                		'SPA_CEM' : false,
+					                		'SPA_nbsnas' : false,
+					                		'SPA_shared' : false,
+					                		'SPA_stats' : false,
+					                		'SPA_metricsluna1' : false,
+					                		'SPA_fastvp' : false,
 					                	},
-					                	data: ['SPA_/','SPA_/tmp','SPA_/cores','SPA_/pramfs','SPA_/EMC_/backend_/service','SPA_/EMC_/backend_/CEM','SPA_/nbsnas','SPA_/EMC_/backend_/log_shared','SPA_/EMC_/backend_/perf_stats','SPA_/EMC_/backend_/metricsluna1','SPA_/EMC_/fastvp','',
-					                		   'SPB_/','SPB_/tmp','SPB_/cores','SPB_/pramfs','SPB_/EMC_/backend_/service','SPB_/EMC_/backend_/CEM','SPB_/nbsnas','SPB_/EMC_/backend_/log_shared','SPB_/EMC_/backend_/perf_stats','SPB_/EMC_/backend_/metricsluna1','SPB_/EMC_/fastvp']
+					                	data: ['SPA_/','SPA_tmp','SPA_cores','SPA_pramfs','SPA_service','SPA_CEM','SPA_nbsnas','SPA_shared','SPA_stats','SPA_metricsluna1','SPA_fastvp','',
+					                		   'SPB_/','SPB_tmp','SPB_cores','SPB_pramfs','SPB_service','SPB_CEM','SPB_nbsnas','SPB_shared','SPB_stats','SPB_metricsluna1','SPB_fastvp']
 					                },
 					                toolbox: {
 					    				show : false,
@@ -298,70 +298,70 @@ function viewMemory(){
 					                		'data': SPA_s_    
 					                		},
 					                		{
-					                		'name': 'SPA_/tmp',    
+					                		'name': 'SPA_tmp',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
 					                		'data': SPA_s_tmp    
 					                		},
 					                		{
-					                		'name': 'SPA_/cores',    
+					                		'name': 'SPA_cores',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
 					                		'data': SPA_s_cores    
 					                		},
 					                		{
-					                		'name': 'SPA_/pramfs',    
+					                		'name': 'SPA_pramfs',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
 					                		'data': SPA_s_pramfs    
 					                		},
 					                		{
-					                		'name': 'SPA_/EMC_s_backend_s_service',    
+					                		'name': 'SPA_service',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
 					                		'data': SPA_s_EMC_s_backend_s_service    
 					                		},
 					                		{
-					                		'name': 'SPA_/EMC_s_backend_s_CEM',    
+					                		'name': 'SPA_CEM',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
 					                		'data': SPA_s_EMC_s_backend_s_CEM    
 					                		},
 					                		{
-					                		'name': 'SPA_/nbsnas',
+					                		'name': 'SPA_nbsnas',
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
 					                		'data': SPA_s_nbsnas    
 					                		},
 					                		{
-					                		'name': 'SPA_/EMC_s_backend_s_log_shared',    
+					                		'name': 'SPA_shared',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
 					                		'data': SPA_s_EMC_s_backend_s_log_shared    
 					                		},
 					                		{
-					                		'name': 'SPA_/EMC_s_backend_s_perf_stats',    
+					                		'name': 'SPA_stats',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
 					                		'data': SPA_s_EMC_s_backend_s_perf_stats    
 					                		},
 					                		{
-					                		'name': 'SPA_/EMC_s_backend_s_metricsluna1',    
+					                		'name': 'SPA_metricsluna1',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
 					                		'data': SPA_s_EMC_s_backend_s_metricsluna1    
 					                		},
 					                		{
-					                		'name': 'SPA_/EMC_s_fastvp',    
+					                		'name': 'SPA_fastvp',    
 					                		'type': 'line',
 					                		'smooth':true,
 					                		'symbol':'none',
@@ -375,70 +375,70 @@ function viewMemory(){
 						                		'data': SPB_s_    
 						                		},
 						                		{
-						                		'name': 'SPB_/tmp',    
+						                		'name': 'SPB_tmp',    
 						                		'type': 'line',
 						                		'smooth':true,
 						                		'symbol':'none',
 						                		'data': SPB_s_tmp    
 						                		},
 						                		{
-						                		'name': 'SPB_/cores',    
+						                		'name': 'SPB_cores',    
 						                		'type': 'line',
 						                		'smooth':true,
 						                		'symbol':'none',
 						                		'data': SPB_s_cores    
 						                		},
 						                		{
-						                		'name': 'SPB_/pramfs',    
+						                		'name': 'SPB_pramfs',    
 						                		'type': 'line',
 						                		'smooth':true,
 						                		'symbol':'none',
 						                		'data': SPB_s_pramfs    
 						                		},
 						                		{
-						                		'name': 'SPB_/EMC_s_backend_s_service',    
+						                		'name': 'SPB_service',    
 						                		'type': 'line',
 						                		'smooth':true,
 						                		'symbol':'none',
 						                		'data': SPB_s_EMC_s_backend_s_service    
 						                		},
 						                		{
-						                		'name': 'SPB_/EMC_s_backend_s_CEM',    
+						                		'name': 'SPB_CEM',    
 						                		'type': 'line',
 						                		'smooth':true,
 						                		'symbol':'none',
 						                		'data': SPB_s_EMC_s_backend_s_CEM    
 						                		},
 						                		{
-						                		'name': 'SPB_/nbsnas',
+						                		'name': 'SPB_nbsnas',
 						                		'type': 'line',
 						                		'smooth':true,
 						                		'symbol':'none',
 						                		'data': SPB_s_nbsnas    
 						                		},
 						                		{
-						                		'name': 'SPB_/EMC_s_backend_s_log_shared',    
+						                		'name': 'SPB_shared',    
 						                		'type': 'line',
 						                		'smooth':true,
 						                		'symbol':'none',
 						                		'data': SPB_s_EMC_s_backend_s_log_shared    
 						                		},
 						                		{
-						                		'name': 'SPB_/EMC_s_backend_s_perf_stats',    
+						                		'name': 'SPB_stats',    
 						                		'type': 'line',
 						                		'smooth':true,
 						                		'symbol':'none',
 						                		'data': SPB_s_EMC_s_backend_s_perf_stats    
 						                		},
 						                		{
-						                		'name': 'SPB_/EMC_s_backend_s_metricsluna1',    
+						                		'name': 'SPB_metricsluna1',    
 						                		'type': 'line',
 						                		'smooth':true,
 						                		'symbol':'none',
 						                		'data': SPB_s_EMC_s_backend_s_metricsluna1    
 						                		},
 						                		{
-						                		'name': 'SPB_/EMC_s_fastvp',    
+						                		'name': 'SPB_fastvp',    
 						                		'type': 'line',
 						                		'smooth':true,
 						                		'symbol':'none',

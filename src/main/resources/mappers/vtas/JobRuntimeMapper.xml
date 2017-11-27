@@ -53,7 +53,8 @@
 		select *
 		from job_runtime a
 		where a.ARRAY_NAME= #{arrayName}
-		      order by a.START_TIME desc limit 1
+		      and a.version= #{smallVersion}
+		      order by a.END_TIME desc limit 1
     </select> 
     
     <select id="getMaxRowsOfRunHourByProgramAndArray" resultType="java.lang.Integer">
