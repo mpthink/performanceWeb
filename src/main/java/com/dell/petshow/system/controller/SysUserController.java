@@ -60,12 +60,19 @@ public class SysUserController extends SuperController {
 	@Permission("010101")
 	@RequestMapping("/list/{pageNumber}")
 	public String list(@PathVariable Integer pageNumber, String search, Model model) {
+
+		Page<SysUser> page = getPage(pageNumber);
+		page.setOrderByField("gmtCreate");
+		page.setAsc(false);
+		// 查询分页
+		EntityWrapper<SysUser> ew = new EntityWrapper<>();
 		if (StringUtils.isNotBlank(search)) {
+			ew.like("role_name", search);
 			model.addAttribute("search", search);
 		}
-		Page<SysUser> page = getPage(pageNumber);
-		Page<SysUser> pageData = sysUserService.selectUserPage(page, search);
+		Page<SysUser> pageData = sysUserService.selectPage(page, ew);
 		model.addAttribute("pageData", pageData);
+
 		return "system/user/list";
 	}
 
