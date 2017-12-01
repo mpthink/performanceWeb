@@ -44,8 +44,7 @@
     </select>
     
     <select id="selectCPUListBasedOnTableNameWithArrayAndVersionAndTimeslot" resultType="java.util.Map">
-		select sp,MEM_USED,peservice_exe_vsz,peservice_exe_rss,csx_ic_safe_vsz,csx_ic_safe_rss,ECOM_vsz,ECOM_rss,
-		       mozzo_sh_vsz,mozzo_sh_rss,tomcat_sh_vsz,tomcat_sh_rss,TLDlistener_exe_vsz,TLDlistener_exe_rss,CPU_FILT,DATE_FORMAT(poll_datetime,'%Y-%m-%d %H:%i:%s') poll_datetime
+		select sp,CPU_FILT,CPU_BUSY,DATE_FORMAT(poll_datetime,'%Y-%m-%d %H:%i:%s') poll_datetime
 		from ${tableName}
 		where array_name = #{arrayName}
 		<if test="beginTime != null">
@@ -72,8 +71,7 @@
     </select>
     
     <select id="selectIOPSListBasedOnTableNameWithArrayAndVersionAndTimeslot" resultType="java.util.Map">
-		select sp,MEM_USED,peservice_exe_vsz,peservice_exe_rss,csx_ic_safe_vsz,csx_ic_safe_rss,ECOM_vsz,ECOM_rss,
-		       mozzo_sh_vsz,mozzo_sh_rss,tomcat_sh_vsz,tomcat_sh_rss,TLDlistener_exe_vsz,TLDlistener_exe_rss,IOPS_WRITE,IOPS_READ,DATE_FORMAT(poll_datetime,'%Y-%m-%d %H:%i:%s') poll_datetime
+		select sp,IOPS_WRITE,IOPS_READ,DATE_FORMAT(poll_datetime,'%Y-%m-%d %H:%i:%s') poll_datetime
 		from ${tableName}
 		where array_name = #{arrayName}
 		<if test="beginTime != null">
@@ -94,6 +92,16 @@
 		select distinct version
 		from ${tableName}
 		where array_name = #{arrayName} order by version
+    </select>
+    
+    
+    <select id="selectLatestOneForDashBoardByProgramAndArrayAndSPType" resultType="java.util.Map">
+		select MEM_USED,CPU_FILT,IO_WRITE,IO_READ,DATE_FORMAT(poll_datetime,'%Y-%m-%d %H:%i:%s') poll_datetime
+		from ${tableName}
+		where array_name = #{arrayName}
+			  and sp = #{spType}
+		order by poll_datetime desc
+		limit 0,1
     </select>
     
 </mapper>

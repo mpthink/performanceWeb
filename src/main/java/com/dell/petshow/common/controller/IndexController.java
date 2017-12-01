@@ -14,20 +14,20 @@ import com.baomidou.kisso.SSOToken;
 import com.baomidou.kisso.Token;
 import com.baomidou.kisso.annotation.Action;
 import com.baomidou.kisso.annotation.Permission;
-import com.dell.petshow.vtas.service.IJobRuntimeService;
+import com.dell.petshow.vtas.service.IArrayInfoService;
 
 @Controller
 @RequestMapping("/")
 public class IndexController extends SuperController {
 
 	@Autowired
-	private IJobRuntimeService jobRuntimeService;
+	private IArrayInfoService arrayInfoService;
 
 
 	@Permission(action = Action.Skip)
 	@RequestMapping(value = {"/index", "/"})
 	public String index(Model model) {
-		List<Map<String, Object>> listOne = jobRuntimeService.getArrayNumForAllPrograms();
+		List<Map<String, Object>> listOne = arrayInfoService.getArrayNumForAllPrograms();
 		model.addAttribute("listOne", listOne);
 		Token token = SSOHelper.getToken(request);
 		if (token == null) {

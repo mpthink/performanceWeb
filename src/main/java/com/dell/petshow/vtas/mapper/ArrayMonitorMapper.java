@@ -34,4 +34,6 @@ public interface ArrayMonitorMapper extends BaseMapper<ArrayMonitor> {
 	List<Map<String, Object>> selectIOPSListBasedOnTableNameWithArrayAndVersionAndTimeslot(@Param("tableName") String tableName,
 		@Param("arrayName") String arrayName, @Param("beginTime") String beginTime, @Param("endTime") String endTime);
 
+	Map<String, Object> selectLatestOneForDashBoardByProgramAndArrayAndSPType(@Param("tableName") String tableName,
+		@Param("arrayName") String arrayName, @Param("spType") String spType);
 }

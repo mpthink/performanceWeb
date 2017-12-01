@@ -1,8 +1,8 @@
 package com.dell.petshow.vtas.entity;
 
 import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import java.io.Serializable;
 
 
@@ -12,7 +12,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author mpthink
- * @since 2017-10-17
+ * @since 2017-11-30
  */
 public class ProgramMap extends Model<ProgramMap> {
 
@@ -22,6 +22,8 @@ public class ProgramMap extends Model<ProgramMap> {
 	private String majorVersion;
 	@TableField("PROGRAM")
 	private String program;
+	@TableField("STATUS")
+	private Integer status;
 
 
 	public String getMajorVersion() {
@@ -40,6 +42,14 @@ public class ProgramMap extends Model<ProgramMap> {
 		this.program = program;
 	}
 
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.majorVersion;
@@ -48,6 +58,6 @@ public class ProgramMap extends Model<ProgramMap> {
 
 	@Override
 	public String toString(){
-		return "ProgramMap [majorVersion=" + majorVersion + ", program=" + program + "]";
+		return "ProgramMap [majorVersion=" + majorVersion + ", program=" + program + ", status=" + status + "]";
 	}
 }

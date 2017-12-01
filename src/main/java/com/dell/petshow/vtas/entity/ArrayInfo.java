@@ -12,7 +12,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author mpthink
- * @since 2017-11-14
+ * @since 2017-11-30
  */
 public class ArrayInfo extends Model<ArrayInfo> {
 
@@ -38,6 +38,8 @@ public class ArrayInfo extends Model<ArrayInfo> {
 	private String comment;
 	@TableField("TFA")
 	private String tfa;
+	@TableField("SERVICE_TIME")
+	private Integer serviceTime;
 
 
 	public String getArrayName() {
@@ -120,6 +122,14 @@ public class ArrayInfo extends Model<ArrayInfo> {
 		this.tfa = tfa;
 	}
 
+	public Integer getServiceTime() {
+		return serviceTime;
+	}
+
+	public void setServiceTime(Integer serviceTime) {
+		this.serviceTime = serviceTime;
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.arrayName;
@@ -128,6 +138,6 @@ public class ArrayInfo extends Model<ArrayInfo> {
 
 	@Override
 	public String toString(){
-		return "ArrayInfo [arrayName=" + arrayName + ", owner=" + owner + ", model=" + model + ", mgmtIp=" + mgmtIp + ", spaIp=" + spaIp + ", spbIp=" + spbIp + ", usageType=" + usageType + ", arrayStatus=" + arrayStatus + ", comment=" + comment + ", tfa=" + tfa + "]";
+		return "ArrayInfo [arrayName=" + arrayName + ", owner=" + owner + ", model=" + model + ", mgmtIp=" + mgmtIp + ", spaIp=" + spaIp + ", spbIp=" + spbIp + ", usageType=" + usageType + ", arrayStatus=" + arrayStatus + ", comment=" + comment + ", tfa=" + tfa + ", serviceTime=" + serviceTime + "]";
 	}
 }

@@ -10,9 +10,14 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.dell.petshow.vtas.entity.ArrayInfo;
 import com.dell.petshow.vtas.entity.ArrayMonitor;
+import com.dell.petshow.vtas.entity.SpUptime;
+import com.dell.petshow.vtas.mapper.ArrayInfoMapper;
 import com.dell.petshow.vtas.mapper.ArrayMonitorMapper;
+import com.dell.petshow.vtas.mapper.SpUptimeMapper;
 import com.dell.petshow.vtas.service.IArrayMonitorService;
+import com.dell.petshow.vtas.service.IProgramMapService;
 
 /**
  * <p>
@@ -27,6 +32,12 @@ public class ArrayMonitorServiceImpl extends ServiceImpl<ArrayMonitorMapper, Arr
 
 	@Autowired
 	private ArrayMonitorMapper arrayMonitorMapper;
+	@Autowired
+	private ArrayInfoMapper arrayInfoMapper;
+	@Autowired
+	private SpUptimeMapper spUptimeMapper;
+	@Autowired
+	private IProgramMapService programMapService;
 
 	@Override
 	@Cacheable(value = "commonCache")
@@ -90,4 +101,97 @@ public class ArrayMonitorServiceImpl extends ServiceImpl<ArrayMonitorMapper, Arr
 		return arrayMonitorMapper.selectIOPSListBasedOnTableNameWithArrayAndVersionAndTimeslot(tableName, arrayName, beginTime, endTime);
 	}
 
+	@Cacheable(value = "commonCache", key = "methodName")
+	@Override
+	public Map<String, Object> getArrayUptimeForDashBoard() {
+		List<String> arrayNameList = new ArrayList<>();
+		List<Integer> spaUptimeList = new ArrayList<>();
+		List<Integer> spbUptimeList = new ArrayList<>();
+		Map<String, Object> resultMap = new HashMap<>();
+		List<ArrayInfo> arrayInfos = arrayInfoMapper.selectList(null);
+		for (ArrayInfo arrayInfo : arrayInfos) {
+			String arrayName = arrayInfo.getArrayName();
+			SpUptime spaUptime = spUptimeMapper.selectLatestOneByArrayAndSPType(arrayName, "SPA");
+			SpUptime spbUptime = spUptimeMapper.selectLatestOneByArrayAndSPType(arrayName, "SPB");
+			arrayNameList.add(arrayName);
+			if (spaUptime == null) {
+				spaUptimeList.add(0);
+			} else {
+				spaUptimeList.add(spaUptime.getUptime());
+			}
+
+			if (spbUptime == null) {
+				spbUptimeList.add(0);
+			} else {
+				spbUptimeList.add(spbUptime.getUptime());
+			}
+		}
+		resultMap.put("arrayNameList", arrayNameList);
+		resultMap.put("spaUptimeList", spaUptimeList);
+		resultMap.put("spbUptimeList", spbUptimeList);
+		return resultMap;
+	}
+
+	@Cacheable(value = "commonCache", key = "methodName")
+	@Override
+	public Map<String, Object> getArrayCPUMemoryIOForDashBoard() {
+		List<String> arrayNameList = new ArrayList<>();
+		List<Integer> spaCPUList = new ArrayList<>();
+		List<Integer> spbCPUList = new ArrayList<>();
+		List<Integer> spaMemUsedList = new ArrayList<>();
+		List<Integer> spbMemUsedList = new ArrayList<>();
+		List<Integer> spaIOReadList = new ArrayList<>();
+		List<Integer> spaIOWriteList = new ArrayList<>();
+		List<Integer> spbIOReadList = new ArrayList<>();
+		List<Integer> spbIOWriteList = new ArrayList<>();
+		Map<String, Object> resultMap = new HashMap<>();
+		List<ArrayInfo> arrayInfos = arrayInfoMapper.selectList(null);
+		for (ArrayInfo arrayInfo : arrayInfos) {
+			String arrayName = arrayInfo.getArrayName();
+			SpUptime spaUptime = spUptimeMapper.selectLatestOneByArrayAndSPType(arrayName, "SPA");
+			String smallVersion = spaUptime.getVersion();
+			String tableName = getTableName(smallVersion);
+			Map<String, Object> spaData = arrayMonitorMapper.selectLatestOneForDashBoardByProgramAndArrayAndSPType(tableName, arrayName, "SPA");
+			Map<String, Object> spbData = arrayMonitorMapper.selectLatestOneForDashBoardByProgramAndArrayAndSPType(tableName, arrayName, "SPB");
+			arrayNameList.add(arrayName);
+			if (spaData == null) {
+				spaCPUList.add(0);
+				spaMemUsedList.add(0);
+				spaIOReadList.add(0);
+				spaIOWriteList.add(0);
+			} else {
+				spaCPUList.add((Integer) spaData.get("CPU_FILT"));
+				spaMemUsedList.add((Integer) spaData.get("MEM_USED"));
+				spaIOReadList.add((Integer) spaData.get("IO_READ"));
+				spaIOWriteList.add((Integer) spaData.get("IO_WRITE"));
+			}
+			if (spbData == null) {
+				spbCPUList.add(0);
+				spbMemUsedList.add(0);
+				spbIOReadList.add(0);
+				spbIOWriteList.add(0);
+			} else {
+				spbCPUList.add((Integer) spbData.get("CPU_FILT"));
+				spbMemUsedList.add((Integer) spbData.get("MEM_USED"));
+				spbIOReadList.add((Integer) spbData.get("IO_READ"));
+				spbIOWriteList.add((Integer) spbData.get("IO_WRITE"));
+			}
+		}
+		resultMap.put("arrayNameList", arrayNameList);
+		resultMap.put("spaCPUList", spaCPUList);
+		resultMap.put("spbCPUList", spbCPUList);
+		resultMap.put("spaMemUsedList", spaMemUsedList);
+		resultMap.put("spbMemUsedList", spbMemUsedList);
+		resultMap.put("spaIOReadList", spaIOReadList);
+		resultMap.put("spaIOWriteList", spaIOWriteList);
+		resultMap.put("spbIOReadList", spbIOReadList);
+		resultMap.put("spbIOWriteList", spbIOWriteList);
+		return resultMap;
+	}
+
+	private String getTableName(String smallVersion) {
+		String majorVersion = smallVersion.substring(0, 5);
+		String tableName = programMapService.getVERSIONMAPPROGRAM().get(majorVersion);
+		return tableName;
+	}
 }

@@ -15,4 +15,6 @@ import com.dell.petshow.vtas.entity.SpUptime;
  */
 public interface SpUptimeMapper extends BaseMapper<SpUptime> {
 	SpUptime selectLatestOneByArray(@Param("arrayName") String arrayName);
+
+	SpUptime selectLatestOneByArrayAndSPType(@Param("arrayName") String arrayName, @Param("spType") String spType);
 }

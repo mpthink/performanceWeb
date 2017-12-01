@@ -30,6 +30,4 @@ public interface IJobRuntimeService extends IService<JobRuntime> {
 
 	Integer getMaxRowsOfRunHourByProgramAndArray(String bigVersion, String arrayName);
 
-	List<Map<String, Object>> getArrayNumForAllPrograms();
-
 }

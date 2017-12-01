@@ -40,9 +40,4 @@ public class ArrayInfoController extends SuperController {
 		return "vtas/arrayinfo/editConfigTest";
 	}
 
-	@RequestMapping("/getArrayWithCurrentHours")
-	@ResponseBody
-	public String getArrayWithCurrentHours() {
-		return toJson(arrayInfoService.getArrayWithCurrentHours());
-	}
 }

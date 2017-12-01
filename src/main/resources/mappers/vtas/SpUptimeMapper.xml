@@ -25,4 +25,12 @@
     	limit 0,1
     </select>
     
+    <select id="selectLatestOneByArrayAndSPType" resultType="com.dell.petshow.vtas.entity.SpUptime" resultMap="BaseResultMap">
+    	SELECT * 
+    	FROM sp_uptime 
+    	where array_name=#{arrayName} and sp=#{spType}
+    	order by POLL_DATETIME desc 
+    	limit 0,1
+    </select>
+    
 </mapper>

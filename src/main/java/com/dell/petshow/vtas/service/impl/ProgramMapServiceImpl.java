@@ -32,6 +32,17 @@ public class ProgramMapServiceImpl extends ServiceImpl<ProgramMapMapper, Program
 
 	@Override
 	@Cacheable(value = "programCache", key = "methodName")
+	public Map<String, String> getVERSIONMAPPROGRAM() {
+		Map<String, String> versionMapProgram = new HashMap<>();
+		List<ProgramMap> programMaps = selectAll();
+		for (ProgramMap programMap : programMaps) {
+			versionMapProgram.put(programMap.getMajorVersion(), programMap.getProgram());
+		}
+		return versionMapProgram;
+	}
+
+	@Override
+	@Cacheable(value = "programCache", key = "methodName")
 	public List<ProgramMap> selectAll() {
 		Wrapper<ProgramMap> eWrapper = new EntityWrapper<>();
 		eWrapper.orderBy("MAJOR_VERSION", false);

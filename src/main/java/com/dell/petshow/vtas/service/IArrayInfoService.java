@@ -17,5 +17,5 @@ import com.dell.petshow.vtas.entity.ArrayInfo;
 public interface IArrayInfoService extends IService<ArrayInfo> {
 	List<Map<String, Object>> getArrayWithUptime();
 
-	List<Map<String, Object>> getArrayWithCurrentHours();
+	List<Map<String, Object>> getArrayNumForAllPrograms();
 }

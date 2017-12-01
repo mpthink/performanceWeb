@@ -103,4 +103,20 @@ public class ArrayMonitorController extends SuperController {
 		@RequestParam(value = "endTime", required = false) String endTime) {
 		return toJson(arrayMonitorService.selectIOPSListBasedOnTableNameWithArrayAndVersionAndTimeslot(tableName, arrayName, beginTime, endTime));
 	}
+
+	/**
+	 * for dashboard charts
+	 */
+	@RequestMapping(value = {"/getArrayUptime"})
+	@ResponseBody
+	public String getArrayUptimeForDashBoard() {
+		return toJson(arrayMonitorService.getArrayUptimeForDashBoard());
+	}
+
+	@RequestMapping(value = {"/getArrayCPUMemoryIO"})
+	@ResponseBody
+	public String getArrayCPUMemoryIOForDashBoard() {
+		return toJson(arrayMonitorService.getArrayCPUMemoryIOForDashBoard());
+	}
+
 }

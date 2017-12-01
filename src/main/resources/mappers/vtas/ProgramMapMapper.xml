@@ -6,11 +6,12 @@
 	<resultMap id="BaseResultMap" type="com.dell.petshow.vtas.entity.ProgramMap">
 		<id column="MAJOR_VERSION" property="majorVersion" />
 		<result column="PROGRAM" property="program" />
+		<result column="STATUS" property="status" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        MAJOR_VERSION AS majorVersion, PROGRAM AS program
+        MAJOR_VERSION AS majorVersion, PROGRAM AS program, STATUS AS status
     </sql>
     
     <select id="selectOneBasedonVersion" resultType="com.dell.petshow.vtas.entity.ProgramMap" resultMap="BaseResultMap">

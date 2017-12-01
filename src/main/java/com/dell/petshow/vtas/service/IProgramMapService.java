@@ -18,4 +18,6 @@ public interface IProgramMapService extends IService<ProgramMap> {
 	public List<ProgramMap> selectAll();
 
 	public List<Map<String, Object>> selectAllForSelect2(boolean flag);
+
+	Map<String, String> getVERSIONMAPPROGRAM();
 }
