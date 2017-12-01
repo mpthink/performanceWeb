@@ -42,7 +42,7 @@
 	                	${((pageData.current-1)*pageData.size +file_index+1)!}
 	                	</label>
 	                </td>
-	                <td>${(file.fileName)!}</td>
+	                <td><a class="product-title" href="/vtas/file/viewFile/${(file.fileName)!}">${(file.fileName)!}</a></td>
 	                <td>${(file.fileDesc)!'--'}</td>
 	                <td> 
 	                	<a class="btn btn-primary btn-xs" href="/vtas/file/viewFile/${(file.fileName)!}">View File</a>
