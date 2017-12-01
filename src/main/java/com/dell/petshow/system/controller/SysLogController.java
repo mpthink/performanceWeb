@@ -34,7 +34,7 @@ public class SysLogController extends SuperController {
 	/**
 	 * 分页查询日志
 	 */
-	@Permission("010401")
+	@Permission("010701")
 	@RequestMapping("/list/{pageNumber}")
 	public String list(@PathVariable("pageNumber") Integer pageNumber, String search, String dateRange, Model model) {
 		Page<SysLog> page = getPage(pageNumber);

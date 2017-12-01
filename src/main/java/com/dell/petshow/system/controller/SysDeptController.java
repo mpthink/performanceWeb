@@ -37,7 +37,7 @@ public class SysDeptController extends SuperController {
 	/**
 	 * 分页查询部门
 	 */
-	@Permission("010601")
+	@Permission("010801")
 	@RequestMapping("/list/{pageNumber}")
 	public String list(@PathVariable Integer pageNumber, String search, Model model) {
 
@@ -56,7 +56,7 @@ public class SysDeptController extends SuperController {
 	/**
 	 * 新增部门
 	 */
-	@Permission("010602")
+	@Permission("010802")
 	@RequestMapping("/add")
 	public String add(Model model) {
 		return "system/dept/add";
@@ -65,7 +65,7 @@ public class SysDeptController extends SuperController {
 	/**
 	 * 执行新增
 	 */
-	@Permission("010602")
+	@Permission("010802")
 	@Log("创建部门")
 	@RequestMapping("/doAdd")
 	public String doAdd(SysDept dept, String[] roleId) {
@@ -77,7 +77,7 @@ public class SysDeptController extends SuperController {
 	/**
 	 * 删除部门
 	 */
-	@Permission("010603")
+	@Permission("010803")
 	@Log("删除部门")
 	@RequestMapping("/delete")
 	@ResponseBody
@@ -89,7 +89,7 @@ public class SysDeptController extends SuperController {
 	/**
 	 * 编辑部门
 	 */
-	@Permission("010604")
+	@Permission("010804")
 	@RequestMapping("/edit/{id}")
 	public String edit(@PathVariable String id, Model model) {
 		SysDept dept = sysDeptService.selectById(id);
@@ -101,7 +101,7 @@ public class SysDeptController extends SuperController {
 	/**
 	 * 执行编辑
 	 */
-	@Permission("010604")
+	@Permission("010804")
 	@Log("编辑部门")
 	@RequestMapping("/doEdit")
 	public String doEdit(SysDept dept, Model model) {

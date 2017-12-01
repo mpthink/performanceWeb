@@ -10,6 +10,21 @@ DROP SCHEMA IF EXISTS `petshow`;
 CREATE SCHEMA IF NOT EXISTS `petshow` DEFAULT CHARACTER SET UTF8;
 USE `petshow`;
 
+-- ----------------------------
+--  Table structure for `vtas_files`
+-- ----------------------------
+DROP TABLE IF EXISTS `vtas_files`;
+
+CREATE TABLE `vtas_files` (
+  `id` bigint(20) unsigned NOT NULL COMMENT '主键',
+  `file_name` varchar(100) NOT NULL COMMENT '文件名称',
+  `file_desc` varchar(300) DEFAULT NULL COMMENT '文件描述',
+  `file_status` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '状态 0:正常 1:禁用',
+  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+  `gmt_modified` datetime DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文件管理表';
+
 
 -- ----------------------------
 --  Table structure for `sys_dept`

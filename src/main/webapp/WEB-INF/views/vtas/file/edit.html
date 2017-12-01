@@ -1,0 +1,50 @@
+<#include "/common/layout.html">
+<@header>
+</@header>
+<@body>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <small>VTAS > File Management</small>
+    </h1>
+  </section>
+  <!-- Main content -->
+  <section class="content">
+     <div class="row">
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Edit File</h3>
+          </div><!-- /.box-header -->
+          <!-- form start -->
+          <div class="row">
+          	<div class="col-md-4">
+        	  <form role="form" data-validator-option="{theme:'bootstrap', timely:2, stopOnError:true}" method="post" action="/vtas/file/doEdit">
+	            <input type="hidden" value="${(file.id)}" name="id" />
+	            <div class="box-body">
+	              <div class="form-group">
+	                <label for="fileName">File Name</label>
+	               	<input type="text" id="fileName" name="fileName" value="${(file.fileName)!}" class="form-control" placeholder="File name"  data-rule="File name:required;fileName;">
+	              </div>
+	              <div class="form-group">
+                      <label>File Description</label>
+                      <textarea class="form-control" name="fileDesc" rows="3" placeholder="Please describe the file usage, limit 300 words ..." >${(file.fileDesc)!}</textarea>
+                  </div>
+	            </div><!-- /.box-body -->
+	            <div class="box-footer">
+	              <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>  Submit</button>
+	              <a  class="btn btn-default" href="/system/user/list/1.html"><i class="fa fa-close"></i>  Cancel</a>
+	            </div>
+	          </form>
+          	</div>
+          </div>
+        </div><!-- /.box -->
+      </div><!--/.col (left) -->
+     </div>
+  </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+</@body>
+<@footer>
+</@footer>

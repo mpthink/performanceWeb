@@ -1,0 +1,84 @@
+<#include "/common/layout.html">
+<@header>
+</@header>
+<@body>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <small>VTAS > File Management</small>
+    </h1>
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <!-- Your Page Content Here -->
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+         <form action="/vtas/file/list/1.html" method="post">
+          <div class="box-header row m5">
+            <div class="input-group pull-left col-sm-9 col-lg-10 pb5">
+            <#if permissions?seq_contains('060102')>
+            <a class="btn btn-primary" href="/vtas/file/add.html"><i class="fa fa-plus"></i> Create File</a>
+            </#if>
+            </div>
+          </div><!-- /.box-header -->
+          </form>
+          <div class="box-body table-responsive no-padding">
+            <table class="table table-hover table-bordered">
+              <tr>
+                <th  width="100px">No</th>
+                <th>File Name</th>
+                <th>File Description</th>
+                <th>View Operation</th>
+                <#if currentUser.userName??&&currentUser.userName!='Visitor'>
+                <th>Admin Operation</th>
+                </#if>
+              </tr>
+              <#list pageData.getRecords() as file>
+              	  <tr>
+	                <td>
+	                   <label>
+	                	${((pageData.current-1)*pageData.size +file_index+1)!}
+	                	</label>
+	                </td>
+	                <td>${(file.fileName)!}</td>
+	                <td>${(file.fileDesc)!'--'}</td>
+	                <td> 
+	                	<a class="btn btn-primary btn-xs" href="/vtas/file/viewFile/${(file.fileName)!}">View File</a>
+	                	 <#if currentUser.userName??&&currentUser.userName!='Visitor'>
+	                	 <a class="btn btn-primary btn-xs" href="/vtas/file/editFile/${(file.fileName)!}">Edit File</a>
+	                	 </#if>
+	                </td>
+	                 <#if currentUser.userName??&&currentUser.userName!='Visitor'>
+		                <td>
+		                	<#if permissions?seq_contains('060104')>
+		                	<a class="btn btn-primary btn-xs" href="/vtas/file/edit/${(file.id)!}.html">Edit Desc</a>
+		                	<#else>-</#if>
+		                	<#if permissions?seq_contains('060103')>
+		                	<a class="btn btn-danger btn-xs"
+		                	 data-tiggle="ajax"
+		                	 data-submit-url="/vtas/file/delete?id=${(file.id)!}"
+		                	 data-confirm="Are you sure to delete?">Delete</a>
+		                	 <#else>-</#if>
+		                </td>
+	                </#if>
+	              </tr>
+              </#list>
+            </table>
+          </div><!-- /.box-body -->
+          <div class="box-footer row">
+            <div class="col-md-6">Showing ${((pageData.current -1) * pageData.size + 1)!}  -  ${(pageData.current * pageData.size)!} rows of ${(pageData.getTotal())!} rows</div>
+            <div class="col-md-6 pull-left">
+	             <#include "/common/paginate.html" />
+	  			 <@paginate currentPage=pageData.getCurrent() totalPage=pageData.getPages() actionUrl="/vtas/file/list/" urlParas=".html?search=${search!}"  />
+            </div>
+          </div>
+        </div><!-- /.box -->
+      </div>
+    </div>
+  </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+</@body>
+<@footer>
+</@footer>

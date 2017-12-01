@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dell.petshow.vtas.mapper.VtasFilesMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.dell.petshow.vtas.entity.VtasFiles">
+		<id column="id" property="id" />
+		<result column="file_name" property="fileName" />
+		<result column="file_desc" property="fileDesc" />
+		<result column="file_status" property="fileStatus" />
+		<result column="gmt_create" property="gmtCreate" />
+		<result column="gmt_modified" property="gmtModified" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, file_name, file_desc, file_status, gmt_create, gmt_modified
+    </sql>
+</mapper>

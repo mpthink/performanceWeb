@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -53,6 +54,18 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 					 */
 					return true;
 				}
+			}
+
+			/**
+			 * 资源和当前选中菜单
+			 */
+			String res = request.getParameter("p");
+			if (StringUtils.isNotBlank(res)) {
+				request.getSession().setAttribute("res", res);
+			}
+			String cur = request.getParameter("t");
+			if (StringUtils.isNotBlank(cur)) {
+				request.getSession().setAttribute("cur", cur);
 			}
 
 			/**
