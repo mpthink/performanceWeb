@@ -39,14 +39,14 @@ var dataColumns = [
 	    formatter: function (value) {
 	    	var day= Math.round(value/24);
 
-            return value+' ('+day+')days';
+            return value+' ('+day+'days)';
         }
 	},{
 	    field: 'serviceTime',
 	    title: 'Service Time(Hrs)',
 	    formatter: function (value) {
 	    	var day=Math.round(value/24);
-            return value+' ('+day+')days';
+            return value+' ('+day+'days)';
         }
 	},{
 	    field: 'status',
