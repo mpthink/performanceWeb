@@ -11,6 +11,22 @@ CREATE SCHEMA IF NOT EXISTS `petshow` DEFAULT CHARACTER SET UTF8;
 USE `petshow`;
 
 -- ----------------------------
+--  Table structure for `vtas_monitor_result`
+-- ----------------------------
+DROP TABLE IF EXISTS `vtas_monitor_result`;
+
+CREATE TABLE `vtas_monitor_result` (
+  `id` bigint(20) unsigned NOT NULL COMMENT '主键',
+  `array_name` varchar(30) NOT NULL COMMENT 'array Name',
+  `monitor_object` varchar(30) DEFAULT NULL COMMENT '监控对象',
+  `monitor_strategy` varchar(100) DEFAULT NULL COMMENT '监控采用策略',
+  `other_info` varchar(100) DEFAULT NULL COMMENT '其他信息',
+  `result_status` tinyint unsigned NOT NULL DEFAULT '0' COMMENT '状态 0:未确认 1:已确认不显示',
+  `gmt_create` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='监控结果记录表';
+
+-- ----------------------------
 --  Table structure for `vtas_files`
 -- ----------------------------
 DROP TABLE IF EXISTS `vtas_files`;

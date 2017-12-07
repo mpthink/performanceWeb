@@ -3,4 +3,30 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<!-- 用MethodInvokingJobDetailFactoryBean不可持久化,必须用JobDetailBean 需继承QuartzJobBean -->
+    <bean id="memoryGrowingMonitorJob" class="com.dell.petshow.vtas.monitor.quartz.MemoryGrowingMonitorJob"></bean>
+    <bean id="memoryJob1" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    	<property name="targetObject" ref="memoryGrowingMonitorJob"/>
+    	<property name="targetMethod" value="doAnalysisJob"/>
+    </bean>
+	<bean id="memoryTrigger1" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="memoryJob1" />
+        <!-- run every 12 clock at server time -->
+        <property name="cronExpression" value="0 0 12 * * ?" />
+    </bean>
+
+	<!-- Scheduler factory bean to glue together jobDetails and triggers to Configure Quartz Scheduler -->  
+	<bean  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+	    <property name="jobDetails">  
+	        <list>  
+	            <ref bean="memoryJob1" />  
+	        </list>  
+	    </property>  
+	  
+	    <property name="triggers">  
+	        <list>  
+	            <ref bean="memoryTrigger1" />  
+	        </list>  
+	    </property>  
+	</bean>
 </beans>

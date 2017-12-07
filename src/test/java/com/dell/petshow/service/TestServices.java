@@ -4,7 +4,11 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -13,13 +17,15 @@ import com.dell.petshow.system.entity.SysRolePermission;
 import com.dell.petshow.system.entity.vo.MenuVO;
 import com.dell.petshow.system.service.ISysPermissionService;
 import com.dell.petshow.system.service.ISysRolePermissionService;
+import com.dell.petshow.vtas.monitor.service.Strategy;
+import com.dell.petshow.vtas.monitor.service.impl.MemoryAnalyze;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/applicationContext-dao.xml", "classpath:spring/applicationContext-ehcache.xml",
 	"classpath:spring/applicationContext-service.xml"})
-public class TestServices {
+public class TestServices implements BeanFactoryAware {
 
 	@Autowired
 	private ISysPermissionService sysPermissionService;
@@ -27,8 +33,30 @@ public class TestServices {
 	@Autowired
 	private ISysRolePermissionService sysRolePermissionService;
 
+	@Autowired
+	@Qualifier("MemoryGrowthStrategy")
+	private Strategy strategy;
+
+	private BeanFactory factory;
+
 	@Test
 	public void dummy() {}
+
+	//@Test
+	public void testStrategy() throws InterruptedException {
+		MemoryAnalyze memoryAnalyze = factory.getBean(MemoryAnalyze.class, "OB-D1090", strategy);
+		Thread test = new Thread(memoryAnalyze);
+		test.start();
+
+		MemoryAnalyze memoryAnalyze2 = factory.getBean(MemoryAnalyze.class, "OB-D1121", strategy);
+		Thread test2 = new Thread(memoryAnalyze2);
+		test2.start();
+
+		Thread.sleep(10000);
+		System.err.println("flag.........." + memoryAnalyze.getResultMap());
+		System.err.println("flag.........." + memoryAnalyze2.getResultMap());
+	}
+
 
 	//@Test
 	public void testSysPermission() {
@@ -55,6 +83,12 @@ public class TestServices {
 			System.err.println(mVo.getPerm());
 			System.err.println(mVo.getChildrenPerm());
 		}
+
+	}
+
+	@Override
+	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+		factory = beanFactory;
 
 	}
 

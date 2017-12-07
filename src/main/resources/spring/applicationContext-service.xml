@@ -9,6 +9,11 @@
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
 	<!-- 扫描包加载Service实现类 -->
-	<context:component-scan base-package="com.dell.petshow.system.service,com.dell.petshow.vtas.service,com.dell.petshow.webmonitor.service,com.dell.petshow.common.ssh"></context:component-scan>
+	<context:component-scan base-package="com.dell.petshow.system.service,com.dell.petshow.vtas.service,com.dell.petshow.vtas.monitor.service,com.dell.petshow.common.ssh"></context:component-scan>
 	
+	<!-- used for multiple threads, create multiple instance for every service -->
+	<bean id="MemoryAnalyzeBean" class="com.dell.petshow.vtas.monitor.service.impl.MemoryAnalyze" scope="prototype">
+		<constructor-arg name="arrayName"> <null /></constructor-arg>   <!-- dummy value -->
+        <constructor-arg name="strategy"> <null /></constructor-arg>   <!-- dummy value -->
+	</bean>
 </beans>

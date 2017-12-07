@@ -15,7 +15,7 @@ public class QuartzTest {
 
 	public static void main(String[] args) throws SchedulerException, InterruptedException {
 		Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
-		JobDetail jobDetail = newJob(Hello.class).withIdentity("job1", "group1").build();
+		JobDetail jobDetail = newJob(Hello.class).usingJobData("dataKey", "dataValue").withIdentity("job1", "group1").build();
 
 		Trigger trigger = newTrigger().withIdentity("job1", "group1").startNow()
 			.withSchedule(simpleSchedule().withIntervalInSeconds(1).withRepeatCount(5)).build();
@@ -32,6 +32,13 @@ public class QuartzTest {
 		scheduler.rescheduleJob(triggerKey, trigger2);
 		System.out.println(scheduler.getJobGroupNames());
 		System.err.println(scheduler.getTriggerGroupNames());
+		System.out.println("------- 等待60秒 ... -------------");
+		try {
+			Thread.sleep(60L * 1000L);
+		} catch (Exception e) {
+		}
+
+		scheduler.shutdown(true);
 	}
 
 }

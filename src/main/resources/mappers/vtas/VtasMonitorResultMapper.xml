@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dell.petshow.vtas.mapper.VtasMonitorResultMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.dell.petshow.vtas.entity.VtasMonitorResult">
+		<id column="id" property="id" />
+		<result column="array_name" property="arrayName" />
+		<result column="monitor_object" property="monitorObject" />
+		<result column="monitor_strategy" property="monitorStrategy" />
+		<result column="other_info" property="otherInfo" />
+		<result column="result_status" property="resultStatus" />
+		<result column="gmt_create" property="gmtCreate" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, array_name, monitor_object, monitor_strategy, other_info, result_status, gmt_create
+    </sql>
+</mapper>
