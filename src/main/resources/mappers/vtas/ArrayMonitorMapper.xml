@@ -44,7 +44,7 @@
     </select>
     
     <select id="selectCPUListBasedOnTableNameWithArrayAndVersionAndTimeslot" resultType="java.util.Map">
-		select sp,CPU_FILT,CPU_BUSY,DATE_FORMAT(poll_datetime,'%Y-%m-%d %H:%i:%s') poll_datetime
+		select sp,CPU_FILT,CPU_BUSY,cpu_PEService_exe,cpu_csx_ic_safe,cpu_ECOM,cpu_mozzo_sh,cpu_tomcat_sh,cpu_TLDlistener_exe,DATE_FORMAT(poll_datetime,'%Y-%m-%d %H:%i:%s') poll_datetime
 		from ${tableName}
 		where array_name = #{arrayName}
 		<if test="beginTime != null">
