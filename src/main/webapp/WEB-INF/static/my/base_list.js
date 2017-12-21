@@ -111,8 +111,8 @@ function clientPagination() {
         sidePagination: "client",       //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
         								//default is 'client'
         pageNumber:1,            //如果设置了分页，首页页码. default is 1
-        pageSize: 10,            //如果设置了分页，页面数据条数, default is 10
-        pageList: [10, 25, 50, 100],    //如果设置了分页，设置可供选择的页面数据条数。设置为All 则显示所有记录。default: [10, 25, 50, 100, All]
+        pageSize: 20,            //如果设置了分页，页面数据条数, default is 10
+        pageList: [20, 50, 100],    //如果设置了分页，设置可供选择的页面数据条数。设置为All 则显示所有记录。default: [10, 25, 50, 100, All]
         strictSearch: false,      //设置为 true启用 全匹配搜索，否则为模糊搜索, default: false
         clickToSelect: true,        //设置true 将在点击行时，自动选择rediobox 和 checkbox,default: false
                  //height: 定义表格的高度。，如果没有设置height属性，表格自动根据记录条数调整表格高度

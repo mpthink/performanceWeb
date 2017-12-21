@@ -114,7 +114,7 @@ public class JobRuntimeController extends SuperController {
 				} else {
 					temp_xAxis_data.append(versionList.get(i)).append(",");
 				}
-				handleRunHourList(versionList.get(i), arrayName, series_data);
+				handleRunHourList(versionList.get(i), arrayName, series_data, maxLegend);
 			}
 			dataMap.put("xAxis_data", temp_xAxis_data);
 			dataMap.put("series_data", series_data);
@@ -125,13 +125,17 @@ public class JobRuntimeController extends SuperController {
 		return dataMap;
 	}
 
-	private void handleRunHourList(String smallVersion, String arrayName, String[] series_data) {
+	private void handleRunHourList(String smallVersion, String arrayName, String[] series_data, Integer maxLegend) {
 		List<String> hourList = jobRuntimeService.selectRunHourBySmallVersionAndArray(smallVersion, arrayName);
-		for (int i = 0; i < hourList.size(); i++) {
+		for (int i = 0; i < maxLegend; i++) {
+			String value = "0";
+			if (i < hourList.size()) {
+				value = hourList.get(i);
+			}
 			if (series_data[i] == null) {
-				series_data[i] = hourList.get(i);
+				series_data[i] = value;
 			} else {
-				series_data[i] = series_data[i] + "," + hourList.get(i);
+				series_data[i] = series_data[i] + "," + value;
 			}
 		}
 	}
