@@ -22,6 +22,8 @@ public interface IJobRuntimeService extends IService<JobRuntime> {
 
 	List<Map<String, Object>> selectLatestJobsWithProgramName();
 
+	Map<String, Object> selectMaxHourByProgramAndArray(String bigVersion, String arrayName);
+
 	List<String> selectDistinctArrayListByProgram(String bigVersion);
 
 	List<String> selectVersionByProgramAndArray(String bigVersion, String arrayName);

@@ -24,6 +24,8 @@ public interface JobRuntimeMapper extends BaseMapper<JobRuntime> {
 
 	List<Map<String, Object>> selectLatestJobsWithProgramName();
 
+	Map<String, Object> selectMaxHourByProgramAndArray(@Param("bigVersion") String bigVersion, @Param("arrayName") String arrayName);
+
 	String selectLatestVersionByArray(@Param("arrayName") String arrayName);
 
 	List<String> selectDistinctArrayListByProgram(@Param("bigVersion") String bigVersion);

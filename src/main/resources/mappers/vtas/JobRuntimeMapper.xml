@@ -28,7 +28,14 @@
     <select id="selectDistinctArrayListByProgram" resultType="java.lang.String">
     	SELECT distinct ARRAY_NAME 
     	FROM job_runtime
-    	WHERE version like CONCAT(#{bigVersion},'.%')
+    	WHERE version like CONCAT(#{bigVersion},'.%') order by ARRAY_NAME asc
+    </select>
+    
+    <select id="selectMaxHourByProgramAndArray" resultType="java.util.Map">
+    	SELECT VERSION,max(RUN_HOURS) maxhour FROM job_runtime
+    	where version like CONCAT(#{bigVersion},'.%') and ARRAY_NAME = #{arrayName}
+    	group by VERSION 
+    	order by maxhour desc,version asc limit 0,1
     </select>
     
     <select id="selectVersionByProgramAndArray" resultType="java.lang.String">

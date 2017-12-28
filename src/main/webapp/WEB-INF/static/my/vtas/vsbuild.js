@@ -88,6 +88,123 @@ function viewSingleAraay(){
 			 var arrayName = $('#arrayName').val();
 			 var buildVersion = $('#buildVersion').val();
 			 if(buildVersion == ''||buildVersion==null){buildVersion = 'all';}
+			 if(arrayName == ''||arrayName==null){arrayName = 'all';}
+			 
+			 
+			 //不选择array，只选择program的图形
+			 if(arrayName == 'all'){
+				 var dataUrl = '/vtas/jobRuntime/getAllArraysRunHour/'+program;
+				 var Chart=ec.init(document.getElementById("main"));  
+				 Chart.showLoading({text: 'Loding...'});  
+				 var xAxisData;
+				 var legendData=['RunHour'];
+				 var serieData;
+				 var arrayVersionMap={};
+				 $.ajax({  
+				        url:dataUrl,  
+				        dataType:"json",  
+				        type:'post',  
+				        success:function(result){
+				        	if(result==null||result==''){
+				        		layer.alert('No data', {icon: 0,title:'Info',closeBtn: 0,skin: 'layui-layer-molv'});
+						 		Chart.hideLoading();
+						 	}else{
+						 		xAxisData = result.arrayNameList;
+						 		serieData = result.arrayMaxRunHourList;
+						 		arrayVersionMap = result.arrayBuildMapToMaxRunHour;
+						 		
+						 	}
+				        	
+							var option = {
+								tooltip : {
+									trigger: 'axis',
+									axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+										type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+									},
+									show: true,
+				                    formatter: function (params,ticket,callback) {
+				                    	var arrayName= params[0].name;
+				                        var relVal = params[0].name;
+				                        var version = arrayVersionMap[arrayName];
+				                        relVal += '<br/>' + params[0].seriesName + ' : ' + params[0].value+",&nbsp;&nbsp;&nbsp;&nbsp;version:"+version;
+				                        return relVal;
+				                      }
+								},
+								legend: {
+									data:legendData
+								},
+								toolbox: {
+									show : true,
+									orient: 'vertical',
+									x: 'right',
+									y: 'center',
+									feature : {
+										mark : {show: true},
+										dataView : {show: true, readOnly: false},
+										magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+										restore : {show: true},
+										saveAsImage : {show: true}
+									}
+								},
+								calculable : true,
+								xAxis : [
+									{
+										type : 'category',
+										data : xAxisData
+									}
+								],
+								yAxis : [
+									{
+										type : 'value'
+									}
+								],
+								series : [
+									{
+										'name': 'RunHour',    
+										'type': 'bar',
+										'data': serieData,
+										itemStyle:{
+											normal:{
+												color: function(params) {
+						                            // build a color map as your need.
+						                            var colorList = [
+						                              '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+						                               '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+						                               '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+						                            ];
+						                            return colorList[params.dataIndex]
+						                        },
+											}
+										},
+										 markPoint : {
+							                data : [
+							                    {type : 'max', name: 'Max'},
+							                    {type : 'min', name: 'Min'}
+							                ]
+							            },
+							            markLine : {
+							                data : [
+							                    {type : 'average', name: 'AVG'}
+							                ]
+							            }
+			                		}
+								]
+							};
+							
+					        Chart.hideLoading();  
+					        Chart.setOption(option);    
+				        },
+				        error : function() {
+							 //请求失败时执行该函数
+							 alert("Failed to get ajax data!");
+							 Chart.hideLoading();
+						 }
+				    }); //end----选择array
+				 
+				 
+				 
+			 }else{
+			 //选择单个array或者选择array+build的图形
 			 var dataUrl = '/vtas/jobRuntime/getRunHourByProgramAndArray/'+program+'/'+arrayName+'/'+buildVersion+'/';
 			 var Chart=ec.init(document.getElementById("main"));  
 			 Chart.showLoading({text: 'Loding...'});  
@@ -101,7 +218,7 @@ function viewSingleAraay(){
 			        type:'post',  
 			        success:function(result){
 			        	if(result==null||result==''){
-			        		layer.alert('暂无数据', {icon: 0,title:'信息',closeBtn: 0,skin: 'layui-layer-molv'});
+			        		layer.alert('No data', {icon: 0,title:'Info',closeBtn: 0,skin: 'layui-layer-molv'});
 					 		Chart.hideLoading();
 					 	}else{
 					 		xAxisData = result.xAxis_data.split(',');    
@@ -163,7 +280,9 @@ function viewSingleAraay(){
 						 alert("Failed to get ajax data!");
 						 Chart.hideLoading();
 					 }
-			    }); 
+			    }); //end----选择array
+			 }
+			 
 		    })
 }
 

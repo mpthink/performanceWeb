@@ -64,4 +64,9 @@ public class JobRuntimeServiceImpl extends ServiceImpl<JobRuntimeMapper, JobRunt
 		return jobRuntimeMapper.selectLatestJobsWithProgramName();
 	}
 
+	@Override
+	public Map<String, Object> selectMaxHourByProgramAndArray(String bigVersion, String arrayName) {
+		return jobRuntimeMapper.selectMaxHourByProgramAndArray(bigVersion, arrayName);
+	}
+
 }
