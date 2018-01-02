@@ -36,4 +36,7 @@ public interface ArrayMonitorMapper extends BaseMapper<ArrayMonitor> {
 
 	Map<String, Object> selectLatestOneForDashBoardByProgramAndArrayAndSPType(@Param("tableName") String tableName,
 		@Param("arrayName") String arrayName, @Param("spType") String spType);
+
+	List<Map<String, Object>> selectBandwidthListBasedOnTableNameWithArrayAndVersionAndTimeslot(@Param("tableName") String tableName,
+		@Param("arrayName") String arrayName, @Param("beginTime") String beginTime, @Param("endTime") String endTime);
 }

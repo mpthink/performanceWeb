@@ -33,4 +33,19 @@
     	limit 0,1
     </select>
     
+    <!-- new add for vs build -->
+    <select id="selectDistinctArrayListByProgram" resultType="java.lang.String">
+    	SELECT distinct ARRAY_NAME 
+    	FROM sp_uptime
+    	WHERE version like CONCAT(#{bigVersion},'.%') order by ARRAY_NAME asc
+    </select>
+    
+    <select id="selectMaxHourByProgramAndArray" resultType="java.util.Map">
+    	select a.version version,min(a.maxrunhour) minmaxhour
+		from
+		(SELECT VERSION,max(UPTIME) maxrunhour,SP FROM sp_uptime 
+		where VERSION like CONCAT(#{bigVersion},'.%') and ARRAY_NAME = #{arrayName} group by version,sp order by maxrunhour desc ) a 
+		group by a.version order by minmaxhour desc,version desc limit 0,1
+    </select>
+    
 </mapper>

@@ -35,4 +35,7 @@ public interface IArrayMonitorService extends IService<ArrayMonitor> {
 	Map<String, Object> getArrayUptimeForDashBoard();
 
 	Map<String, Object> getArrayCPUMemoryIOForDashBoard();
+
+	List<Map<String, Object>> selectBandwidthListBasedOnTableNameWithArrayAndVersionAndTimeslot(String tableName, String arrayName, String beginTime,
+		String endTime);
 }

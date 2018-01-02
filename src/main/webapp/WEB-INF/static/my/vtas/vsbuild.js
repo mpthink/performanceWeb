@@ -187,7 +187,19 @@ function viewSingleAraay(){
 							                    {type : 'average', name: 'AVG'}
 							                ]
 							            }
-			                		}
+			                		},
+			                		 {
+			                            name:'Expection',
+			                            type:'line',
+			                            'smooth':true,
+				                		'symbol':'none',
+			                            data:[672],
+			                            markLine : {
+			                                data : [
+			                                    {type : 'average', name : 'Expection'}
+			                                ]
+			                            }
+			                        }
 								]
 							};
 							

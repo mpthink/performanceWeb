@@ -37,6 +37,11 @@ public class ArrayMonitorController extends SuperController {
 		return "vtas/arraymonitor/memory";
 	}
 
+	@RequestMapping("/bandwidth")
+	public String showBandwidth(Model model) {
+		return "vtas/arraymonitor/bandwidth";
+	}
+
 	@RequestMapping("/cpu")
 	public String showCPU(Model model) {
 		return "vtas/arraymonitor/cpu";
@@ -78,6 +83,15 @@ public class ArrayMonitorController extends SuperController {
 		@RequestParam(value = "beginTime", required = false) String beginTime,
 		@RequestParam(value = "endTime", required = false) String endTime) {
 		return toJson(arrayMonitorService.selectMemoryListBasedOnTableNameWithArrayAndVersionAndTimeslot(tableName, arrayName, beginTime, endTime));
+	}
+
+	@RequestMapping(value = {"/getBandwidthList/{tableName}/{arrayName}"})
+	@ResponseBody
+	public String getBandwidthList(@PathVariable("tableName") String tableName, @PathVariable("arrayName") String arrayName,
+		@RequestParam(value = "beginTime", required = false) String beginTime,
+		@RequestParam(value = "endTime", required = false) String endTime) {
+		return toJson(
+			arrayMonitorService.selectBandwidthListBasedOnTableNameWithArrayAndVersionAndTimeslot(tableName, arrayName, beginTime, endTime));
 	}
 
 	@RequestMapping(value = {"/getCPUList/{tableName}/{arrayName}"})

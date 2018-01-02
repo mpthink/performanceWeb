@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.dell.petshow.common.controller.SuperController;
 import com.dell.petshow.vtas.mapper.ArrayInfoMapper;
 import com.dell.petshow.vtas.service.IJobRuntimeService;
+import com.dell.petshow.vtas.service.ISpUptimeService;
 
 /**
  * <p>
@@ -32,6 +33,8 @@ public class JobRuntimeController extends SuperController {
 	private IJobRuntimeService jobRuntimeService;
 	@Autowired
 	private ArrayInfoMapper arrayInfoMapper;
+	@Autowired
+	private ISpUptimeService spUptimeService;
 
 	@RequestMapping("/vsBuild")
 	public String index(Model model) {
@@ -139,11 +142,11 @@ public class JobRuntimeController extends SuperController {
 		Map<String, Object> arrayBuildMapToMaxRunHour = new HashMap<>();
 		List<Integer> arrayMaxRunHourList = new ArrayList<>();
 		Map<String, Object> resultMap = new HashMap<>();
-		List<String> arrayNameList = jobRuntimeService.selectDistinctArrayListByProgram(bigVersion);
+		List<String> arrayNameList = spUptimeService.selectDistinctArrayListByProgram(bigVersion);
 		for (String arrayName : arrayNameList) {
-			Map<String, Object> maxHourRow = jobRuntimeService.selectMaxHourByProgramAndArray(bigVersion, arrayName);
-			arrayMaxRunHourList.add((Integer) maxHourRow.get("maxhour"));
-			arrayBuildMapToMaxRunHour.put(arrayName, maxHourRow.get("VERSION"));
+			Map<String, Object> maxHourRow = spUptimeService.selectMaxHourByProgramAndArray(bigVersion, arrayName);
+			arrayMaxRunHourList.add((Integer) maxHourRow.get("minmaxhour"));
+			arrayBuildMapToMaxRunHour.put(arrayName, maxHourRow.get("version"));
 		}
 		resultMap.put("arrayNameList", arrayNameList);
 		resultMap.put("arrayMaxRunHourList", arrayMaxRunHourList);

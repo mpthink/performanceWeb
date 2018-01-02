@@ -1,5 +1,8 @@
 package com.dell.petshow.vtas.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
@@ -17,4 +20,8 @@ public interface SpUptimeMapper extends BaseMapper<SpUptime> {
 	SpUptime selectLatestOneByArray(@Param("arrayName") String arrayName);
 
 	SpUptime selectLatestOneByArrayAndSPType(@Param("arrayName") String arrayName, @Param("spType") String spType);
+
+	List<String> selectDistinctArrayListByProgram(@Param("bigVersion") String bigVersion);
+
+	Map<String, Object> selectMaxHourByProgramAndArray(@Param("bigVersion") String bigVersion, @Param("arrayName") String arrayName);
 }

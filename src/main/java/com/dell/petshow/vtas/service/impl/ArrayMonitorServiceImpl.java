@@ -81,6 +81,12 @@ public class ArrayMonitorServiceImpl extends ServiceImpl<ArrayMonitorMapper, Arr
 	}
 
 	@Override
+	public List<Map<String, Object>> selectBandwidthListBasedOnTableNameWithArrayAndVersionAndTimeslot(String tableName, String arrayName,
+		String beginTime, String endTime) {
+		return arrayMonitorMapper.selectBandwidthListBasedOnTableNameWithArrayAndVersionAndTimeslot(tableName, arrayName, beginTime, endTime);
+	}
+
+	@Override
 	@Cacheable(value = "arrayMonitorCPUCache")
 	public List<Map<String, Object>> selectCPUListBasedOnTableNameWithArrayAndVersionAndTimeslot(String tableName, String arrayName,
 		String beginTime, String endTime) {
@@ -194,4 +200,6 @@ public class ArrayMonitorServiceImpl extends ServiceImpl<ArrayMonitorMapper, Arr
 		String tableName = programMapService.getVERSIONMAPPROGRAM().get(majorVersion);
 		return tableName;
 	}
+
+
 }
