@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dell.petshow.vtas.mapper.ArrayHostsMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.dell.petshow.vtas.entity.ArrayHosts">
+		<id column="ID" property="id" />
+		<result column="ARRAY_NAME" property="arrayName" />
+		<result column="fc_host_count" property="fcHostCount" />
+		<result column="iscsi_host_count" property="iscsiHostCount" />
+		<result column="cifs_nfs_host_count" property="cifsNfsHostCount" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS id, ARRAY_NAME AS arrayName, fc_host_count, iscsi_host_count, cifs_nfs_host_count
+    </sql>
+</mapper>

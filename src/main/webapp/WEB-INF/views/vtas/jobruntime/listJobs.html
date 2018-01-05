@@ -19,7 +19,12 @@
               <h4 class="box-title">All Jenkins Job List</h4>
             </div>       
            <div class="box-body">
-				<table id="dataTable" class="table table-bordered"></table>
+				<div class="table-responsive">
+					<table  id="dataTable" 
+							class="table table-bordered"
+							data-detail-view="true"
+							data-detail-formatter="detailFormatter"></table>
+				</div>
 		   </div>
           
           <!-- /.box-body -->

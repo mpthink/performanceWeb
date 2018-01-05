@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dell.petshow.vtas.mapper.ArrayConfigurationMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.dell.petshow.vtas.entity.ArrayConfiguration">
+		<id column="ID" property="id" />
+		<result column="POLL_DATETIME" property="pollDatetime" />
+		<result column="project" property="project" />
+		<result column="ARRAY_NAME" property="arrayName" />
+		<result column="model" property="model" />
+		<result column="lun_count" property="lunCount" />
+		<result column="lun_thin_count" property="lunThinCount" />
+		<result column="fs_thin_count" property="fsThinCount" />
+		<result column="lun_snap_count" property="lunSnapCount" />
+		<result column="fs_snap_count" property="fsSnapCount" />
+		<result column="lun_ilc_count" property="lunIlcCount" />
+		<result column="fs_ilc_count" property="fsIlcCount" />
+		<result column="fs_count" property="fsCount" />
+		<result column="fc_host_count" property="fcHostCount" />
+		<result column="iscsi_host_count" property="iscsiHostCount" />
+		<result column="cifs_nfs_host_count" property="cifsNfsHostCount" />
+		<result column="total_drive_count" property="totalDriveCount" />
+		<result column="size_tb" property="sizeTb" />
+		<result column="drive_types" property="driveTypes" />
+		<result column="ilc_ilpd_enable" property="ilcIlpdEnable" />
+		<result column="fastcache_enable" property="fastcacheEnable" />
+		<result column="mapped_raid_enable" property="mappedRaidEnable" />
+		<result column="encryption" property="encryption" />
+		<result column="fsn_enable" property="fsnEnable" />
+		<result column="pool1_size_tb" property="pool1SizeTb" />
+		<result column="pool1_drive_types" property="pool1DriveTypes" />
+		<result column="pool2_size_tb" property="pool2SizeTb" />
+		<result column="pool2_drive_types" property="pool2DriveTypes" />
+		<result column="pool3_size_tb" property="pool3SizeTb" />
+		<result column="pool3_drive_types" property="pool3DriveTypes" />
+		<result column="pool4_size_tb" property="pool4SizeTb" />
+		<result column="pool4_drive_types" property="pool4DriveTypes" />
+		<result column="pool5_size_tb" property="pool5SizeTb" />
+		<result column="pool5_drive_types" property="pool5DriveTypes" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS id, POLL_DATETIME AS pollDatetime, project, ARRAY_NAME AS arrayName, model, lun_count, lun_thin_count, fs_thin_count, lun_snap_count, fs_snap_count, lun_ilc_count, fs_ilc_count, fs_count, fc_host_count, iscsi_host_count, cifs_nfs_host_count, total_drive_count, size_tb, drive_types, ilc_ilpd_enable, fastcache_enable, mapped_raid_enable, encryption, fsn_enable, pool1_size_tb, pool1_drive_types, pool2_size_tb, pool2_drive_types, pool3_size_tb, pool3_drive_types, pool4_size_tb, pool4_drive_types, pool5_size_tb, pool5_drive_types
+    </sql>
+    
+    <select id="selectLatestArrayConfiguration" resultType="java.util.Map">
+    	SELECT aa.*,bb.cifs_nfs_host_count,bb.fc_host_count,bb.iscsi_host_count 
+		FROM Array_Configuration as aa,
+		Array_Hosts as bb
+		where 
+		aa.ARRAY_NAME = bb.ARRAY_NAME and
+		aa.POLL_DATETIME = (select distinct POLL_DATETIME from Array_Configuration order by POLL_DATETIME desc limit 0,1)
+		order by project desc
+    </select>
+    
+    <select id="selectPollTime" resultType="java.lang.String">
+    	SELECT distinct POLL_DATETIME FROM Array_Configuration order by POLL_DATETIME desc limit 0,30
+    </select>
+    
+    <select id="getArrayConfigurationByTime" resultType="java.util.Map">
+    	SELECT aa.*,bb.cifs_nfs_host_count,bb.fc_host_count,bb.iscsi_host_count 
+		FROM Array_Configuration as aa,
+		Array_Hosts as bb
+		where 
+		aa.ARRAY_NAME = bb.ARRAY_NAME and
+		aa.POLL_DATETIME like CONCAT(#{time},'%')
+		order by project desc
+    </select>
+    
+</mapper>
