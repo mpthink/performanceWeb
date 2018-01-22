@@ -10,7 +10,7 @@ $(function(){
 	});
 
 	$('#arrayName').change(function(){
-		viewMemory();
+		viewBandwidth();
 	});
 	
 	$('#reservationtime').daterangepicker(		
@@ -33,11 +33,40 @@ $(function(){
     );
 	
 	$('#reservationtime').change(function(){
-		viewMemory();
+		viewBandwidth();
 	});
+	
+	//add for redirect
+	showRedirect();
 	
 })
 
+
+function redirectTo(pageName) {
+	 var program = $('#programSelect').val();
+	 var arrayName = $('#arrayName').val();
+	 var reservationtime = $('#reservationtime').val();
+     window.open("/vtas/arraymonitor/"+pageName+"?flag=true&program="+program+"&arrayName="+arrayName+"&reservationtime="+reservationtime);
+ }
+
+function showRedirect(){
+	var flag = getUrlParam("flag");
+	if(flag == "true" ){
+		var program = getUrlParam("program");
+		var arrayName = getUrlParam("arrayName");
+		var reservationtime = getUrlParam("reservationtime");
+		$("#programSelect").empty().append("<option value="+program+">"+program+"</option>").val(program).trigger('change');
+		$("#arrayName").empty().append("<option value="+arrayName+">"+arrayName+"</option>").val(arrayName).trigger('change');
+		$('#reservationtime').val(reservationtime);
+		viewBandwidth();
+	}
+}
+
+function getUrlParam(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+    var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+    if (r != null) return unescape(r[2]); return null; //返回参数值
+}
 
 function generateUrl(){
 	var timerange = $("#reservationtime").val();
@@ -116,7 +145,7 @@ function buildSelect(tableName,arrayName){
 
 
 
-function viewMemory(){
+function viewBandwidth(){
 	require.config({
 	    paths: {
 	        echarts: '/plugins/echart/dist'
