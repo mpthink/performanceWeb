@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dell.petshow.vtas.mapper.HostInformationMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.dell.petshow.vtas.entity.HostInformation">
+		<id column="ID" property="id" />
+		<result column="IPV4" property="ipv4" />
+		<result column="ARRAY_NAME" property="arrayName" />
+		<result column="OS" property="os" />
+		<result column="CPU" property="cpu" />
+		<result column="MEM" property="mem" />
+		<result column="IOX" property="iox" />
+		<result column="IOX_stat" property="IOXStat" />
+		<result column="FIO" property="fio" />
+		<result column="FIO_stat" property="FIOStat" />
+		<result column="VJTREE" property="vjtree" />
+		<result column="VJTREE_stat" property="VJTREEStat" />
+		<result column="DAQ" property="daq" />
+		<result column="DAQ_stat" property="DAQStat" />
+		<result column="PERL" property="perl" />
+		<result column="PERL_stat" property="PERLStat" />
+		<result column="XMLRPC" property="xmlrpc" />
+		<result column="XMLRPC_stat" property="XMLRPCStat" />
+		<result column="POLL_DATETIME" property="pollDatetime" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS id, IPV4 AS ipv4, ARRAY_NAME AS arrayName, OS AS os, CPU AS cpu, MEM AS mem, IOX AS iox, IOX_stat AS IOXStat, FIO AS fio, FIO_stat AS FIOStat, VJTREE AS vjtree, VJTREE_stat AS VJTREEStat, DAQ AS daq, DAQ_stat AS DAQStat, PERL AS perl, PERL_stat AS PERLStat, XMLRPC AS xmlrpc, XMLRPC_stat AS XMLRPCStat, POLL_DATETIME AS pollDatetime
+    </sql>
+</mapper>

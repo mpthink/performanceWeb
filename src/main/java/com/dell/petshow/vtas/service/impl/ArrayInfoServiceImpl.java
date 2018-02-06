@@ -46,7 +46,9 @@ public class ArrayInfoServiceImpl extends ServiceImpl<ArrayInfoMapper, ArrayInfo
 	@Override
 	public List<Map<String, Object>> getArrayWithUptime() {
 		List<Map<String, Object>> listMaps = new ArrayList<>();
-		List<ArrayInfo> arrayInfos = arrayInfoMapper.selectList(null);
+		Wrapper<ArrayInfo> aWrapper = new EntityWrapper<>();
+		aWrapper.ne("USAGE_TYPE", "cndu");
+		List<ArrayInfo> arrayInfos = arrayInfoMapper.selectList(aWrapper);
 		for (ArrayInfo arrayInfo : arrayInfos) {
 			String arrayName = arrayInfo.getArrayName();
 			String model = arrayInfo.getModel();

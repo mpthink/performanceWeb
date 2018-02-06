@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dell.petshow.common.controller.SuperController;
-import com.dell.petshow.vtas.mapper.ArrayInfoMapper;
 import com.dell.petshow.vtas.service.IJobRuntimeService;
 import com.dell.petshow.vtas.service.ISpUptimeService;
 
@@ -31,8 +30,6 @@ public class JobRuntimeController extends SuperController {
 
 	@Autowired
 	private IJobRuntimeService jobRuntimeService;
-	@Autowired
-	private ArrayInfoMapper arrayInfoMapper;
 	@Autowired
 	private ISpUptimeService spUptimeService;
 

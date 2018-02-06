@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import com.dell.petshow.vtas.entity.ArrayInfo;
 import com.dell.petshow.vtas.entity.ArrayMonitor;
@@ -114,7 +116,9 @@ public class ArrayMonitorServiceImpl extends ServiceImpl<ArrayMonitorMapper, Arr
 		List<Integer> spaUptimeList = new ArrayList<>();
 		List<Integer> spbUptimeList = new ArrayList<>();
 		Map<String, Object> resultMap = new HashMap<>();
-		List<ArrayInfo> arrayInfos = arrayInfoMapper.selectList(null);
+		Wrapper<ArrayInfo> aWrapper = new EntityWrapper<>();
+		aWrapper.ne("USAGE_TYPE", "cndu");
+		List<ArrayInfo> arrayInfos = arrayInfoMapper.selectList(aWrapper);
 		for (ArrayInfo arrayInfo : arrayInfos) {
 			String arrayName = arrayInfo.getArrayName();
 			SpUptime spaUptime = spUptimeMapper.selectLatestOneByArrayAndSPType(arrayName, "SPA");
@@ -151,7 +155,9 @@ public class ArrayMonitorServiceImpl extends ServiceImpl<ArrayMonitorMapper, Arr
 		List<Integer> spbIOReadList = new ArrayList<>();
 		List<Integer> spbIOWriteList = new ArrayList<>();
 		Map<String, Object> resultMap = new HashMap<>();
-		List<ArrayInfo> arrayInfos = arrayInfoMapper.selectList(null);
+		Wrapper<ArrayInfo> aWrapper = new EntityWrapper<>();
+		aWrapper.ne("USAGE_TYPE", "cndu");
+		List<ArrayInfo> arrayInfos = arrayInfoMapper.selectList(aWrapper);
 		for (ArrayInfo arrayInfo : arrayInfos) {
 			String arrayName = arrayInfo.getArrayName();
 			SpUptime spaUptime = spUptimeMapper.selectLatestOneByArrayAndSPType(arrayName, "SPA");

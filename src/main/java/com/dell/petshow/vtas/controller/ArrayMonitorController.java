@@ -32,6 +32,11 @@ public class ArrayMonitorController extends SuperController {
 	@Autowired
 	private IProgramMapService programMapService;
 
+	@RequestMapping("/performance")
+	public String showPerformance(Model model) {
+		return "vtas/arraymonitor/performance";
+	}
+
 	@RequestMapping("/memory")
 	public String showMemory(Model model) {
 		return "vtas/arraymonitor/memory";

@@ -1,0 +1,172 @@
+<#include "/common/layout.html">
+<@header>
+<!-- daterange picker -->
+<link rel="stylesheet" href="/plugins/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="/plugins/jquery-UI/css/jquery-ui.min.css">
+<link rel="stylesheet" href="/plugins/lobipanel/css/lobipanel.css">
+</@header>
+<@body>
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      <small>Array Monitor > Memory</small>
+    </h1>
+  </section>
+  <!-- Main content -->
+  <section class="content">
+     <div class="row">
+      <div class="col-md-12">
+        <!-- general form elements -->
+        <div class="box box-primary">
+          <div class="box-header with-border">
+            <h3 class="box-title">Memory Monitor</h3>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-primary btn-sm" href="javascript:redirectTo('cpu')" title="Show CPU">Show CPU</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-primary btn-sm" href="javascript:redirectTo('disk')" title="Show Disk">Show Disk</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-primary btn-sm" href="javascript:redirectTo('iops')" title="Show IOPS">Show IOPS</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a class="btn btn-primary btn-sm" href="javascript:redirectTo('bandwidth')" title="Show Bandwidth">Show Bandwidth</a>&nbsp;&nbsp;&nbsp;&nbsp;
+          </div><!-- /.box-header -->
+          <!-- form start -->
+          <div class="row">
+          	<div class="col-md-3">
+	            <div class="box-body">
+	              <div class="form-group">
+	                <label for="programSelect">Program</label>
+	               	<select id="programSelect" name="programSelect" class="form-control select2" style="width: 100%;">
+                    </select>
+	              </div>
+	            </div>
+          	</div>
+          	<div class="col-md-3">
+	            <div class="box-body">
+	              <div class="form-group">
+	                <label for="arrayName">Array</label>
+	               	<select id="arrayName" name="arrayName" class="form-control select2" style="width: 100%;">
+                    </select>
+	              </div>
+	            </div>
+          	</div>
+          	<div class="col-md-4">
+	            <div class="box-body">
+	              <div class="form-group">
+	                <label for="reservationtime">Time Slot</label>
+	               	<div class="input-group">
+                  <div class="input-group-addon">
+                    <i class="fa fa-clock-o"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="reservationtime" name="reservationtime">
+                </div>
+				  </div>
+	            </div>
+          	</div>	
+          </div>
+          
+          <div class="row">
+			<div class="col-sm-offset-1 col-sm-4 ">
+				<div class="panel panel-default">
+					<div class="panel-heading" style="background:#fff">
+						<div class="panel-title">
+							<h4>Panel title1</h4>
+						</div>
+					</div>
+					<div class="panel-body">
+						Lorem ipsum...
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-offset2 col-sm-4">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<div class="panel-title">
+							<h4>Panel title2</h4>
+						</div>
+					</div>
+					<div class="panel-body">
+						Lorem ipsum...
+					</div>
+				</div>
+			</div>
+		</div>
+          
+          <div class="row">
+         	 <div class="col-xs-6 border-right">
+         	 	<div class="panel panel-default">
+					<div class="panel-heading" style="background:#fff">
+						<div class="panel-title">
+							<h4>Panel title1</h4>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div id="arrayUptime" class="chart" style="height:300px"></div>
+					</div>
+				</div>
+   			</div>
+   			<div class="col-xs-6">
+   				<div class="panel panel-default">
+					<div class="panel-heading" style="background:#fff">
+						<div class="panel-title">
+							<h4>Panel title1</h4>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div id="arrayCPU" class="chart" style="height:300px"></div>
+					</div>
+				</div>
+   			</div>
+          </div>
+          
+          <div class="row">
+         	 <div class="col-xs-6 border-right">
+         	 	<div class="panel panel-default">
+					<div class="panel-heading" style="background:#fff">
+						<div class="panel-title">
+							<h4>Panel title1</h4>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div id="arrayUptime" class="chart" style="height:300px"></div>
+					</div>
+				</div>
+   			</div>
+   			<div class="col-xs-6">
+   				<div class="panel panel-default">
+					<div class="panel-heading" style="background:#fff">
+						<div class="panel-title">
+							<h4>Panel title1</h4>
+						</div>
+					</div>
+					<div class="panel-body">
+						<div id="main" style="height:300px"></div>
+					</div>
+				</div>
+   			</div>
+          </div>
+
+
+          <div class="row">
+          	<div class="col-md-12">
+          		<div id="mainxxx" style="height:450px"></div>
+          	</div>
+          </div>
+        </div><!-- /.box -->
+      </div><!--/.col (left) -->
+     </div>
+  </section><!-- /.content -->
+</div><!-- /.content-wrapper -->
+</@body>
+<@footer>
+<script src="/plugins/layer/layer.js"></script>
+<script src="/plugins/echart/dist/echarts.js"></script>
+<!-- date-range-picker -->
+<script src="/plugins/moment/min/moment.min.js"></script>
+<script src="/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+<script src="/plugins/lobipanel/js/jquery.min.js"></script>
+<script src="/plugins/jquery-UI/js/jquery-ui.min.js"></script>
+<script src="/plugins/jquery-UI/js/jquery.ui.touch-punch.min.js"></script>
+<script src="/plugins/lobipanel/js/bootstrap.min.js"></script>
+<script src="/plugins/lobipanel/js/lobipanel.min.js"></script>
+<script src="/my/vtas/performance.js"></script>
+<script src="/my/vtas/memory.js"></script>
+</@footer>

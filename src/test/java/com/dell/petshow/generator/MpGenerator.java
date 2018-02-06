@@ -62,7 +62,7 @@ public class MpGenerator {
 
 		strategy
 			.setInclude(
-				new String[] {"vtas_monitor_result"});
+				new String[] {"host_information", "official_sw_versions"});
 		//strategy.setInclude(new String[] {"user_lab"});
 		// 自定义实体父类
 		// strategy.setSuperEntityClass("com.baomidou.demo.TestEntity");

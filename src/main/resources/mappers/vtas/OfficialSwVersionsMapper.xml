@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dell.petshow.vtas.mapper.OfficialSwVersionsMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.dell.petshow.vtas.entity.OfficialSwVersions">
+		<id column="ID" property="id" />
+		<result column="NAME" property="name" />
+		<result column="VERSION" property="version" />
+		<result column="CONDIT" property="condit" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ID AS id, NAME AS name, VERSION AS version, CONDIT AS condit
+    </sql>
+</mapper>
