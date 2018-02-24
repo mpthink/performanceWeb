@@ -42,8 +42,11 @@ public class SshBasic {
 			sess = conn.openSession();
 			sess.execCommand(cmd);
 			sess.close();
+			LOGGER.debug("connection info: " + conn.getConnectionInfo());
+			LOGGER.info("Execute command: " + cmd + " succssfully");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			LOGGER.error("Execute command: " + cmd + " failed");
 			e.printStackTrace();
 		}
 		return true;
@@ -51,7 +54,7 @@ public class SshBasic {
 
 	/*    //执行命令
 	public Session exeCmd(String cmd, Session sess){
-	    
+
 	    try {
 	    	sess.execCommand(cmd);
 	        //打印信息
@@ -83,7 +86,7 @@ public class SshBasic {
 	        // TODO Auto-generated catch block
 	        e.printStackTrace();
 	    }
-	
+
 	    return txt;
 	}*/
 

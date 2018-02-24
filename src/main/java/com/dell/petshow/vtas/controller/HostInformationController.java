@@ -4,14 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.dell.petshow.common.controller.SuperController;
+import com.dell.petshow.common.dto.NPResult;
+import com.dell.petshow.common.ssh.SshBasic;
 import com.dell.petshow.vtas.entity.HostInformation;
 import com.dell.petshow.vtas.service.IHostInformationService;
 import com.dell.petshow.vtas.service.IOfficialSwVersionsService;
+
+import ch.ethz.ssh2.Connection;
 
 /**
  * <p>
@@ -29,6 +34,8 @@ public class HostInformationController extends SuperController {
 	private IHostInformationService hostInformationService;
 	@Autowired
 	private IOfficialSwVersionsService officialSwVersionsService;
+	@Autowired
+	private SshBasic sshBasic;
 
 	@RequestMapping("/list")
 	public String list(Model model) {
@@ -50,5 +57,22 @@ public class HostInformationController extends SuperController {
 		return toJson(hostInformationService.selectList(null));
 	}
 
+	@RequestMapping("/executeSSHcommand")
+	@ResponseBody
+	public NPResult executeSSHcommand(@RequestParam("command") String command) {
+
+		String hostname = "10.207.80.60";
+		int port = 22;
+		String username = "root";
+		String password = "Password123!";
+		Connection connection = sshBasic.login(hostname, port, username, password);
+		boolean result = sshBasic.exeCmd(connection, command);
+		if (result) {
+			return new NPResult().success();
+		} else {
+			return new NPResult().failure();
+		}
+
+	}
 
 }
