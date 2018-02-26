@@ -1,32 +1,52 @@
 //init functions
 $(function(){
-		$('.panel').lobiPanel({
-			// 配置参数
-			sortable:true,
-			minWidth: 300,
-			minHeight: 300,
-			maxWidth: 600,
-			maxHeight: 480,
-			unpin:{
-				tooltip:'拖动'
-			},
-			reload:{
-				tooltip:'重新加载'
-			},
-			minimize:{
-				tooltip:'最小化'
-			},
-			close:{
-				tooltip:'关闭'
-			},
-			editTitle:{
-				tooltip:'停止编辑'
-			},
-			expand:{
-				tooltip:'全屏'
-			}
-		});
-	}); 
+	programSelect();
+
+	$('#programSelect').change(function(){
+		var program = $('#programSelect').val();
+		var arrayName = $('#arrayName').val();
+		$('#arrayName').empty();
+		arraySelect(program);
+	});
+
+	$('#arrayName').change(function(){
+		viewMemory();
+		viewCPU();
+		viewBandwidth();
+		viewIOPS();
+		viewDisk();
+	});
+	
+	$('#reservationtime').daterangepicker(		
+      {
+		 locale: {format: 'YYYY-MM-DD HH:mm:ss' },
+        ranges   : {
+          'Last 24 Hours'   : [moment().subtract(1, 'days'), moment()],
+          'Last 3 Days' : [moment().subtract(3, 'days'), moment()],
+          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(3, 'days'),
+        endDate  : moment()
+      },
+      function (start, end) {
+        $('#reservationtime span').html(start.format('YYYY-MM-DD HH:mm:ss') + ' - ' + end.format('YYYY-MM-DD HH:mm:ss'));
+      }
+    );
+	
+	$('#reservationtime').change(function(){
+		viewMemory();
+		viewCPU();
+		viewBandwidth();
+		viewIOPS();
+		viewDisk();
+	});
+	
+	//add for redirect
+	showRedirect();
+	
+})
 
 
 
@@ -57,7 +77,7 @@ function getUrlParam(name) {
 }
 
 
-function generateUrl(){
+function generateMemoryUrl(){
 	var timerange = $("#reservationtime").val();
 	var tableName = $('#programSelect').val() || '';
 	var arrayName = $('#arrayName').val() || '';
@@ -76,6 +96,98 @@ function generateUrl(){
 		beginTime = timeArr[0];
 		endTime = timeArr[1];
 		dataUrl = "/vtas/arraymonitor/getMemoryList/"+tableName+"/"+arrayName+"?beginTime="+beginTime+"&endTime="+endTime;
+	}
+	return dataUrl;
+}
+
+function generateCPUUrl(){
+	var timerange = $("#reservationtime").val();
+	var tableName = $('#programSelect').val() || '';
+	var arrayName = $('#arrayName').val() || '';
+	var timeArr;
+	var beginTime;
+	var endTime;
+	var dataUrl;
+	if(tableName==''||arrayName==''){
+		layer.alert('Please select program,array,build', {icon: 0,title:'Major',closeBtn: 0,skin: 'layui-layer-molv'});
+		return;
+	}
+	if(timerange==null||timerange==''){
+		dataUrl = "/vtas/arraymonitor/getCPUList/"+tableName+"/"+arrayName;
+	}else{
+		timeArr = timerange.split(" - ");	
+		beginTime = timeArr[0];
+		endTime = timeArr[1];
+		dataUrl = "/vtas/arraymonitor/getCPUList/"+tableName+"/"+arrayName+"?beginTime="+beginTime+"&endTime="+endTime;
+	}
+	return dataUrl;
+}
+
+function generateBandwidthUrl(){
+	var timerange = $("#reservationtime").val();
+	var tableName = $('#programSelect').val() || '';
+	var arrayName = $('#arrayName').val() || '';
+	var timeArr;
+	var beginTime;
+	var endTime;
+	var dataUrl;
+	if(tableName==''||arrayName==''){
+		layer.alert('Please select program,array,build', {icon: 0,title:'Major',closeBtn: 0,skin: 'layui-layer-molv'});
+		return;
+	}
+	if(timerange==null||timerange==''){
+		dataUrl = "/vtas/arraymonitor/getBandwidthList/"+tableName+"/"+arrayName;
+	}else{
+		timeArr = timerange.split(" - ");	
+		beginTime = timeArr[0];
+		endTime = timeArr[1];
+		dataUrl = "/vtas/arraymonitor/getBandwidthList/"+tableName+"/"+arrayName+"?beginTime="+beginTime+"&endTime="+endTime;
+	}
+	return dataUrl;
+}
+
+function generateIOPSUrl(){
+	var timerange = $("#reservationtime").val();
+	var tableName = $('#programSelect').val() || '';
+	var arrayName = $('#arrayName').val() || '';
+	var timeArr;
+	var beginTime;
+	var endTime;
+	var dataUrl;
+	if(tableName==''||arrayName==''){
+		layer.alert('Please select program,array,build', {icon: 0,title:'Major',closeBtn: 0,skin: 'layui-layer-molv'});
+		return;
+	}
+	if(timerange==null||timerange==''){
+		dataUrl = "/vtas/arraymonitor/getIOPSList/"+tableName+"/"+arrayName;
+	}else{
+		timeArr = timerange.split(" - ");	
+		beginTime = timeArr[0];
+		endTime = timeArr[1];
+		dataUrl = "/vtas/arraymonitor/getIOPSList/"+tableName+"/"+arrayName+"?beginTime="+beginTime+"&endTime="+endTime;
+	}
+	return dataUrl;
+}
+
+function generateDiskUrl(){
+	var timerange = $("#reservationtime").val();
+	var tableName = $('#programSelect').val() || '';
+	var arrayName = $('#arrayName').val() || '';
+	var timeArr;
+	var beginTime;
+	var endTime;
+	var dataUrl;
+	if(tableName==''||arrayName==''){
+		layer.alert('Please select program,array,build', {icon: 0,title:'Major',closeBtn: 0,skin: 'layui-layer-molv'});
+		return;
+	}
+	if(timerange==null||timerange==''){
+		dataUrl = "/vtas/arraymonitor/getDiskList/"+tableName+"/"+arrayName;
+	}else{
+		timeArr = timerange.split(" - ");	
+		beginTime = timeArr[0];
+		endTime = timeArr[1];
+		dataUrl = "/vtas/arraymonitor/getDiskList/"+tableName+"/"+arrayName+"?beginTime="+beginTime+"&endTime="+endTime;
 	}
 	return dataUrl;
 }
@@ -147,8 +259,8 @@ function viewMemory(){
 		        'echarts/chart/bar'
 		        ],
 			function (ec) {
-			 var dataUrl = generateUrl();
-			 var Chart=ec.init(document.getElementById("main"));  
+			 var dataUrl = generateMemoryUrl();
+			 var Chart=ec.init(document.getElementById("memoryMain"));
 			 Chart.showLoading({text: 'Loding...'});  
 			 var xAxisData;
 			 var SPA_memoryUsedData=[];
@@ -449,4 +561,861 @@ function viewMemory(){
 		    })
 }
 
+function viewCPU(){
+	require.config({
+	    paths: {
+	        echarts: '/plugins/echart/dist'
+	    }
+	});
+	require(
+		    [
+		        'echarts',
+		        'echarts/chart/line', // 使用柱状图就加载bar模块，按需加载
+		        'echarts/chart/bar'
+		        ],
+			function (ec) {
+			 var dataUrl = generateCPUUrl();
+			 var Chart=ec.init(document.getElementById("cpuMain"));  
+			 Chart.showLoading({text: 'Loding...'});  
+			 var xAxisData;
+			 var SPA_CPU_FILT=[];
+			 var SPA_cpu_PEService_exe=[];
+			 var SPA_cpu_csx_ic_safe=[];
+			 var SPA_cpu_ECOM=[];
+			 var SPA_cpu_mozzo_sh=[];
+			 var SPA_cpu_tomcat_sh=[];
+			 var SPA_cpu_TLDlistener_exe=[];
+			 
+			 var SPB_CPU_FILT=[];
+			 var SPB_cpu_PEService_exe=[];
+			 var SPB_cpu_csx_ic_safe=[];
+			 var SPB_cpu_ECOM=[];
+			 var SPB_cpu_mozzo_sh=[];
+			 var SPB_cpu_tomcat_sh=[];
+			 var SPB_cpu_TLDlistener_exe=[];
+			 
+			 var times=[];
+			 $.ajax({  
+			        url:dataUrl,  
+			        dataType:"json",  
+			        type:'post',  
+			        success:function(result){
+			        	if(result==null||result==''){
+			        		layer.alert('No data found', {icon: 0,title:'Info',closeBtn: 0,skin: 'layui-layer-molv'});
+					 		Chart.hideLoading();
+					 	}else{
+					 		for(var i=0;i<result.length;i++){
+					 			if(result[i]['sp']=='SPA'){
+					 				
+						 			times.push(result[i]['poll_datetime']);
+						 			SPA_CPU_FILT.push(result[i]['CPU_FILT']);
+						 			SPA_cpu_PEService_exe.push(result[i]['cpu_PEService_exe']);
+						 			SPA_cpu_csx_ic_safe.push(result[i]['cpu_csx_ic_safe']);
+						 			SPA_cpu_ECOM.push(result[i]['cpu_ECOM']);
+						 			SPA_cpu_mozzo_sh.push(result[i]['cpu_mozzo_sh']);
+						 			SPA_cpu_tomcat_sh.push(result[i]['cpu_tomcat_sh']);
+						 			SPA_cpu_TLDlistener_exe.push(result[i]['cpu_TLDlistener_exe']);
+						 			
+					 			}else if(result[i]['sp']=='SPB'){
+					 				
+					 				SPB_CPU_FILT.push(result[i]['CPU_FILT']);
+					 				SPB_cpu_PEService_exe.push(result[i]['cpu_PEService_exe']);
+					 				SPB_cpu_csx_ic_safe.push(result[i]['cpu_csx_ic_safe']);
+					 				SPB_cpu_ECOM.push(result[i]['cpu_ECOM']);
+					 				SPB_cpu_mozzo_sh.push(result[i]['cpu_mozzo_sh']);
+					 				SPB_cpu_tomcat_sh.push(result[i]['cpu_tomcat_sh']);
+					 				SPB_cpu_TLDlistener_exe.push(result[i]['cpu_TLDlistener_exe']);
+					 			}
+					 		 }
+					 	}
+			        	
+			        	 var option = {
+			        			 noDataLoadingOption: {
+			                         	text: 'No data in this timeslot',
+			 							textStyle: {fontSize:16,fontWeight:'bold'},
+			 							effect:'bubble'
+			 					 	},
+					                tooltip: {
+					                	trigger: 'axis',
+					                    show: true    
+					                },    
+					                legend: {
+					                	x:"center",
+					                	textStyle:{color:'auto'},
+					                	borderColor:'#333',
+					                	borderWidth:1,
+					                	selected: {
+					                		'SPA_CPU_FILT' : true,
+					                		'SPB_CPU_FILT' : true,
+					                		'SPA_PEService' : false,
+					                		'SPA_csx_ic_safe' : false,
+					                		'SPA_ECOM' : false,
+					                		'SPA_mozzo_sh' : false,
+					                		'SPA_tomcat_sh' : false,
+					                		'SPA_TLDlistener' : false,
+					                		'SPB_PEService' : false,
+					                		'SPB_csx_ic_safe' : false,
+					                		'SPB_ECOM' : false,
+					                		'SPB_mozzo_sh' : false,
+					                		'SPB_tomcat_sh' : false,
+					                		'SPB_TLDlistener' : false,
+					                	},
+					                	data: ['SPA_CPU','SPA_PEService','SPA_csx_ic_safe','SPA_ECOM','SPA_mozzo_sh','SPA_tomcat_sh','SPA_TLDlistener','','SPB_CPU','SPB_PEService','SPB_csx_ic_safe','SPB_ECOM','SPB_mozzo_sh','SPB_tomcat_sh','SPB_TLDlistener']
+					                },
+					                toolbox: {
+					    				show : false,
+					    				feature : {
+					    				    mark : {show: true},
+					    				    dataZoom : {show: true},
+					    				    dataView : {show: true},
+					    				    magicType : {show: true, type: ['line','bar']},
+					    				    restore : {show: true},
+					    				    saveAsImage : {show: true}
+					    				}
+				    				},
+				    				calculable : true,
+				    				dataZoom : {
+				    					show : true,
+				    					realtime : true
+				    				},
+					                xAxis: [    
+					                    {    
+					                        type: 'category',    
+					                        data: times
+					                    }    
+					                ],    
+					                yAxis: [    
+					                    {    
+					                        type: 'value',
+					                        axisLabel : {
+					                            formatter: '{value} %'
+					                        }
+					                    }    
+					                ],    
+					                series: [
+					                		{
+					                		'name': 'SPA_CPU',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_CPU_FILT    
+					                		},
+					                		{
+						                		'name': 'SPA_PEService',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPA_cpu_PEService_exe    
+						                	},
+					                		{
+						                		'name': 'SPA_csx_ic_safe',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPA_cpu_csx_ic_safe    
+						                	},
+					                		{
+						                		'name': 'SPA_ECOM',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPA_cpu_ECOM    
+						                	},
+					                		{
+						                		'name': 'SPA_mozzo_sh',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPA_cpu_mozzo_sh    
+						                	},
+					                		{
+						                		'name': 'SPA_tomcat_sh',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPA_cpu_tomcat_sh    
+						                	},
+					                		{
+						                		'name': 'SPA_TLDlistener',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPA_cpu_TLDlistener_exe    
+						                	},
+						                	
+					                		{
+						                		'name': 'SPB_CPU',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPB_CPU_FILT    
+					                		},
+						                	{
+						                		'name': 'SPB_PEService',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPB_cpu_PEService_exe
+						                	},
+					                		{
+						                		'name': 'SPB_csx_ic_safe',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPB_cpu_csx_ic_safe    
+						                	},
+					                		{
+						                		'name': 'SPB_ECOM',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPB_cpu_ECOM    
+						                	},
+					                		{
+						                		'name': 'SPB_mozzo_sh',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPB_cpu_mozzo_sh    
+						                	},
+					                		{
+						                		'name': 'SPB_tomcat_sh',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPB_cpu_tomcat_sh    
+						                	},
+					                		{
+						                		'name': 'SPB_TLDlistener',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPB_cpu_TLDlistener_exe    
+						                	}
+					                ]
+					            };
+						
+				        Chart.hideLoading();  
+				        Chart.setOption(option);    
+			        },
+			        error : function() {
+						 //请求失败时执行该函数
+						 alert("Failed to get ajax data!");
+						 Chart.hideLoading();
+					 }
+			    }); 
+		    })
+}
 
+function viewBandwidth(){
+	require.config({
+	    paths: {
+	        echarts: '/plugins/echart/dist'
+	    }
+	});
+	require(
+		    [
+		        'echarts',
+		        'echarts/chart/line', // 使用柱状图就加载bar模块，按需加载
+		        'echarts/chart/bar'
+		        ],
+			function (ec) {
+			 var dataUrl = generateBandwidthUrl();
+			 var Chart=ec.init(document.getElementById("bandwidthMain"));  
+			 Chart.showLoading({text: 'Loding...'});  
+			 var xAxisData;
+			 var SPA_IO_READ=[];
+			 var SPA_IO_WRITE=[];
+
+			 var SPB_IO_READ=[];
+			 var SPB_IO_WRITE=[];
+
+			 var times=[];
+			 $.ajax({  
+			        url:dataUrl,  
+			        dataType:"json",  
+			        type:'post',  
+			        success:function(result){
+			        	if(result==null||result==''){
+			        		layer.alert('No data found', {icon: 0,title:'Info',closeBtn: 0,skin: 'layui-layer-molv'});
+					 		Chart.hideLoading();
+					 	}else{
+					 		for(var i=0;i<result.length;i++){
+					 			if(result[i]['sp']=='SPA'){
+					 				
+						 			times.push(result[i]['poll_datetime']);
+						 			SPA_IO_READ.push(result[i]['IO_READ']);
+						 			SPA_IO_WRITE.push(result[i]['IO_WRITE']);
+					 			}else if(result[i]['sp']=='SPB'){
+					 				
+					 				SPB_IO_READ.push(result[i]['IO_READ']);
+					 				SPB_IO_WRITE.push(result[i]['IO_WRITE']);
+
+					 			}
+					 		 }
+					 	}
+			        	
+			        	 var option = {
+			        			 noDataLoadingOption: {
+			                         	text: 'No data in this timeslot',
+			 							textStyle: {fontSize:16,fontWeight:'bold'},
+			 							effect:'bubble'
+			 					 	},
+					                tooltip: {
+					                	trigger: 'axis',
+					                    show: true    
+					                },    
+					                legend: {
+					                	x:"center",
+					                	textStyle:{color:'auto'},
+					                	borderColor:'#333',
+					                	borderWidth:1,
+					                	selected: {
+					                		'SPA_IO_WRITE' : false,
+					                		'SPB_IO_WRITE' : false,
+					                	},
+					                	data: ['SPA_IO_READ','SPA_IO_WRITE','','SPB_IO_READ','SPB_IO_WRITE']
+					                },
+					                toolbox: {
+					    				show : false,
+					    				feature : {
+					    				    mark : {show: true},
+					    				    dataZoom : {show: true},
+					    				    dataView : {show: true},
+					    				    magicType : {show: true, type: ['line','bar']},
+					    				    restore : {show: true},
+					    				    saveAsImage : {show: true}
+					    				}
+				    				},
+				    				calculable : true,
+				    				dataZoom : {
+				    					show : true,
+				    					realtime : true
+				    				},
+					                xAxis: [    
+					                    {    
+					                        type: 'category',    
+					                        data: times
+					                    }    
+					                ],    
+					                yAxis: [    
+					                    {    
+					                        type: 'value',
+					                        axisLabel : {
+					                            formatter: '{value}'
+					                        }
+					                    }    
+					                ],    
+					                series: [
+					                	{
+					                		'name': 'SPA_IO_READ',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_IO_READ    
+					                		},
+					                		{
+					                		'name': 'SPA_IO_WRITE',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_IO_WRITE    
+					                		},
+					                		{
+					                		'name': 'SPB_IO_READ',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPB_IO_READ    
+					                		},
+					                		{
+					                		'name': 'SPB_IO_WRITE',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPB_IO_WRITE    
+					                		}
+					                ]
+					            };
+						
+				        Chart.hideLoading();  
+				        Chart.setOption(option);    
+			        },
+			        error : function() {
+						 //请求失败时执行该函数
+						 alert("Failed to get ajax data!");
+						 Chart.hideLoading();
+					 }
+			    }); 
+		    })
+}
+
+function viewIOPS(){
+	require.config({
+	    paths: {
+	        echarts: '/plugins/echart/dist'
+	    }
+	});
+	require(
+		    [
+		        'echarts',
+		        'echarts/chart/line', // 使用柱状图就加载bar模块，按需加载
+		        'echarts/chart/bar'
+		        ],
+			function (ec) {
+			 var dataUrl = generateIOPSUrl();
+			 var Chart=ec.init(document.getElementById("iopsMain"));  
+			 Chart.showLoading({text: 'Loding...'});  
+			 var xAxisData;
+			 var SPA_IOPS_WRITE=[];
+			 var SPA_IOPS_READ=[];
+
+			 var SPB_IOPS_WRITE=[];
+			 var SPB_IOPS_READ=[];
+
+			 var times=[];
+			 $.ajax({  
+			        url:dataUrl,  
+			        dataType:"json",  
+			        type:'post',  
+			        success:function(result){
+			        	if(result==null||result==''){
+			        		layer.alert('No data found', {icon: 0,title:'Info',closeBtn: 0,skin: 'layui-layer-molv'});
+					 		Chart.hideLoading();
+					 	}else{
+					 		for(var i=0;i<result.length;i++){
+					 			if(result[i]['sp']=='SPA'){
+					 				
+						 			times.push(result[i]['poll_datetime']);
+						 			SPA_IOPS_WRITE.push(result[i]['IOPS_WRITE']);
+						 			SPA_IOPS_READ.push(result[i]['IOPS_READ']);
+					 			}else if(result[i]['sp']=='SPB'){
+					 				
+					 				SPB_IOPS_WRITE.push(result[i]['IOPS_WRITE']);
+					 				SPB_IOPS_READ.push(result[i]['IOPS_READ']);
+
+					 			}
+					 		 }
+					 	}
+			        	
+			        	 var option = {
+			        			 noDataLoadingOption: {
+			                         	text: 'No data in this timeslot',
+			 							textStyle: {fontSize:16,fontWeight:'bold'},
+			 							effect:'bubble'
+			 					 	},
+					                tooltip: {
+					                	trigger: 'axis',
+					                    show: true    
+					                },    
+					                legend: {
+					                	x:"center",
+					                	textStyle:{color:'auto'},
+					                	borderColor:'#333',
+					                	borderWidth:1,
+					                	selected: {
+					                		'SPA_IOPS_WRITE' : false,
+					                		'SPB_IOPS_WRITE' : false,
+					                	},
+					                	data: ['SPA_IOPS_READ','SPA_IOPS_WRITE','','SPB_IOPS_READ','SPB_IOPS_WRITE']
+					                },
+					                toolbox: {
+					    				show : false,
+					    				feature : {
+					    				    mark : {show: true},
+					    				    dataZoom : {show: true},
+					    				    dataView : {show: true},
+					    				    magicType : {show: true, type: ['line','bar']},
+					    				    restore : {show: true},
+					    				    saveAsImage : {show: true}
+					    				}
+				    				},
+				    				calculable : true,
+				    				dataZoom : {
+				    					show : true,
+				    					realtime : true
+				    				},
+					                xAxis: [    
+					                    {    
+					                        type: 'category',    
+					                        data: times
+					                    }    
+					                ],    
+					                yAxis: [    
+					                    {    
+					                        type: 'value',
+					                        axisLabel : {
+					                            formatter: '{value}'
+					                        }
+					                    }    
+					                ],    
+					                series: [
+					                	{
+					                		'name': 'SPA_IOPS_READ',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_IOPS_READ    
+					                		},
+					                		{
+					                		'name': 'SPA_IOPS_WRITE',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_IOPS_WRITE    
+					                		},
+					                		{
+					                		'name': 'SPB_IOPS_READ',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPB_IOPS_READ    
+					                		},
+					                		{
+					                		'name': 'SPB_IOPS_WRITE',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPB_IOPS_WRITE    
+					                		}
+					                ]
+					            };
+						
+				        Chart.hideLoading();  
+				        Chart.setOption(option);    
+			        },
+			        error : function() {
+						 //请求失败时执行该函数
+						 alert("Failed to get ajax data!");
+						 Chart.hideLoading();
+					 }
+			    }); 
+		    })
+}
+
+function viewDisk(){
+	require.config({
+	    paths: {
+	        echarts: '/plugins/echart/dist'
+	    }
+	});
+	require(
+		    [
+		        'echarts',
+		        'echarts/chart/line', // 使用柱状图就加载bar模块，按需加载
+		        'echarts/chart/bar'
+		        ],
+			function (ec) {
+			 var dataUrl = generateDiskUrl();
+			 var Chart=ec.init(document.getElementById("diskMain"));  
+			 Chart.showLoading({text: 'Loding...'});  
+			 var xAxisData;
+
+			 var SPA_s_=[];
+			 var SPA_s_tmp=[];
+			 var SPA_s_cores=[];
+			 var SPA_s_pramfs=[];
+			 var SPA_s_EMC_s_backend_s_service=[];
+			 var SPA_s_EMC_s_backend_s_CEM=[];
+			 var SPA_s_nbsnas=[];
+			 var SPA_s_EMC_s_backend_s_log_shared=[];
+			 var SPA_s_EMC_s_backend_s_perf_stats=[];
+			 var SPA_s_EMC_s_backend_s_metricsluna1=[];
+			 var SPA_s_EMC_s_fastvp=[];
+			 
+			 var SPB_s_=[];
+			 var SPB_s_tmp=[];
+			 var SPB_s_cores=[];
+			 var SPB_s_pramfs=[];
+			 var SPB_s_EMC_s_backend_s_service=[];
+			 var SPB_s_EMC_s_backend_s_CEM=[];
+			 var SPB_s_nbsnas=[];
+			 var SPB_s_EMC_s_backend_s_log_shared=[];
+			 var SPB_s_EMC_s_backend_s_perf_stats=[];
+			 var SPB_s_EMC_s_backend_s_metricsluna1=[];
+			 var SPB_s_EMC_s_fastvp=[];
+
+			 var times=[];
+			 $.ajax({  
+			        url:dataUrl,  
+			        dataType:"json",  
+			        type:'post',  
+			        success:function(result){
+			        	if(result==null||result==''){
+			        		layer.alert('No data found', {icon: 0,title:'Info',closeBtn: 0,skin: 'layui-layer-molv'});
+					 		Chart.hideLoading();
+					 	}else{
+					 		for(var i=0;i<result.length;i++){
+					 			if(result[i]['sp']=='SPA'){
+					 				
+						 			times.push(result[i]['poll_datetime']);
+						 			SPA_s_.push(result[i]['_s_']);
+						 			SPA_s_tmp.push(result[i]['_s_tmp']);
+						 			SPA_s_cores.push(result[i]['_s_cores']);
+						 			SPA_s_pramfs.push(result[i]['_s_pramfs']);
+						 			SPA_s_EMC_s_backend_s_service.push(result[i]['_s_EMC_s_backend_s_service']);
+						 			SPA_s_EMC_s_backend_s_CEM.push(result[i]['_s_EMC_s_backend_s_CEM']);
+						 			SPA_s_nbsnas.push(result[i]['_s_nbsnas']);
+						 			SPA_s_EMC_s_backend_s_log_shared.push(result[i]['_s_EMC_s_backend_s_log_shared']);
+						 			SPA_s_EMC_s_backend_s_perf_stats.push(result[i]['_s_EMC_s_backend_s_perf_stats']);
+						 			SPA_s_EMC_s_backend_s_metricsluna1.push(result[i]['_s_EMC_s_backend_s_metricsluna1']);
+						 			SPA_s_EMC_s_fastvp.push(result[i]['_s_EMC_s_fastvp']);
+					 			}else if(result[i]['sp']=='SPB'){
+					 				
+					 				SPB_s_.push(result[i]['_s_']);
+						 			SPB_s_tmp.push(result[i]['_s_tmp']);
+						 			SPB_s_cores.push(result[i]['_s_cores']);
+						 			SPB_s_pramfs.push(result[i]['_s_pramfs']);
+						 			SPB_s_EMC_s_backend_s_service.push(result[i]['_s_EMC_s_backend_s_service']);
+						 			SPB_s_EMC_s_backend_s_CEM.push(result[i]['_s_EMC_s_backend_s_CEM']);
+						 			SPB_s_nbsnas.push(result[i]['_s_nbsnas']);
+						 			SPB_s_EMC_s_backend_s_log_shared.push(result[i]['_s_EMC_s_backend_s_log_shared']);
+						 			SPB_s_EMC_s_backend_s_perf_stats.push(result[i]['_s_EMC_s_backend_s_perf_stats']);
+						 			SPB_s_EMC_s_backend_s_metricsluna1.push(result[i]['_s_EMC_s_backend_s_metricsluna1']);
+						 			SPB_s_EMC_s_fastvp.push(result[i]['_s_EMC_s_fastvp']);
+						 			
+					 		  }
+					 		}
+					 	}
+			        	
+			        	 var option = {
+			        			 noDataLoadingOption: {
+			                         	text: 'No data in this timeslot',
+			 							textStyle: {fontSize:16,fontWeight:'bold'},
+			 							effect:'bubble'
+			 					 	},
+					                tooltip: {
+					                	trigger: 'axis',
+					                    show: true    
+					                },    
+					                legend: {
+					                	x:"center",
+					                	textStyle:{color:'auto'},
+					                	borderColor:'#333',
+					                	borderWidth:1,
+					                	selected: {
+					                		'SPB_tmp' : false,
+					                		'SPB_cores' : false,
+					                		'SPB_pramfs' : false,
+					                		'SPB_service' : false,
+					                		'SPB_CEM' : false,
+					                		'SPB_nbsnas' : false,
+					                		'SPB_shared' : false,
+					                		'SPB_stats' : false,
+					                		'SPB_metricsluna1' : false,
+					                		'SPB_fastvp' : false,
+					                		
+					                		'SPA_tmp' : false,
+					                		'SPA_cores' : false,
+					                		'SPA_pramfs' : false,
+					                		'SPA_service' : false,
+					                		'SPA_CEM' : false,
+					                		'SPA_nbsnas' : false,
+					                		'SPA_shared' : false,
+					                		'SPA_stats' : false,
+					                		'SPA_metricsluna1' : false,
+					                		'SPA_fastvp' : false,
+					                	},
+					                	data: ['SPA_/','SPA_tmp','SPA_cores','SPA_pramfs','SPA_service','SPA_CEM','SPA_nbsnas','SPA_shared','SPA_stats','SPA_metricsluna1','SPA_fastvp','',
+					                		   'SPB_/','SPB_tmp','SPB_cores','SPB_pramfs','SPB_service','SPB_CEM','SPB_nbsnas','SPB_shared','SPB_stats','SPB_metricsluna1','SPB_fastvp']
+					                },
+					                toolbox: {
+					    				show : false,
+					    				feature : {
+					    				    mark : {show: true},
+					    				    dataZoom : {show: true},
+					    				    dataView : {show: true},
+					    				    magicType : {show: true, type: ['line','bar']},
+					    				    restore : {show: true},
+					    				    saveAsImage : {show: true}
+					    				}
+				    				},
+				    				calculable : true,
+				    				dataZoom : {
+				    					show : true,
+				    					realtime : true
+				    				},
+					                xAxis: [    
+					                    {    
+					                        type: 'category',    
+					                        data: times
+					                    }    
+					                ],    
+					                yAxis: [    
+					                    {    
+					                        type: 'value',
+					                        axisLabel : {
+					                            formatter: '{value} %'
+					                        }
+					                    }    
+					                ],    
+					                series: [
+					                	{
+					                		'name': 'SPA_/',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		center: ['50%', '90%'],
+					                		'data': SPA_s_    
+					                		},
+					                		{
+					                		'name': 'SPA_tmp',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_s_tmp    
+					                		},
+					                		{
+					                		'name': 'SPA_cores',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_s_cores    
+					                		},
+					                		{
+					                		'name': 'SPA_pramfs',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_s_pramfs    
+					                		},
+					                		{
+					                		'name': 'SPA_service',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_s_EMC_s_backend_s_service    
+					                		},
+					                		{
+					                		'name': 'SPA_CEM',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_s_EMC_s_backend_s_CEM    
+					                		},
+					                		{
+					                		'name': 'SPA_nbsnas',
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_s_nbsnas    
+					                		},
+					                		{
+					                		'name': 'SPA_shared',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_s_EMC_s_backend_s_log_shared    
+					                		},
+					                		{
+					                		'name': 'SPA_stats',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_s_EMC_s_backend_s_perf_stats    
+					                		},
+					                		{
+					                		'name': 'SPA_metricsluna1',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_s_EMC_s_backend_s_metricsluna1    
+					                		},
+					                		{
+					                		'name': 'SPA_fastvp',    
+					                		'type': 'line',
+					                		'smooth':true,
+					                		'symbol':'none',
+					                		'data': SPA_s_EMC_s_fastvp    
+					                		},
+						                	{
+						                		'name': 'SPB_/',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPB_s_    
+						                		},
+						                		{
+						                		'name': 'SPB_tmp',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPB_s_tmp    
+						                		},
+						                		{
+						                		'name': 'SPB_cores',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPB_s_cores    
+						                		},
+						                		{
+						                		'name': 'SPB_pramfs',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPB_s_pramfs    
+						                		},
+						                		{
+						                		'name': 'SPB_service',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPB_s_EMC_s_backend_s_service    
+						                		},
+						                		{
+						                		'name': 'SPB_CEM',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPB_s_EMC_s_backend_s_CEM    
+						                		},
+						                		{
+						                		'name': 'SPB_nbsnas',
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPB_s_nbsnas    
+						                		},
+						                		{
+						                		'name': 'SPB_shared',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPB_s_EMC_s_backend_s_log_shared    
+						                		},
+						                		{
+						                		'name': 'SPB_stats',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPB_s_EMC_s_backend_s_perf_stats    
+						                		},
+						                		{
+						                		'name': 'SPB_metricsluna1',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPB_s_EMC_s_backend_s_metricsluna1    
+						                		},
+						                		{
+						                		'name': 'SPB_fastvp',    
+						                		'type': 'line',
+						                		'smooth':true,
+						                		'symbol':'none',
+						                		'data': SPB_s_EMC_s_fastvp    
+						                		}
+					                ]
+					            };
+						
+				        Chart.hideLoading();  
+				        Chart.setOption(option);    
+			        },
+			        error : function() {
+						 //请求失败时执行该函数
+						 alert("Failed to get ajax data!");
+						 Chart.hideLoading();
+					 }
+			    }); 
+		    })
+}

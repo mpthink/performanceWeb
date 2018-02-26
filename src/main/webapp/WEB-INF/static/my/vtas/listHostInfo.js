@@ -11,7 +11,7 @@ var officalVersionsDataColumns = [
 	    title: 'Version'
 	},{
 	    field: 'condit',
-	    title: 'Condiion'
+	    title: 'Condition'
 	}];
 
 
@@ -127,7 +127,11 @@ var hostInfoDataColumns = [
 	    	var ipv4 = row.ipv4;
 	    	var os = row.os;
 	    	if(PERLStat == 0 && perl != 'NA'){
-	    		return '<p class="text-red"><b>' + perl + '</b></p><button type="button"  class="btn btn-primary btn-sm" onclick=updateVersion("perl","'+os+'","'+ipv4+'")  >Update</button>';
+	    		if(os=='linux'){
+	    			return '<p class="text-red"><b>' + perl + '</b></p><button type="button"  class="btn btn-primary btn-sm" onclick=updateVersion("perl","'+os+'","'+ipv4+'")  >Update</button>';
+	    		}else{
+	    			return '<p class="text-red"><b>' + perl + '</b></p>';
+	    		}	
 	    	}else{
 	    		return perl;
 	    	}
@@ -141,7 +145,11 @@ var hostInfoDataColumns = [
 	    	var ipv4 = row.ipv4;
 	    	var os = row.os;
 	    	if(XMLRPCStat == 0 && xmlrpc != 'NA'){
-	    		return '<p class="text-red"><b>' + xmlrpc + '</b></p><button type="button"  class="btn btn-primary btn-sm" onclick=updateVersion("xmlrpc","'+os+'","'+ipv4+'")  >Update</button>';
+	    		if(os=='linux'){
+	    			return '<p class="text-red"><b>' + xmlrpc + '</b></p><button type="button"  class="btn btn-primary btn-sm" onclick=updateVersion("xmlrpc","'+os+'","'+ipv4+'")  >Update</button>';
+	    		}else{
+	    			return '<p class="text-red"><b>' + xmlrpc + '</b></p>';
+	    		}
 	    	}else{
 	    		return xmlrpc;
 	    	}
