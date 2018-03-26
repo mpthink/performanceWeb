@@ -67,9 +67,9 @@ var hostInfoDataColumns = [
 	    title: 'IOX',
 	    formatter: function (value, row, index) {
 	    	var IOXStat = row.IOXStat;
-	    	var iox = row.iox;
-	    	var ipv4 = row.ipv4;
-	    	var os = row.os;
+	    	var iox = row.iox.trim();
+	    	var ipv4 = row.ipv4.trim();
+	    	var os = row.os.trim();
 	    	if(IOXStat == 0 && iox != 'NA'){
 	    		return '<p class="text-red"><b>' + iox + '</b></p><button type="button"  class="btn btn-primary btn-sm" onclick=updateVersion("iox","'+os+'","'+ipv4+'")  >Update</button>';
 	    	}else{
@@ -81,9 +81,9 @@ var hostInfoDataColumns = [
 	    title: 'FIO',
 	    formatter: function (value, row, index) {
 	    	var FIOStat = row.FIOStat;
-	    	var fio = row.fio;
-	    	var ipv4 = row.ipv4;
-	    	var os = row.os;
+	    	var fio = row.fio.trim();
+	    	var ipv4 = row.ipv4.trim();
+	    	var os = row.os.trim();
 	    	if(FIOStat == 0 && fio != 'NA'){
 	    		return '<p class="text-red"><b>' + fio + '</b></p><button type="button"  class="btn btn-primary btn-sm" onclick=updateVersion("fio","'+os+'","'+ipv4+'")  >Update</button>';
 	    	}else{
@@ -95,9 +95,9 @@ var hostInfoDataColumns = [
 	    title: 'VJTREE',
 	    formatter: function (value, row, index) {
 	    	var VJTREEStat = row.VJTREEStat;
-	    	var vjtree = row.vjtree;
-	    	var ipv4 = row.ipv4;
-	    	var os = row.os;
+	    	var vjtree = row.vjtree.trim();
+	    	var ipv4 = row.ipv4.trim();
+	    	var os = row.os.trim();
 	    	if(VJTREEStat == 0 && vjtree != 'NA'){
 	    		return '<p class="text-red"><b>' + vjtree + '</b></p><button type="button"  class="btn btn-primary btn-sm" onclick=updateVersion("vjtree","'+os+'","'+ipv4+'")  >Update</button>';
 	    	}else{
@@ -109,9 +109,9 @@ var hostInfoDataColumns = [
 	    title: 'DAQ',
 	    formatter: function (value, row, index) {
 	    	var DAQStat = row.DAQStat;
-	    	var daq = row.daq;
-	    	var ipv4 = row.ipv4;
-	    	var os = row.os;
+	    	var daq = row.daq.trim();
+	    	var ipv4 = row.ipv4.trim();
+	    	var os = row.os.trim();
 	    	if(DAQStat == 0 && daq != 'NA'){
 	    		return '<p class="text-red"><b>' + daq + '</b></p><button type="button"  class="btn btn-primary btn-sm" onclick=updateVersion("daq","'+os+'","'+ipv4+'")  >Update</button>';
 	    	}else{
@@ -123,9 +123,9 @@ var hostInfoDataColumns = [
 	    title: 'Perl',
 	    formatter: function (value, row, index) {
 	    	var PERLStat = row.PERLStat;
-	    	var perl = row.perl;
-	    	var ipv4 = row.ipv4;
-	    	var os = row.os;
+	    	var perl = row.perl.trim();
+	    	var ipv4 = row.ipv4.trim();
+	    	var os = row.os.trim();
 	    	if(PERLStat == 0 && perl != 'NA'){
 	    		if(os=='linux'){
 	    			return '<p class="text-red"><b>' + perl + '</b></p><button type="button"  class="btn btn-primary btn-sm" onclick=updateVersion("perl","'+os+'","'+ipv4+'")  >Update</button>';
@@ -141,9 +141,9 @@ var hostInfoDataColumns = [
 	    title: 'XMLRPC',
 	    formatter: function (value, row, index) {
 	    	var XMLRPCStat = row.XMLRPCStat;
-	    	var xmlrpc = row.xmlrpc;
-	    	var ipv4 = row.ipv4;
-	    	var os = row.os;
+	    	var xmlrpc = row.xmlrpc.trim();
+	    	var ipv4 = row.ipv4.trim();
+	    	var os = row.os.trim();
 	    	if(XMLRPCStat == 0 && xmlrpc != 'NA'){
 	    		if(os=='linux'){
 	    			return '<p class="text-red"><b>' + xmlrpc + '</b></p><button type="button"  class="btn btn-primary btn-sm" onclick=updateVersion("xmlrpc","'+os+'","'+ipv4+'")  >Update</button>';
