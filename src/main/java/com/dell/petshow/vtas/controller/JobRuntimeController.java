@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dell.petshow.common.controller.SuperController;
+import com.dell.petshow.vtas.entity.ContinousBackupServer;
+import com.dell.petshow.vtas.service.IContinousBackupServerService;
 import com.dell.petshow.vtas.service.IJobRuntimeService;
 import com.dell.petshow.vtas.service.ISpUptimeService;
 
@@ -32,6 +34,8 @@ public class JobRuntimeController extends SuperController {
 	private IJobRuntimeService jobRuntimeService;
 	@Autowired
 	private ISpUptimeService spUptimeService;
+	@Autowired
+	private IContinousBackupServerService continousBackupServerService;
 
 	@RequestMapping("/vsBuild")
 	public String index(Model model) {
@@ -40,11 +44,17 @@ public class JobRuntimeController extends SuperController {
 
 	@RequestMapping("/listJobs")
 	public String listJobs(Model model) {
+		ContinousBackupServer continousBackupServer = continousBackupServerService.selectById(0);
+		String serverURL = continousBackupServer.getServerUrl();
+		model.addAttribute("serverURL", serverURL);
 		return "vtas/jobruntime/listJobs";
 	}
 
 	@RequestMapping("/listLatestJobs")
 	public String listLatestJobs(Model model) {
+		ContinousBackupServer continousBackupServer = continousBackupServerService.selectById(0);
+		String serverURL = continousBackupServer.getServerUrl();
+		model.addAttribute("serverURL", serverURL);
 		return "vtas/jobruntime/listLatestJobs";
 	}
 

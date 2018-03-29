@@ -34,16 +34,29 @@ var dataColumns = [{
 	    field: 'RUN_HOURS',
 	    title: 'Running Time(h)'
 	},{
+	    field: 'TESTSETS_URL',
+	    title: 'TestSets URL',
+	    formatter: function (value, row, index) {
+            return formatTestSetsUrl(row.TESTSETS_URL);
+        }
+	},{
 	    title: 'Expected Time(h)',
 	    formatter: function (value, row, index) {
             return 168;
         }
 	}];
 
+
+function formatTestSetsUrl(testSetsUrl){
+	var res = testSetsUrl.split("/");
+	var name = res[res.length-1];
+	return '<a href="' + "" + testSetsUrl + "" + '" target="_blank">'+"" + name + ""+'</a>';
+}
+
 function formatUrl(jobUrl){
 	var res = jobUrl.split("/");
 	var jobName = res[res.length-3];
-	return '<a href="' + "" + jobUrl + "" + '">'+"" + jobName + ""+'</a>';
+	return '<a href="' + "" + jobUrl + "" + '" target="_blank">'+"" + jobName + ""+'</a>';
 }
 
 function detailFormatter(index, row) {

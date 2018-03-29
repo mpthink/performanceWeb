@@ -12,12 +12,15 @@
 		<result column="ARRAY_NAME" property="arrayName" />
 		<result column="JOB_NAME" property="jobName" />
 		<result column="JOB_URL" property="jobUrl" />
+		<result column="BBT_STATUS" property="bbtStatus" />
 		<result column="STATUS" property="status" />
+		<result column="MIN_NO_UPDATE" property="minNoUpdate" />
+		<result column="TESTSETS_URL" property="testsetsUrl" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ID AS id, START_TIME AS startTime, END_TIME AS endTime, RUN_HOURS AS runHours, VERSION AS version, ARRAY_NAME AS arrayName, JOB_NAME AS jobName, JOB_URL AS jobUrl, STATUS AS status
+        ID AS id, START_TIME AS startTime, END_TIME AS endTime, RUN_HOURS AS runHours, VERSION AS version, ARRAY_NAME AS arrayName, JOB_NAME AS jobName, JOB_URL AS jobUrl, BBT_STATUS AS bbtStatus, STATUS AS status, MIN_NO_UPDATE AS minNoUpdate, TESTSETS_URL AS testsetsUrl
     </sql>
     
     <select id="selectDistinctArrayList" resultType="java.lang.String">
@@ -72,14 +75,14 @@
     </select>
     
     <select id="selectAllWithProgramName" resultType="java.util.Map">
-		SELECT  DATE_FORMAT(a.START_TIME,'%Y-%m-%d %h:%m:%s') AS START_TIME, DATE_FORMAT(a.END_TIME,'%Y-%m-%d %h:%m:%s') AS END_TIME, a.RUN_HOURS, a.VERSION, a.ARRAY_NAME, a.JOB_NAME, a.JOB_URL, a.STATUS,a.BBT_STATUS BBT_STATUS, b.PROGRAM as PROGRAM FROM job_runtime as a
+		SELECT  DATE_FORMAT(a.START_TIME,'%Y-%m-%d %h:%m:%s') AS START_TIME, DATE_FORMAT(a.END_TIME,'%Y-%m-%d %h:%m:%s') AS END_TIME, a.RUN_HOURS, a.VERSION, a.ARRAY_NAME, a.JOB_NAME, a.JOB_URL, a.STATUS,a.BBT_STATUS BBT_STATUS, b.PROGRAM as PROGRAM,a.TESTSETS_URL AS TESTSETS_URL FROM job_runtime as a
 		left join program_map as b
 		on substr(a.version,1,5) = b.major_version
 		order by a.version desc,a.START_TIME desc
     </select>
     
     <select id="selectLatestJobsWithProgramName" resultType="java.util.Map">
-		SELECT DATE_FORMAT(a.START_TIME,'%Y-%m-%d %h:%m:%s') AS START_TIME, DATE_FORMAT(a.END_TIME,'%Y-%m-%d %h:%m:%s') AS END_TIME, a.RUN_HOURS, a.VERSION, a.ARRAY_NAME, a.JOB_NAME, a.JOB_URL, a.STATUS,a.BBT_STATUS BBT_STATUS, b.PROGRAM as PROGRAM FROM job_runtime as a
+		SELECT DATE_FORMAT(a.START_TIME,'%Y-%m-%d %h:%m:%s') AS START_TIME, DATE_FORMAT(a.END_TIME,'%Y-%m-%d %h:%m:%s') AS END_TIME, a.RUN_HOURS, a.VERSION, a.ARRAY_NAME, a.JOB_NAME, a.JOB_URL, a.STATUS,a.BBT_STATUS BBT_STATUS, b.PROGRAM as PROGRAM,a.TESTSETS_URL AS TESTSETS_URL FROM job_runtime as a
 		left join program_map as b
 		on substr(a.version,1,5) = b.major_version
 		inner join

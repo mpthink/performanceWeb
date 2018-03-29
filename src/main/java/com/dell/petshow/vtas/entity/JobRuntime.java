@@ -1,9 +1,9 @@
 package com.dell.petshow.vtas.entity;
 
 import com.baomidou.mybatisplus.activerecord.Model;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import java.util.Date;
 import java.io.Serializable;
 
 
@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author mpthink
- * @since 2017-10-17
+ * @since 2018-03-26
  */
 public class JobRuntime extends Model<JobRuntime> {
 
@@ -26,7 +26,7 @@ public class JobRuntime extends Model<JobRuntime> {
 	@TableField("END_TIME")
 	private Date endTime;
 	@TableField("RUN_HOURS")
-	private Integer runHours;
+	private Float runHours;
 	@TableField("VERSION")
 	private String version;
 	@TableField("ARRAY_NAME")
@@ -35,8 +35,14 @@ public class JobRuntime extends Model<JobRuntime> {
 	private String jobName;
 	@TableField("JOB_URL")
 	private String jobUrl;
+	@TableField("BBT_STATUS")
+	private String bbtStatus;
 	@TableField("STATUS")
 	private String status;
+	@TableField("MIN_NO_UPDATE")
+	private Integer minNoUpdate;
+	@TableField("TESTSETS_URL")
+	private String testsetsUrl;
 
 
 	public String getId() {
@@ -63,11 +69,11 @@ public class JobRuntime extends Model<JobRuntime> {
 		this.endTime = endTime;
 	}
 
-	public Integer getRunHours() {
+	public Float getRunHours() {
 		return runHours;
 	}
 
-	public void setRunHours(Integer runHours) {
+	public void setRunHours(Float runHours) {
 		this.runHours = runHours;
 	}
 
@@ -103,12 +109,36 @@ public class JobRuntime extends Model<JobRuntime> {
 		this.jobUrl = jobUrl;
 	}
 
+	public String getBbtStatus() {
+		return bbtStatus;
+	}
+
+	public void setBbtStatus(String bbtStatus) {
+		this.bbtStatus = bbtStatus;
+	}
+
 	public String getStatus() {
 		return status;
 	}
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public Integer getMinNoUpdate() {
+		return minNoUpdate;
+	}
+
+	public void setMinNoUpdate(Integer minNoUpdate) {
+		this.minNoUpdate = minNoUpdate;
+	}
+
+	public String getTestsetsUrl() {
+		return testsetsUrl;
+	}
+
+	public void setTestsetsUrl(String testsetsUrl) {
+		this.testsetsUrl = testsetsUrl;
 	}
 
 	@Override
@@ -119,6 +149,6 @@ public class JobRuntime extends Model<JobRuntime> {
 
 	@Override
 	public String toString(){
-		return "JobRuntime [id=" + id + ", startTime=" + startTime + ", endTime=" + endTime + ", runHours=" + runHours + ", version=" + version + ", arrayName=" + arrayName + ", jobName=" + jobName + ", jobUrl=" + jobUrl + ", status=" + status + "]";
+		return "JobRuntime [id=" + id + ", startTime=" + startTime + ", endTime=" + endTime + ", runHours=" + runHours + ", version=" + version + ", arrayName=" + arrayName + ", jobName=" + jobName + ", jobUrl=" + jobUrl + ", bbtStatus=" + bbtStatus + ", status=" + status + ", minNoUpdate=" + minNoUpdate + ", testsetsUrl=" + testsetsUrl + "]";
 	}
 }
