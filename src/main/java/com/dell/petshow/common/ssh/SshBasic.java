@@ -1,6 +1,9 @@
 package com.dell.petshow.common.ssh;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import ch.ethz.ssh2.Connection;
 import ch.ethz.ssh2.Session;
+import ch.ethz.ssh2.StreamGobbler;
 
 @Component
 public class SshBasic {
@@ -40,37 +44,35 @@ public class SshBasic {
 		Session sess = null;
 		try {
 			sess = conn.openSession();
-			sess.execCommand(cmd);
+			exeCmd(sess, cmd);
 			sess.close();
 			LOGGER.debug("connection info: " + conn.getConnectionInfo());
 			LOGGER.info("Execute command: " + cmd + " succssfully");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			LOGGER.error("Execute command: " + cmd + " failed");
 			e.printStackTrace();
+			return false;
 		}
 		return true;
 	}
 
-	/*    //执行命令
-	public Session exeCmd(String cmd, Session sess){
+	/*    //执行命令  */
+	public void exeCmd(Session sess, String cmd) {
 
-	    try {
-	    	sess.execCommand(cmd);
-	        //打印信息
-	        InputStream stdout = new StreamGobbler(sess.getStdout());
-	        //打印错误
-	        InputStream stderr = new StreamGobbler(sess.getStderr());
-	        BufferedReader brout = new BufferedReader(new InputStreamReader(stdout,"UTF-8"));
-	        BufferedReader brerr = new BufferedReader(new InputStreamReader(stderr,"UTF-8"));
-	        LOGGER.debug("exe cmd result info: " + brout);
-	        LOGGER.error("exe cmd err info: " + brerr);
-	    } catch (IOException e) {
-	        // TODO Auto-generated catch block
-	        e.printStackTrace();
-	    }
-	    return sess;
-	}*/
+		try {
+			sess.execCommand(cmd);
+			//打印信息
+			InputStream stdout = new StreamGobbler(sess.getStdout());
+			//打印错误
+			InputStream stderr = new StreamGobbler(sess.getStderr());
+			BufferedReader brout = new BufferedReader(new InputStreamReader(stdout, "UTF-8"));
+			BufferedReader brerr = new BufferedReader(new InputStreamReader(stderr, "UTF-8"));
+			LOGGER.debug("exe cmd result info: " + brout.readLine());
+			LOGGER.error("exe cmd err info: " + brerr.readLine());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	//获取控制台打印信息
 	/*    public String printCmd(String path,Connection conn,Session sess, String date, String city){
 	    String txt = "";
@@ -86,7 +88,7 @@ public class SshBasic {
 	        // TODO Auto-generated catch block
 	        e.printStackTrace();
 	    }
-
+	
 	    return txt;
 	}*/
 

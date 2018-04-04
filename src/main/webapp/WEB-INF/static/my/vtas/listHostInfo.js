@@ -127,11 +127,7 @@ var hostInfoDataColumns = [
 	    	var ipv4 = row.ipv4.trim();
 	    	var os = row.os.trim();
 	    	if(PERLStat == 0 && perl != 'NA'){
-	    		if(os=='linux'){
-	    			return '<p class="text-red"><b>' + perl + '</b></p><button type="button"  class="btn btn-primary btn-sm" onclick=updateVersion("perl","'+os+'","'+ipv4+'")  >Update</button>';
-	    		}else{
-	    			return '<p class="text-red"><b>' + perl + '</b></p>';
-	    		}	
+	    		return '<p class="text-red"><b>' + perl + '</b></p><button type="button"  class="btn btn-primary btn-sm" onclick=updateVersion("perl","'+os+'","'+ipv4+'")  >Update</button>';
 	    	}else{
 	    		return perl;
 	    	}
@@ -145,11 +141,7 @@ var hostInfoDataColumns = [
 	    	var ipv4 = row.ipv4.trim();
 	    	var os = row.os.trim();
 	    	if(XMLRPCStat == 0 && xmlrpc != 'NA'){
-	    		if(os=='linux'){
-	    			return '<p class="text-red"><b>' + xmlrpc + '</b></p><button type="button"  class="btn btn-primary btn-sm" onclick=updateVersion("xmlrpc","'+os+'","'+ipv4+'")  >Update</button>';
-	    		}else{
-	    			return '<p class="text-red"><b>' + xmlrpc + '</b></p>';
-	    		}
+	    		return '<p class="text-red"><b>' + xmlrpc + '</b></p><button type="button"  class="btn btn-primary btn-sm" onclick=updateVersion("xmlrpc","'+os+'","'+ipv4+'")  >Update</button>';
 	    	}else{
 	    		return xmlrpc;
 	    	}
@@ -185,9 +177,17 @@ function updateVersion(type,os,ip){
 	}else if(type == 'daq'){
 		command = '/usr/bin/python /space/vtas/Daq-Linux.py '+ip;
 	}else if(type == 'perl'){
-		command = '/usr/bin/python /space/vtas/perl-Linux.py '+ip;
+		if(os == 'windows'){
+			command = '/usr/bin/python /space/vtas/perl-Win.py '+ip;
+		}else{
+			command = '/usr/bin/python /space/vtas/perl-Linux.py '+ip;
+		}
 	}else if(type == 'xmlrpc'){
-		command = '/usr/bin/python /space/vtas/rpc-Linux.py '+ip;
+		if(os == 'windows'){
+			command = '/usr/bin/python /space/vtas/rpc-Win.py '+ip;
+		}else{
+			command = '/usr/bin/python /space/vtas/rpc-Linux.py '+ip;
+		}
 	}
 	
 	if(os == 'windows'){
@@ -201,9 +201,9 @@ function updateVersion(type,os,ip){
 		  skin: 'layui-layer-molv',
 		  content: content,
 		  yes: function(index, layero){
-			  		  	var username= $(layero.find('#hostUserName')).val();
-			  		  	var password= $(layero.find('#hostPassword')).val();
-					  	command = command +'  '+username+'  '+password;
+			  		  	var username= $(layero.find('#hostUserName')).val().trim();
+			  		  	var password= $(layero.find('#hostPassword')).val().trim();
+					  	command = command +' '+username+' '+password;
 					  	var param = { "command" : command };  
 						$.ajax({  
 					            type : "post",  
