@@ -117,7 +117,7 @@ public class ArrayMonitorServiceImpl extends ServiceImpl<ArrayMonitorMapper, Arr
 		List<Integer> spbUptimeList = new ArrayList<>();
 		Map<String, Object> resultMap = new HashMap<>();
 		Wrapper<ArrayInfo> aWrapper = new EntityWrapper<>();
-		aWrapper.ne("USAGE_TYPE", "cndu");
+		aWrapper.in("USAGE_TYPE", "100days,traditional,baseline");
 		List<ArrayInfo> arrayInfos = arrayInfoMapper.selectList(aWrapper);
 		for (ArrayInfo arrayInfo : arrayInfos) {
 			String arrayName = arrayInfo.getArrayName();
@@ -156,7 +156,7 @@ public class ArrayMonitorServiceImpl extends ServiceImpl<ArrayMonitorMapper, Arr
 		List<Integer> spbIOWriteList = new ArrayList<>();
 		Map<String, Object> resultMap = new HashMap<>();
 		Wrapper<ArrayInfo> aWrapper = new EntityWrapper<>();
-		aWrapper.ne("USAGE_TYPE", "cndu");
+		aWrapper.in("USAGE_TYPE", "100days,traditional,baseline");
 		List<ArrayInfo> arrayInfos = arrayInfoMapper.selectList(aWrapper);
 		for (ArrayInfo arrayInfo : arrayInfos) {
 			String arrayName = arrayInfo.getArrayName();

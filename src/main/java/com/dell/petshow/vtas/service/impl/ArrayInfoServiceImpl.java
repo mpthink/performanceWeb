@@ -22,6 +22,8 @@ import com.dell.petshow.vtas.mapper.SpUptimeMapper;
 import com.dell.petshow.vtas.mapper.VersionDateMapMapper;
 import com.dell.petshow.vtas.service.IArrayInfoService;
 
+
+
 /**
  * <p>
  *  服务实现类
@@ -115,7 +117,7 @@ public class ArrayInfoServiceImpl extends ServiceImpl<ArrayInfoMapper, ArrayInfo
 			for (Entry<String, Integer> entry : versionMap.entrySet()) {
 				String key = entry.getKey();
 				Integer value = entry.getValue();
-				if (key.contains(bigVersion)) {
+				if (key.startsWith(bigVersion)) {
 					sum = sum + value;
 					buffer.append(key).append("  ").append(value).append(";");
 				}
