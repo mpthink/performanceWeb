@@ -96,11 +96,13 @@ public class ArrayInfoServiceImpl extends ServiceImpl<ArrayInfoMapper, ArrayInfo
 		for (ArrayInfo arrayInfo : arrayInfos) {
 			String arrayName = arrayInfo.getArrayName();
 			SpUptime spUptime = spUptimeMapper.selectLatestOneByArray(arrayName);
-			String latestVersion = spUptime.getVersion();
-			if (versionMap.containsKey(latestVersion)) {
-				versionMap.put(latestVersion, versionMap.get(latestVersion) + 1);
-			} else {
-				versionMap.put(latestVersion, 1);
+			if (spUptime != null) {
+				String latestVersion = spUptime.getVersion();
+				if (versionMap.containsKey(latestVersion)) {
+					versionMap.put(latestVersion, versionMap.get(latestVersion) + 1);
+				} else {
+					versionMap.put(latestVersion, 1);
+				}
 			}
 		}
 		int i = 0;
