@@ -1,10 +1,10 @@
 package com.dell.petshow.vtas.service;
 
-import java.util.List;
-import java.util.Map;
-
 import com.baomidou.mybatisplus.service.IService;
 import com.dell.petshow.vtas.entity.ProgramMap;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -20,4 +20,6 @@ public interface IProgramMapService extends IService<ProgramMap> {
 	public List<Map<String, Object>> selectAllForSelect2(boolean flag);
 
 	Map<String, String> getVERSIONMAPPROGRAM();
+
+	ProgramMap selectOneBasedonVersion(String bigVersion);
 }

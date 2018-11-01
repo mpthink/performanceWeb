@@ -1,12 +1,13 @@
 package com.dell.petshow.vtas.mapper;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.dell.petshow.vtas.entity.SpUptime;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -16,6 +17,8 @@ import com.dell.petshow.vtas.entity.SpUptime;
  * @author mpthink
  * @since 2017-11-01
  */
+@Repository
+@Mapper
 public interface SpUptimeMapper extends BaseMapper<SpUptime> {
 	SpUptime selectLatestOneByArray(@Param("arrayName") String arrayName);
 

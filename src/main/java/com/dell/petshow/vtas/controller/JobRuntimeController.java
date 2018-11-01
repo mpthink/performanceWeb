@@ -1,22 +1,24 @@
 package com.dell.petshow.vtas.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.dell.petshow.common.controller.SuperController;
+import com.dell.petshow.common.util.DateTimeUtil;
+import com.dell.petshow.vtas.entity.ContinousBackupServer;
+import com.dell.petshow.vtas.service.IContinousBackupServerService;
+import com.dell.petshow.vtas.service.IJobRuntimeService;
+import com.dell.petshow.vtas.service.ISpUptimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.dell.petshow.common.controller.SuperController;
-import com.dell.petshow.vtas.entity.ContinousBackupServer;
-import com.dell.petshow.vtas.service.IContinousBackupServerService;
-import com.dell.petshow.vtas.service.IJobRuntimeService;
-import com.dell.petshow.vtas.service.ISpUptimeService;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -41,6 +43,37 @@ public class JobRuntimeController extends SuperController {
 	public String index(Model model) {
 		return "vtas/jobruntime/vsbuild";
 	}
+
+	@RequestMapping("/jobStatus")
+	public String jobStatus(Model model) {
+		return "vtas/jobruntime/jobStatus";
+	}
+
+    @RequestMapping(value = {"/getArrayStatusList"})
+    @ResponseBody
+    public String getArrayStatusList(@RequestParam(value = "beginTime", required = false) String beginTime,
+                                @RequestParam(value = "endTime", required = false) String endTime) {
+	    if(beginTime==null || beginTime.equals("")){
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime last30days = now.minusDays(30);
+            beginTime = DateTimeUtil.localDateTimeToStringWithDefaultFormatter(last30days);
+            endTime = DateTimeUtil.localDateTimeToStringWithDefaultFormatter(now);
+        }
+        return toJson(jobRuntimeService.exeutionStatusForWeb(beginTime, endTime).get("arrayListData"));
+    }
+
+    @RequestMapping(value = {"/getArrayrrRunningRatioList"})
+    @ResponseBody
+    public String getArrayrrRunningRatioList(@RequestParam(value = "beginTime", required = false) String beginTime,
+                                @RequestParam(value = "endTime", required = false) String endTime) {
+        if(beginTime==null || beginTime.equals("")){
+            LocalDateTime now = LocalDateTime.now();
+            LocalDateTime last30days = now.minusDays(30);
+            beginTime = DateTimeUtil.localDateTimeToStringWithDefaultFormatter(last30days);
+            endTime = DateTimeUtil.localDateTimeToStringWithDefaultFormatter(now);
+        }
+        return toJson(jobRuntimeService.exeutionStatusForWeb(beginTime, endTime).get("usageListData"));
+    }
 
 	@RequestMapping("/listJobs")
 	public String listJobs(Model model) {

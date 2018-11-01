@@ -1,8 +1,8 @@
 package com.dell.petshow.vtas.entity;
 
 import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableField;
 import java.io.Serializable;
 
 
@@ -12,7 +12,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author mpthink
- * @since 2017-11-30
+ * @since 2018-10-26
  */
 public class ArrayInfo extends Model<ArrayInfo> {
 
@@ -40,6 +40,8 @@ public class ArrayInfo extends Model<ArrayInfo> {
 	private String tfa;
 	@TableField("SERVICE_TIME")
 	private Integer serviceTime;
+	@TableField("OWNER_NICENAME")
+	private String ownerNicename;
 
 
 	public String getArrayName() {
@@ -130,6 +132,14 @@ public class ArrayInfo extends Model<ArrayInfo> {
 		this.serviceTime = serviceTime;
 	}
 
+	public String getOwnerNicename() {
+		return ownerNicename;
+	}
+
+	public void setOwnerNicename(String ownerNicename) {
+		this.ownerNicename = ownerNicename;
+	}
+
 	@Override
 	protected Serializable pkVal() {
 		return this.arrayName;
@@ -138,6 +148,6 @@ public class ArrayInfo extends Model<ArrayInfo> {
 
 	@Override
 	public String toString(){
-		return "ArrayInfo [arrayName=" + arrayName + ", owner=" + owner + ", model=" + model + ", mgmtIp=" + mgmtIp + ", spaIp=" + spaIp + ", spbIp=" + spbIp + ", usageType=" + usageType + ", arrayStatus=" + arrayStatus + ", comment=" + comment + ", tfa=" + tfa + ", serviceTime=" + serviceTime + "]";
+		return "ArrayInfo [arrayName=" + arrayName + ", owner=" + owner + ", model=" + model + ", mgmtIp=" + mgmtIp + ", spaIp=" + spaIp + ", spbIp=" + spbIp + ", usageType=" + usageType + ", arrayStatus=" + arrayStatus + ", comment=" + comment + ", tfa=" + tfa + ", serviceTime=" + serviceTime + ", ownerNicename=" + ownerNicename + "]";
 	}
 }

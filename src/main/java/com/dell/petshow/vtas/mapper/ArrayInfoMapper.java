@@ -1,7 +1,9 @@
 package com.dell.petshow.vtas.mapper;
 
-import com.dell.petshow.vtas.entity.ArrayInfo;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.dell.petshow.vtas.entity.ArrayInfo;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -11,6 +13,8 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @author mpthink
  * @since 2017-11-01
  */
+@Repository
+@Mapper
 public interface ArrayInfoMapper extends BaseMapper<ArrayInfo> {
 
 }

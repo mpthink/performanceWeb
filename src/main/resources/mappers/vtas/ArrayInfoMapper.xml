@@ -15,10 +15,11 @@
 		<result column="COMMENT" property="comment" />
 		<result column="TFA" property="tfa" />
 		<result column="SERVICE_TIME" property="serviceTime" />
+		<result column="OWNER_NICENAME" property="ownerNicename" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        ARRAY_NAME AS arrayName, OWNER AS owner, MODEL AS model, MGMT_IP AS mgmtIp, SPA_IP AS spaIp, SPB_IP AS spbIp, USAGE_TYPE AS usageType, ARRAY_STATUS AS arrayStatus, COMMENT AS comment, TFA AS tfa, SERVICE_TIME AS serviceTime
+        ARRAY_NAME AS arrayName, OWNER AS owner, MODEL AS model, MGMT_IP AS mgmtIp, SPA_IP AS spaIp, SPB_IP AS spbIp, USAGE_TYPE AS usageType, ARRAY_STATUS AS arrayStatus, COMMENT AS comment, TFA AS tfa, SERVICE_TIME AS serviceTime, OWNER_NICENAME AS ownerNicename
     </sql>
 </mapper>

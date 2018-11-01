@@ -62,7 +62,7 @@ public class MpGenerator {
 
 		strategy
 			.setInclude(
-				new String[] {"job_runtime", "continous_backup_server"});
+				new String[] {"array_info"});
 		//strategy.setInclude(new String[] {"user_lab"});
 		// 自定义实体父类
 		// strategy.setSuperEntityClass("com.baomidou.demo.TestEntity");

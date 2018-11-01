@@ -1,12 +1,13 @@
 package com.dell.petshow.vtas.mapper;
 
-import java.util.List;
-import java.util.Map;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.dell.petshow.vtas.entity.ArrayMonitor;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -16,6 +17,8 @@ import com.dell.petshow.vtas.entity.ArrayMonitor;
  * @author mpthink
  * @since 2017-11-02
  */
+@Repository
+@Mapper
 public interface ArrayMonitorMapper extends BaseMapper<ArrayMonitor> {
 
 	List<String> selectDistinctArrayList(@Param("tableName") String tableName);

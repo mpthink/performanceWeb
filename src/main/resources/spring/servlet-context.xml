@@ -18,8 +18,8 @@
 
 	<context:component-scan base-package="com.dell.petshow.common" />
 	<context:component-scan base-package="com.dell.petshow.system.controller" />
+	<context:component-scan base-package="com.dell.petshow.vtas.mapper" />
 	<context:component-scan base-package="com.dell.petshow.vtas.controller" />
-	<context:component-scan base-package="com.dell.petshow.webmonitor.controller" />
 	
 	<mvc:annotation-driven/>  
 	

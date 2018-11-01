@@ -1,13 +1,5 @@
 package com.dell.petshow.vtas.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.stereotype.Service;
-
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.mapper.Wrapper;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
@@ -16,6 +8,13 @@ import com.dell.petshow.vtas.mapper.ProgramMapMapper;
 import com.dell.petshow.vtas.service.IProgramMapService;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -39,6 +38,11 @@ public class ProgramMapServiceImpl extends ServiceImpl<ProgramMapMapper, Program
 			versionMapProgram.put(programMap.getMajorVersion(), programMap.getProgram());
 		}
 		return versionMapProgram;
+	}
+
+	@Override
+	public ProgramMap selectOneBasedonVersion(String bigVersion) {
+		return programMapMapper.selectOneBasedonVersion(bigVersion);
 	}
 
 	@Override

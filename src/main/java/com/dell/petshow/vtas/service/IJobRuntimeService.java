@@ -1,10 +1,10 @@
 package com.dell.petshow.vtas.service;
 
-import java.util.List;
-import java.util.Map;
-
 import com.baomidou.mybatisplus.service.IService;
 import com.dell.petshow.vtas.entity.JobRuntime;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -15,6 +15,8 @@ import com.dell.petshow.vtas.entity.JobRuntime;
  * @since 2017-10-17
  */
 public interface IJobRuntimeService extends IService<JobRuntime> {
+
+	Map<String, Object> exeutionStatusForWeb(String beginTime, String endTime);
 
 	List<String> selectDistinctArrayList();
 
