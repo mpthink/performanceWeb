@@ -1,0 +1,107 @@
+<!--Static C1 start!-->
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+        xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:w="urn:schemas-microsoft-com:office:word"
+        xmlns:x="urn:schemas-microsoft-com:office:excel">
+<head>
+<style>
+<!--
+ /* Style Definitions */
+        p.MsoNormal, li.MsoNormal, div.MsoNormal
+        {mso-style-unhide:no;
+        mso-style-qformat:yes;
+        mso-style-parent:"";
+        margin:0in;
+        margin-bottom:.0001pt;
+        mso-pagination:widow-orphan;
+        font-size:11.0pt;
+        font-family:"Calibri",sans-serif;
+        mso-fareast-font-family:SimSun;
+        mso-fareast-theme-font:minor-fareast;}
+        tr.Row {height:20.5pt}
+        td.Normal{width:50pt;border:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt}
+        td.Green {width:30pt;border:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;background:green}
+        td.Red {width:30pt;border:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;background:red}
+        td.Yellow {width:30pt;border:solid windowtext 1.0pt;padding:0in 5.4pt 0in 5.4pt;background:yellow}
+        -->
+</style>
+</head>
+
+<body lang=EN-US link="#0563C1" vlink="#954F72" style='tab-interval:.5in'>
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal><b><u>Execution Status:<o:p></o:p></u></b></p>
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 style='border-collapse:collapse;mso-yfti-tbllook:1184;align:center;text-align:left'>
+<!--Head row has background!-->
+<tr class=Row style='background:#BFBFBF;'>
+<td class=Normal><p class=MsoNormal>Program</p></td>
+<td class=Normal><p class=MsoNormal>Array</p></td>
+<td class=Normal><p class=MsoNormal>Build</p></td>
+<td class=Normal><p class=MsoNormal>Owner</p></td>
+<td class=Normal><p class=MsoNormal>Jenkins Job Running</p></td>
+<td class=Normal><p class=MsoNormal>Job Status</p></td>
+<td class=Normal><p class=MsoNormal>Running Time (Hr)</p></td>
+<td class=Normal><p class=MsoNormal>Idle Time (Hr)</p></td>
+<td class=Normal><p class=MsoNormal>Live CPU Load (%)</p></td>
+<td class=Normal><p class=MsoNormal>Comment and Action</p></td>
+</tr>
+<!--Static C1 end!-->
+#foreach($field in ${fields})
+    <tr class=Row>
+    <td class=Normal><p class=MsoNormal>${field.programName}</p></td>
+    <td class=Normal><p class=MsoNormal>${field.arrayName}</p></td>
+    <td class=Normal><p class=MsoNormal>${field.build}</p></td>
+    <td class=Normal><p class=MsoNormal>${field.owner}</p></td>
+    <td class=Normal><p class=MsoNormal>
+    #set($jobArray=$field.jobs.split(";"))
+    #if($jobArray.indexOf("No jobs") != -1)
+    No jobs in the time slot!
+    #else
+        #set($wrapLine="")
+        #if($jobArray.size() > 1)
+            #set($wrapLine=" | ")
+        #end
+        #foreach ($job in $jobArray)
+            #set($position=$job.indexOf(","))
+            #set($position2=$position + 1)
+            #set($length=$job.length())
+            #set($jobDetail=$job.substring(0,$position))
+            #set($jobURL=$job.substring($position2,$length))
+        <a herf="$!{jobURL}" target="_blank">$!{jobDetail}</a>${wrapLine}
+        #end
+    #end
+    </p></td>
+
+
+    #if($field.jobStatus == 0)
+    <td class=Green><p class=MsoNormal></p></td>
+    #elseif($field.jobStatus == 1)
+    <td class=Yellow><p class=MsoNormal></p></td>
+    #else
+    <td class=Red><p class=MsoNormal></p></td>
+    #end
+    <td class=Normal><p class=MsoNormal>${field.runningHours}</p></td>
+    <td class=Normal><p class=MsoNormal>${field.idleHours}</p></td>
+    <td class=Normal><p class=MsoNormal>${field.cpuRatio}</p></td>
+    <td class=Normal><p class=MsoNormal></p></td>
+    </tr>
+#end
+</table>
+<!--Static C2 start!-->
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal><span style='background:white'>Color Code of job status:</span></p>
+<p class=MsoNormal><span style='background:green'>Green</span>:The array has at least one job running;</p>
+<p class=MsoNormal><span style='background:yellow'>Yellow</span>: The array has no job running in the last 24 hours;</p>
+<p class=MsoNormal><span style='background:red'>Red</span>: The array has no job running for more than 24 hours.</p>
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+<p class=MsoNormal><b><u>Array Occupation Ratio:</u></b></p>
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+<!--Static C2 end!-->
+
+<!--Image!-->
+<p class=MsoNormal>
+<img src="${imageUrl}">
+<br style='mso-ignore:vglayout' clear=ALL></p>
+
+</body>
+</html>

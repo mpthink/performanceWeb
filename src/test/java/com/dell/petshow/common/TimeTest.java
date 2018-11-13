@@ -8,6 +8,8 @@
 
 package com.dell.petshow.common;
 
+import java.time.LocalDate;
+
 /**
  * @author map6
  */
@@ -19,12 +21,9 @@ public class TimeTest {
     public static void main(String[] args) {
 
         //2018-10-23 00:00:00 - 2018-10-29 23:59:59
-        int begin = 1000;
-        int end = 8888;
-        int[] timeLine = new int[17280];
-        for(int i=begin;i<end;i++){
-            timeLine[i] = 1;
-        }
+
+        LocalDate localDate = LocalDate.now();
+        System.out.println(localDate.toString());
 
 
 

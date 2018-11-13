@@ -18,6 +18,12 @@ public interface IJobRuntimeService extends IService<JobRuntime> {
 
 	Map<String, Object> exeutionStatusForWeb(String beginTime, String endTime);
 
+	/**
+	 * Get one month data of execution status and generate a file
+	 * @return string generated file name
+	 */
+	Map<String, Object> exeutionStatusForMail();
+
 	List<String> selectDistinctArrayList();
 
 	List<Map<String, Object>> selectAllWithProgramName();

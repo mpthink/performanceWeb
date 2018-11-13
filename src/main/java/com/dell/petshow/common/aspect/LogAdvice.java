@@ -1,10 +1,10 @@
 package com.dell.petshow.common.aspect;
 
-import java.lang.reflect.Method;
-import java.util.Date;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.baomidou.kisso.SSOHelper;
+import com.baomidou.kisso.SSOToken;
+import com.dell.petshow.common.annotation.Log;
+import com.dell.petshow.system.entity.SysLog;
+import com.google.gson.Gson;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -16,11 +16,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.baomidou.kisso.SSOHelper;
-import com.baomidou.kisso.SSOToken;
-import com.dell.petshow.common.annotation.Log;
-import com.dell.petshow.system.entity.SysLog;
-import com.google.gson.Gson;
+import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
+import java.util.Date;
 
 @Aspect
 @Component
@@ -32,7 +30,7 @@ public class LogAdvice {
 	public void logAfterReturningAspect() {}
 
 	/**
-	 * 当方法正常返回是执行
+	 * 当方法正常返回时执行
 	 * @param joinPoint
 	 */
 	@AfterReturning("logAfterReturningAspect()")

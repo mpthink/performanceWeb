@@ -11,6 +11,7 @@ package com.dell.petshow.common.util;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -54,4 +55,20 @@ public class DateTimeUtil {
         DateTimeFormatter df = DateTimeFormatter.ofPattern(defaultTimeFormatter);
         return df.format(time);
     }
+
+    public static String getCurrentChinaDateWithTimezone(){
+        Instant now = Instant.now();
+        ZoneId zoneId = ZoneId.of("GMT+5");
+        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(now, zoneId);
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return df.format(zonedDateTime);
+    }
+
+    /**
+     * @args command line arguments
+     */
+    public static void main(String[] args) {
+        System.out.println(getCurrentChinaDateWithTimezone());
+    }
+
 }

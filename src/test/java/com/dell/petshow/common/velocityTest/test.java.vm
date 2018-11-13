@@ -1,0 +1,23 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+#set($test=$jobs.split(";"))
+<p>${test.size()}</p>
+
+#if($test.indexOf("No Jobs") != -1)
+  <p>No Job</>
+#else
+    #foreach ($job in $test)
+        #set($position=$job.indexOf(","))
+        #set($position2=$position + 1 )
+        #set($length=$job.length())
+    <p>${length}</p>
+        #set($jobDetail=$job.substring(0,$position))
+        #set($jobURL=$job.substring($position2,$length))
+    <a herf="$!{jobURL}" target="_blank">$!{jobDetail}   </a>
+    #end
+#end
+</body>
+</html>

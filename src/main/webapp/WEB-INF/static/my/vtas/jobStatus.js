@@ -199,13 +199,10 @@ function viewRunningUsageRatio(){
                         },
                         toolbox: {
                             show : true,
-                            orient: 'vertical',
-                            x: 'right',
-                            y: 'center',
                             feature : {
                                 mark : {show: true},
                                 dataView : {show: true, readOnly: false},
-                                magicType : {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                                magicType : {show: true, type: ['line', 'bar']},
                                 restore : {show: true},
                                 saveAsImage : {show: true}
                             }
@@ -217,7 +214,8 @@ function viewRunningUsageRatio(){
                                 data: arrayName,
                                 axisLabel:{
                                     interval:0,
-                                    rotate:55
+                                    rotate:55,
+                                    margin:2
                                 }
                             }
                         ],

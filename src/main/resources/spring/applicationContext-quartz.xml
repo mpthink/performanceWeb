@@ -3,29 +3,42 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<!-- 用MethodInvokingJobDetailFactoryBean不可持久化,必须用JobDetailBean 需继承QuartzJobBean -->
-    <bean id="memoryGrowingMonitorJob" class="com.dell.petshow.vtas.monitor.quartz.MemoryGrowingMonitorJob"></bean>
-    <bean id="memoryJob1" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-    	<property name="targetObject" ref="memoryGrowingMonitorJob"/>
-    	<property name="targetMethod" value="doAnalysisJob"/>
+	<!-- 用MethodInvokingJobDetailFactoryBean不可持久化,也就是不会存储到数据库，如果需要持久化必须用JobDetailBean 需继承QuartzJobBean
+		refer to 	https://blog.csdn.net/zeb_perfect/article/details/50826079
+		https://www.cnblogs.com/xiaopeng84/archive/2009/11/26/1611427.html
+	-->
+    <bean id="autoSendMail" class="com.dell.petshow.vtas.schedule.AutoSendMail"></bean>
+
+	<bean id="timeZone" class="java.util.TimeZone" factory-method="getTimeZone">
+		<constructor-arg>
+			<value>GMT+8:00</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="sendMailJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+    	<property name="targetObject" ref="autoSendMail"/>
+    	<property name="targetMethod" value="sendMailForArrayStatus"/>
     </bean>
-	<bean id="memoryTrigger1" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-        <property name="jobDetail" ref="memoryJob1" />
-        <!-- run every 12 clock at server time -->
-        <property name="cronExpression" value="0 0 12 * * ?" />
+
+	<bean id="sendMailTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="sendMailJob" />
+        <!-- run every 12 clock at server time 0 0 12 * * ? -->
+		<!-- ToDO just for testing schedule every 30 seconds to execute */30 * * * * ? -->
+        <property name="cronExpression" value="0 0 8 * * ?" />
+		<property name="timeZone" ref="timeZone"/>
     </bean>
 
 	<!-- Scheduler factory bean to glue together jobDetails and triggers to Configure Quartz Scheduler -->  
-	<bean  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+	<bean id="scheduler" lazy-init="true" autowire="no"  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 	    <property name="jobDetails">  
 	        <list>  
-	            <ref bean="memoryJob1" />  
+	            <ref bean="sendMailJob" />
 	        </list>  
 	    </property>  
 	  
 	    <property name="triggers">  
 	        <list>  
-	            <ref bean="memoryTrigger1" />  
+	            <ref bean="sendMailTrigger" />
 	        </list>  
 	    </property>  
 	</bean>

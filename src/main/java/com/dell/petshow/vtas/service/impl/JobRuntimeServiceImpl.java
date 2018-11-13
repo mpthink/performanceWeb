@@ -41,6 +41,16 @@ public class JobRuntimeServiceImpl extends ServiceImpl<JobRuntimeMapper, JobRunt
 	@Autowired
 	private IProgramMapService programMapService;
 
+    @Override
+    public Map<String, Object> exeutionStatusForMail() {
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime last30days = now.minusDays(30);
+        String beginTime = DateTimeUtil.localDateTimeToStringWithDefaultFormatter(last30days);
+        String endTime = DateTimeUtil.localDateTimeToStringWithDefaultFormatter(now);
+        Map<String, Object> result = exeutionStatusForWeb(beginTime, endTime);
+        return result;
+    }
+
 	@Override
     @Cacheable(value = "commonCache")
 	public Map<String, Object> exeutionStatusForWeb(String beginTime, String endTime) {
@@ -62,11 +72,14 @@ public class JobRuntimeServiceImpl extends ServiceImpl<JobRuntimeMapper, JobRunt
 			Map<String, Object> usageTempMap = new HashMap<>();
 
 			String arrayName = arrayInfo.getArrayName();
+			String arrayOwnerEmail = arrayInfo.getOwner();
+			//String arrayOwnerManager = arrayInfo.getManagerMail();
 			List<JobRuntime> jobRuntimes = listJobsWithArrayNameGreaterEndTimeOrderbyEndTime(arrayName,beginTime);
 
 			if(jobRuntimes.size() == 0){
                 arrayTempMap.put("programName","NA");
                 arrayTempMap.put("arrayName",arrayName);
+                arrayTempMap.put("arrayOwnerEmail",arrayOwnerEmail);
                 arrayTempMap.put("build","NA");
                 arrayTempMap.put("owner",arrayInfo.getOwnerNicename());
                 arrayTempMap.put("jobs","No jobs");
@@ -85,19 +98,28 @@ public class JobRuntimeServiceImpl extends ServiceImpl<JobRuntimeMapper, JobRunt
             }
 			JobRuntime latestJob = jobRuntimes.get(0);
 			String latestVersion = latestJob.getVersion();
+
+			//return NA when version is empty
+            String programName = "NA";
+            Integer cpuRatio;
+
 			if(latestVersion.length() == 0){
-			    continue;
+                latestVersion = "NA";
+                cpuRatio = -1;
+            }else{
+                String majorVersion = latestVersion.substring(0,5);
+                ProgramMap programMap = programMapService.selectOneBasedonVersion(majorVersion);
+                programName = programMap.getProgram();
+                cpuRatio = getCPURatioOfArray(arrayName, majorVersion);
             }
-			String majorVersion = latestVersion.substring(0,5);
-			ProgramMap programMap = programMapService.selectOneBasedonVersion(majorVersion);
-			String programName = programMap.getProgram();
+
 			Double runningHours = countRunningHours(jobRuntimes, beginTime, endTime, dayGap);
 			Double idleHours = totalHours - runningHours;
 			String runningJobs = getRunningJobsOrLatestJob(jobRuntimes);
 			Integer jobStatus = getArrayJobStatus(jobRuntimes);
-            Integer cpuRatio = getCPURatioOfArray(arrayName, majorVersion);
 			arrayTempMap.put("programName",programName);
             arrayTempMap.put("arrayName",arrayName);
+            arrayTempMap.put("arrayOwnerEmail",arrayOwnerEmail);
             arrayTempMap.put("build",latestVersion);
             arrayTempMap.put("owner",arrayInfo.getOwnerNicename());
             arrayTempMap.put("jobs",runningJobs);
@@ -118,9 +140,6 @@ public class JobRuntimeServiceImpl extends ServiceImpl<JobRuntimeMapper, JobRunt
         result.put("usageListData",arrayUsageRatio);
 		return result;
 	}
-
-
-
 
     @Override
 	public List<String> selectDistinctArrayList() {
