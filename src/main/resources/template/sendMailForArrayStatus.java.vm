@@ -90,7 +90,7 @@
 <!--Static C2 start!-->
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
 <p class=MsoNormal><span style='background:white'>Color Code of job status:</span></p>
-<p class=MsoNormal><span style='background:green'>Green</span>:The array has at least one job running;</p>
+<p class=MsoNormal><span style='background:green'>Green</span>: The array has at least one job running;</p>
 <p class=MsoNormal><span style='background:yellow'>Yellow</span>: The array has no job running in the last 24 hours;</p>
 <p class=MsoNormal><span style='background:red'>Red</span>: The array has no job running for more than 24 hours.</p>
 <p class=MsoNormal><o:p>&nbsp;</o:p></p>
