@@ -64,7 +64,7 @@ public class JobRuntimeServiceImpl extends ServiceImpl<JobRuntimeMapper, JobRunt
 		//get all arrays
 		Wrapper<ArrayInfo> aWrapper = new EntityWrapper<>();
 		aWrapper.ne("USAGE_TYPE", "automation");
-		aWrapper.ne("USAGE_TYPE","cndu");
+		//aWrapper.ne("USAGE_TYPE","cndu");
 		List<ArrayInfo> arrayInfos = arrayInfoMapper.selectList(aWrapper);
 		//try to get running time based on array
 		for(ArrayInfo arrayInfo:arrayInfos){
@@ -304,7 +304,9 @@ public class JobRuntimeServiceImpl extends ServiceImpl<JobRuntimeMapper, JobRunt
         Map<String, Object> spaData = arrayMonitorMapper.selectLatestOneForDashBoardByProgramAndArrayAndSPType(tableName, arrayName, "SPA");
         Map<String, Object> spbData = arrayMonitorMapper.selectLatestOneForDashBoardByProgramAndArrayAndSPType(tableName, arrayName, "SPB");
         if(spbData == null){
-            result = (Integer) spaData.get("CPU_FILT");
+            if(spbData != null){
+                result = (Integer) spaData.get("CPU_FILT");
+            }
         }else {
             Integer spaCPU = (Integer) spaData.get("CPU_FILT");
             Integer spbCPU = (Integer) spbData.get("CPU_FILT");
