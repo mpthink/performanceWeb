@@ -47,7 +47,9 @@ public class AutoSendMail {
 
     public void sendMailForArrayStatus(){
 
+        LOG.info("Begin to create email content!");
         Map<String, Object> result = jobRuntimeService.exeutionStatusForMail();
+        LOG.info("Finished to create email content!");
         Properties properties = new Properties();
         properties.put("file.resource.loader.class","org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader");
         properties.put("input.encoding", "UTF-8");
@@ -69,10 +71,13 @@ public class AutoSendMail {
             String htmlPath = outputPath + htmlName;
             String imagePath = outputPath + imageName; //图片路径
             String imageAccessUrl = "";
+
+            LOG.info("Begin to create image for mail, webHomePath {}, arrayStatusURL {}, jsPath {}, imagePath {}",webHomePath,arrayStatusURL,jsPath,imagePath);
+
             if(crawlImageForArrayStatus(webHomePath, arrayStatusURL, jsPath, imagePath));{
                 imageAccessUrl = urlHome + "output/" + imageName;
             }
-
+            LOG.info("Finished to create image, imageAccessURl {}", imageAccessUrl);
             context.put("fields",result.get("arrayListData"));
             context.put("imageUrl", imageAccessUrl);
             template.merge(context,writer);
@@ -82,12 +87,12 @@ public class AutoSendMail {
             generateHtmlFile(htmlPath, fileContent);
             //send mail
             String mailTo = getToMailList((List<Map<String, Object>>) result.get("arrayListData"));
+            LOG.info("Get mailTo info {}", mailTo);
             //for testing
             //String mailTo = "paul.p.ma@emc.com";
             //String mailCC = "paul.p.ma@emc.com";
             String mailTitle = "Live Array Status " + DateTimeUtil.getCurrentChinaDateWithTimezone();
             SendMailUtil.sendMail(mailFrom, mailTo, mailCC, mailTitle, fileContent);
-
             writer.close();
         } catch (IOException e) {
             LOG.error("Auto send mail failed, because merge issue!");
@@ -109,9 +114,11 @@ public class AutoSendMail {
         }
         String command = binPath + " " + jsPath + " " + url + " " + imagePath;
         try{
+            LOG.info("Start to generate image file!");
             Process process = Runtime.getRuntime().exec(command);
             InputStream inputStream = process.getInputStream();
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            LOG.info("Start to generate image file and get reader {}!", reader);
             String tmp = "";
             while ((tmp = reader.readLine()) != null) {
             }
@@ -183,6 +190,7 @@ public class AutoSendMail {
             if (output != null) {
                 output.close();
             }
+            LOG.error("Generate html file successfully!");
         } catch (IOException e) {
             LOG.error("Generate html file failed!");
             e.printStackTrace();

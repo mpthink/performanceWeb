@@ -38,6 +38,7 @@ public class SendMailUtil {
         properties.setProperty("mail.smtp.host", host);
         Session session = Session.getDefaultInstance(properties);
         try {
+            LOG.info("Begin sending email....");
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(mailFrom));
             message.addRecipients(Message.RecipientType.TO, InternetAddress.parse(mailTo));
@@ -45,7 +46,7 @@ public class SendMailUtil {
             message.setSubject(title);
             message.setText(content,"utf-8","html");
             Transport.send(message);
-            LOG.info("Sent email successfully....");
+            LOG.info("End sending email successfully....");
         } catch (Exception mex) {
             LOG.error("Send mail failed from {} to {}, please check server!",mailFrom, mailTo);
         }
